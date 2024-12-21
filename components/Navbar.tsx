@@ -16,6 +16,7 @@ import { clusterApiUrl } from "@solana/web3.js";
 
 // Default styles that can be overridden by your app
 import "@solana/wallet-adapter-react-ui/styles.css";
+import Image from "next/image";
 // require("@solana/wallet-adapter-react-ui/styles.css");
 
 const Navbar: React.FC = () => {
@@ -44,7 +45,12 @@ const Navbar: React.FC = () => {
     <div className="w-full px-6 py-4 justify-between items-center inline-flex">
       <div className="w-[113.22px] h-[30px] justify-center items-center flex">
         <div className="w-[113.21px] h-[30px] relative">
-          <div className="w-[22.87px] h-[12.49px] left-[90.34px] top-[17.20px] absolute"></div>
+          <Image
+            src={"/imgs/sqr-logo.svg"}
+            alt={""}
+            width={113}
+            height={30}
+          ></Image>
         </div>
       </div>
       <div className="justify-start items-start flex">
