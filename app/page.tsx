@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -14,13 +15,13 @@ export default function Home() {
               tailored to your unique needs.
             </div>
           </div>
-          <div className="w-[142px] px-3.5 py-2 bg-[#a4fb0e] justify-center items-center inline-flex overflow-hidden">
+          <Link href={'/list-agents'} className="w-[142px] px-3.5 py-2 bg-[#a4fb0e] justify-center items-center inline-flex overflow-hidden">
             <div className="px-1 justify-center items-center gap-2.5 flex">
               <div className="text-center text-black text-lg font-semibold font-chakra leading-relaxed">
                 Start now
               </div>
             </div>
-          </div>
+          </Link>
         </div>
         <div className="fixed bottom-0 right-0 w-full z-10">
           <Image
