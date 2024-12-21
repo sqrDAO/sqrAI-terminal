@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Chakra_Petch } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+
+import Providers from "./provider";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -27,8 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${bricolage.variable} ${chakra.variable} bg-black`}>
-        <Navbar />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

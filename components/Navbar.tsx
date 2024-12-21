@@ -1,36 +1,12 @@
 "use client";
 
-import React, { FC, useMemo } from "react";
-import {
-  ConnectionProvider,
-  WalletProvider,
-} from "@solana/wallet-adapter-react";
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
-import {
-  WalletModalProvider,
-  WalletDisconnectButton,
-  WalletMultiButton,
-} from "@solana/wallet-adapter-react-ui";
-import { clusterApiUrl } from "@solana/web3.js";
+import React from "react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
-// Default styles that can be overridden by your app
 import "@solana/wallet-adapter-react-ui/styles.css";
 import Image from "next/image";
-// require("@solana/wallet-adapter-react-ui/styles.css");
 
 const Navbar: React.FC = () => {
-  // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-  const network = WalletAdapterNetwork.Mainnet;
-
-  // You can also provide a custom RPC endpoint.
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
-  const wallets = useMemo(
-    () => [new UnsafeBurnerWalletAdapter()],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [network]
-  );
   const buttonStyle = {
     background: "#a4fb0e",
     color: "#000000",
@@ -54,22 +30,7 @@ const Navbar: React.FC = () => {
         </div>
       </div>
       <div className="justify-start items-start flex">
-        {/* <div className="px-3.5 py-2 bg-[#a4fb0e] justify-center items-center flex overflow-hidden">
-          <div className="px-1 justify-center items-center gap-2.5 flex">
-            <div className="text-center text-black text-lg font-semibold font-['Chakra Petch'] leading-relaxed">
-              Connect wallet
-            </div>
-          </div>
-        </div> */}
-        <ConnectionProvider endpoint={endpoint}>
-          <WalletProvider wallets={wallets} autoConnect>
-            <WalletModalProvider>
-              <WalletMultiButton style={buttonStyle} />
-              {/* <WalletDisconnectButton /> */}
-              {/* Your app's components go here, nested within the context providers. */}
-            </WalletModalProvider>
-          </WalletProvider>
-        </ConnectionProvider>
+        <WalletMultiButton style={buttonStyle} />
       </div>
     </div>
   );
