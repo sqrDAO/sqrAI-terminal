@@ -12,6 +12,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        bricolage: ["var(--font-bricolage)"],
+        chakra: ["var(--font-chakra)"],
+      },
     },
   },
   plugins: [],
