@@ -19,3 +19,14 @@ input:focus-visible {
 ::-webkit-scrollbar-thumb {
   background-color: #dcff9f;
 }
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.animate-blink {
+  animation: blink 1s steps(2, start) infinite;
+}
