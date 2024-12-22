@@ -54,7 +54,9 @@ const ListAgents: React.FC = () => {
   return (
     <div className="h-full px-6 pt-4 flex-col justify-start items-center inline-flex w-full relative mt-10">
       <div className="self-stretch h-[280px] p-6 border border-[#dcff9f] flex-col justify-between items-start flex absolute top-0 left-0 right-0 z-10 w-[1580px] mx-auto">
-        <div className="text-[#a4fb0e] text-xl font-medium font-bricolage leading-[27px] animate-blink">&gt;_</div>
+        <div className="text-[#a4fb0e] text-xl font-medium font-bricolage leading-[27px] flex">
+          &gt;<div className="animate-blink">_</div>
+        </div>
         <div className="self-stretch justify-between items-center inline-flex">
           <Image className="w-[143px] h-[142px]" width={143} height={142} alt="" src="/imgs/page-1.svg" />
           <Image className="w-[142px] h-[142px]" width={143} height={142} alt="" src="/imgs/page-2.svg" />

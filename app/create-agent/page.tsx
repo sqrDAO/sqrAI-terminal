@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -32,7 +33,9 @@ const CreateAgentPage = () => {
       <div className="self-stretch grow shrink basis-0 p-6 justify-between items-start inline-flex">
         <div className="grow shrink basis-0 self-stretch pl-16 pt-[132px] flex-col justify-start items-start gap-2.5 inline-flex">
           <div className="self-stretch justify-center items-center gap-4 inline-flex">
-            <Image src={"/icons/close-x.svg"} alt={""} width={32} height={32}></Image>
+            <Link href={"/agents"}>
+              <Image src={"/icons/close-x.svg"} alt={""} width={32} height={32}></Image>
+            </Link>
             <div className="grow shrink basis-0 text-white text-3xl font-medium font-chakra leading-[37.50px]">Create a agent</div>
           </div>
           <div className="self-stretch justify-start items-start gap-2.5 inline-flex">
@@ -66,7 +69,10 @@ const CreateAgentPage = () => {
           </div>
         </div>
         <div className="w-[368px] self-stretch p-6 border border-[#dcff9f] flex-col justify-between items-start inline-flex">
-          <div className="text-[#a4fb0e] text-xl font-medium font-bricolage leading-[27px] animate-blink">{">"}_</div>
+          <div className="text-[#a4fb0e] text-xl font-medium font-bricolage leading-[27px] flex">
+            {">"}
+            <div className="animate-blink">_</div>
+          </div>
           <div className="self-stretch justify-between items-center inline-flex">
             <img className="w-[142px] h-[142px]" src="/imgs/image 2.png" />
           </div>
