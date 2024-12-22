@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const AgentCard: React.FC<{
   name: string;
@@ -23,7 +23,9 @@ const AgentCard: React.FC<{
   chat = false,
 }) => (
   <div
-    className={`w-[260px] min-w-[260px] h-52 p-5 ${chat ? `card-animation` : ""} ${bgColor} ${
+    className={`w-[260px] min-w-[260px] h-52 p-5 ${
+      chat ? `card-animation` : ""
+    } ${bgColor} ${
       shadow ? shadow : ""
     } border-2 ${borderColor} flex-col justify-start items-start gap-2.5 inline-flex hover:bg-[#111111]`}
   >
@@ -63,6 +65,20 @@ const AgentCard: React.FC<{
 );
 
 const ListAgents: React.FC = () => {
+  const [diffHours, setDiffHours] = useState(0);
+  const [diffMinutes, setDiffMinutes] = useState(0);
+  useEffect(() => {
+    const now = new Date();
+    const previousTime = new Date();
+    previousTime.setHours(14);
+    previousTime.setMinutes(0);
+    previousTime.setSeconds(0);
+    previousTime.setMilliseconds(0);
+
+    const diff = now.getTime() - previousTime.getTime();
+    setDiffHours(Math.floor(diff / (1000 * 60 * 60)));
+    setDiffMinutes(Math.floor((diff / (1000 * 60)) % 60));
+  }, []);
   return (
     <div className="h-full px-6 pt-4 flex-col justify-start items-center inline-flex w-full relative mt-10">
       <div className="self-stretch h-[280px] p-6 border border-[#dcff9f] flex-col justify-between items-start flex absolute top-0 left-0 right-0 z-10 w-[1580px] mx-auto">
@@ -108,7 +124,9 @@ const ListAgents: React.FC = () => {
             <AgentCard
               name="Beta"
               code="Beta-a3cs4"
-              edited="Edited 8 hours ago"
+              edited={`Edited ${
+                diffHours ? diffHours + " hours:" : ""
+              }${diffMinutes} minutes ago`}
               imgSrc="/imgs/agents/agents-1.svg"
               borderColor="border-[#dcff9f]"
               chat={true}
@@ -116,21 +134,21 @@ const ListAgents: React.FC = () => {
             <AgentCard
               name="Ajax"
               code="Ajax"
-              edited="Edited 8 hours ago"
+              edited="Comming soon..."
               imgSrc="/imgs/agents/agents-2.svg"
               borderColor="border-[#dcff9f]"
             />
             <AgentCard
               name="Beta"
               code="Beta-c9det"
-              edited="Edited 8 hours ago"
+              edited="Comming soon..."
               imgSrc="/imgs/agents/agents-3.svg"
               borderColor="border-[#dcff9f]"
             />
             <AgentCard
               name="Ce"
               code="Ce"
-              edited="Edited 8 hours ago"
+              edited="Comming soon..."
               imgSrc="/imgs/agents/agents-4.svg"
               borderColor="border-[#dcff9f]"
             />

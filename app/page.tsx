@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           {connected ? (
             <Link
-              href={"/list-agents"}
+              href={"/agents"}
               className="w-[142px] px-3.5 py-2 bg-[#a4fb0e] justify-center items-center inline-flex overflow-hidden"
             >
               <div className="px-1 justify-center items-center gap-2.5 flex">
