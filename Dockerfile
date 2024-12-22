@@ -1,6 +1,13 @@
 FROM node:23-alpine
 RUN apk add --no-cache libc6-compat
 
+# Install pnpm
+RUN npm install -g pnpm
+
+# Configure pnpm global
+ENV PNPM_HOME=/app/.pnpm
+ENV PATH=$PATH:$PNPM_HOME
+
 WORKDIR /app
 
 COPY . .
