@@ -1,11 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Image from "next/image";
 import { useState } from "react";
 
 const Overview = () => {
   const [githubLink, setGithubLink] = useState("");
+  const [rowPerPage, setRowPerPage] = useState(50);
+  const handleSelectChange = (value: number) => {
+    setRowPerPage(value);
+  };
 
   return (
     <div className="h-[917px] w-full px-6 pt-6 flex-col justify-start items-center inline-flex">
@@ -15,7 +20,7 @@ const Overview = () => {
             <div className="self-stretch text-white text-3xl font-semibold font-['Chakra Petch'] leading-[37.50px]">Technical knowledge</div>
             <div className="self-stretch text-[#999999] text-sm font-medium font-['Bricolage Grotesque'] leading-tight">Drop your project’s Github repo so the agent can understand how it works</div>
           </div>
-          <img className="w-[110px] h-[110px]" src="https://via.placeholder.com/110x110" />
+          <Image src={"/imgs/image3.png"} alt={""} width={110} height={110}></Image>
         </div>
       </div>
       <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-8 flex w-[936px] mx-auto">
@@ -58,40 +63,29 @@ const Overview = () => {
                 <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
                   <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">Jun 28, 2021</div>
                 </div>
-                <div className="h-5 px-2.5 justify-end items-center gap-2.5 flex">
-                  <div className="w-5 h-5 relative origin-top-left rotate-90">
-                    <div className="w-5 h-5 left-0 top-0 absolute flex-col justify-start items-start flex overflow-hidden" />
-                    <div className="w-5 h-5 left-0 top-0 absolute bg-white" />
-                  </div>
-                </div>
+                <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
               </div>
             </div>
             <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
-              <div className="justify-start items-center gap-2.5 flex">
+              <div className="justify-start items-center gap-2.5 flex w-1/4">
                 <div className="text-[#999999] text-sm font-normal font-['Bricolage Grotesque'] leading-tight">Rows per page:</div>
-                <div className="justify-start items-center gap-2.5 flex">
-                  <div className="text-white text-sm font-normal font-['Bricolage Grotesque'] leading-tight">50</div>
-                  <div className="w-4 h-4 relative">
-                    <div className="w-4 h-4 left-0 top-0 absolute flex-col justify-start items-start flex overflow-hidden">
-                      <img className="w-[9.33px] h-[5.33px]" src="https://via.placeholder.com/9x5" />
-                    </div>
-                    <div className="w-4 h-4 left-0 top-0 absolute bg-white" />
-                  </div>
-                </div>
+                <Select value={rowPerPage} onValueChange={handleSelectChange}>
+                  <SelectTrigger className="w-[64px]">
+                    <SelectValue placeholder="Select a agent" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={25}>
+                      <div>25</div>
+                    </SelectItem>
+                    <SelectItem value={50}>
+                      <div>50</div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="justify-start items-center gap-8 flex">
-                <div className="w-[22px] h-[22px] relative origin-top-left rotate-180">
-                  <div className="w-[22px] h-[22px] left-0 top-0 absolute flex-col justify-start items-start flex overflow-hidden">
-                    <img className="w-[12.83px] h-[7.33px] origin-top-left rotate-90" src="https://via.placeholder.com/13x7" />
-                  </div>
-                  <div className="w-[22px] h-[22px] left-0 top-0 absolute bg-white" />
-                </div>
-                <div className="w-[22px] h-[22px] relative">
-                  <div className="w-[22px] h-[22px] left-0 top-0 absolute flex-col justify-start items-start flex overflow-hidden">
-                    <img className="w-[12.83px] h-[7.33px] origin-top-left rotate-90" src="https://via.placeholder.com/13x7" />
-                  </div>
-                  <div className="w-[22px] h-[22px] left-0 top-0 absolute bg-white" />
-                </div>
+                <Image src={"/icons/arrow-left.svg"} alt={""} width={22} height={22} className="cursor-pointer"></Image>
+                <Image src={"/icons/arrow-right.svg"} alt={""} width={22} height={22} className="cursor-pointer"></Image>
               </div>
             </div>
           </div>
