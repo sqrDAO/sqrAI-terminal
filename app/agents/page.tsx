@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const AgentCard: React.FC<{
   name: string;
@@ -37,6 +37,20 @@ const AgentCard: React.FC<{
 );
 
 const ListAgents: React.FC = () => {
+  const [diffHours, setDiffHours] = useState(0);
+  const [diffMinutes, setDiffMinutes] = useState(0);
+  useEffect(() => {
+    const now = new Date();
+    const previousTime = new Date();
+    previousTime.setHours(14);
+    previousTime.setMinutes(0);
+    previousTime.setSeconds(0);
+    previousTime.setMilliseconds(0);
+
+    const diff = now.getTime() - previousTime.getTime();
+    setDiffHours(Math.floor(diff / (1000 * 60 * 60)));
+    setDiffMinutes(Math.floor((diff / (1000 * 60)) % 60));
+  }, []);
   return (
     <div className="h-full px-6 pt-4 flex-col justify-start items-center inline-flex w-full relative mt-10">
       <div className="self-stretch h-[280px] p-6 border border-[#dcff9f] flex-col justify-between items-start flex absolute top-0 left-0 right-0 z-10 w-[1580px] mx-auto">
@@ -61,10 +75,17 @@ const ListAgents: React.FC = () => {
                 <div className="text-center text-[#a4fb0e] text-xl font-semibold font-bricolage leading-[27px]">Create a agent</div>
               </div>
             </Link>
-            <AgentCard name="Beta" code="Beta-a3cs4" edited="Edited 8 hours ago" imgSrc="/imgs/agents/agents-1.svg" borderColor="border-[#dcff9f]" chat={true} />
-            <AgentCard name="Ajax" code="Ajax" edited="Edited 8 hours ago" imgSrc="/imgs/agents/agents-2.svg" borderColor="border-[#dcff9f]" />
-            <AgentCard name="Beta" code="Beta-c9det" edited="Edited 8 hours ago" imgSrc="/imgs/agents/agents-3.svg" borderColor="border-[#dcff9f]" />
-            <AgentCard name="Ce" code="Ce" edited="Edited 8 hours ago" imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" />
+            <AgentCard
+              name="Beta"
+              code="Beta-a3cs4"
+              edited={`Edited ${diffHours ? diffHours + " hours:" : ""}${diffMinutes} minutes ago`}
+              imgSrc="/imgs/agents/agents-1.svg"
+              borderColor="border-[#dcff9f]"
+              chat={true}
+            />
+            <AgentCard name="Ajax" code="Ajax" edited="Comming soon..." imgSrc="/imgs/agents/agents-2.svg" borderColor="border-[#dcff9f]" />
+            <AgentCard name="Beta" code="Beta-c9det" edited="Comming soon..." imgSrc="/imgs/agents/agents-3.svg" borderColor="border-[#dcff9f]" />
+            <AgentCard name="Ce" code="Ce" edited="Comming soon..." imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" />
           </div>
         </div>
       </div>

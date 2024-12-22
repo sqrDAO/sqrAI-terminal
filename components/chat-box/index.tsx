@@ -88,7 +88,7 @@ const ChatBox = () => {
                       alt={publicKey?.toString()}
                     />
                     <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                      <span className="text-sm font-semibold text-yellow-300">
+                      <span className="text-sm font-semibold text-yellow-300 font-bricolage">
                         {publicKey
                           ? ` ..${publicKey
                               ?.toString()
@@ -111,19 +111,19 @@ const ChatBox = () => {
             {item.from == "bot" && (
               <div key={index}>
                 <div className="flex flex-col items-start gap-2 mb-4 ">
-                  <div className="flex gap-2 items-center justify-center p-2 border border-[#a4fb0e] overflow-hidden">
-                    <Image
+                  <div className="flex gap-2 items-center justify-center p-1 border border-[#a4fb0e] overflow-hidden">
+                    {/* <Image
                       src={"/imgs/sqr-logo.svg"}
                       className=""
                       alt={""}
                       width={50}
                       height={30}
-                    ></Image>
-                    {/* <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                      <span className="opacity-80 text-right text-zinc-900/opacity-80 text-xs font-normal font-pixel uppercase leading-[18px] text-white">
-                        SQR.AI
+                    ></Image> */}
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <span className="text-sm font-semibold text-[#a4fb0e] font-bricolage">
+                        B-a3cs4
                       </span>
-                    </div> */}
+                    </div>
                   </div>
                   <div className="flex flex-col">
                     <div className="text-md font-normal break-all text-[#a4fb0e]">
@@ -138,18 +138,18 @@ const ChatBox = () => {
 
         {isLoading && (
           <div className="flex flex-col items-start gap-2 mb-4">
-            <div className="flex gap-2 items-center justify-center">
-              <Image
+            <div className="flex gap-2 items-center justify-center p-1 border border-[#a4fb0e] overflow-hidden">
+              {/* <Image
                 src={"/imgs/sqr-logo.svg"}
                 alt={""}
                 width={50}
                 height={30}
-              ></Image>
-              {/* <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                <span className="opacity-80 text-right text-zinc-900/opacity-80 text-xs font-normal font-pixel uppercase leading-[18px] text-white">
-                  SQR.AI
+              ></Image> */}
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
+              <span className="text-sm font-semibold text-[#a4fb0e] font-bricolage">
+                  B-a3cs4
                 </span>
-              </div> */}
+              </div>
             </div>
             <div className="flex flex-col animate-pulse space-y-2.5 w-full">
               <div className="flex items-center w-1/2">
