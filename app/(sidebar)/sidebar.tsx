@@ -15,34 +15,38 @@ const Sidebar = () => {
   const route = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
-  const agentKey = searchParams.get("agent");
+  const agentKey = searchParams.get("agent") || JSON.parse(localStorage.getItem("selectedAgent") || "{}")?.name;
+
+  const agentList = JSON.parse(localStorage.getItem("agents") || "[]");
 
   const handleSelectChange = (value: string) => {
+    const agents = JSON.parse(localStorage.getItem("agents") || "[]");
+    const selectedAgent = agents?.find((agent: any) => agent?.name === value);
+    localStorage.setItem("selectedAgent", JSON.stringify(selectedAgent));
+
     route.push(`/overview?agent=${value}`);
   };
 
   return (
     <div className="w-80 h-[calc(100vh_-77px)] pt-3 border-r border-[#dcff9f] flex-col justify-start items-start gap-3 inline-flex">
       <div className="self-stretch px-6 py-3 justify-center items-center gap-2.5 inline-flex">
-        <Image
-          src={"/icons/agent-menu-icon.svg"}
-          alt={""}
-          width={22}
-          height={22}
-        ></Image>
-        <Select value={agentKey || ""} onValueChange={handleSelectChange}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select a agent" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="ajax">
-              <div className="flex gap-3">Ajax</div>
-            </SelectItem>
-            <SelectItem value="beta">
-              <div className="flex gap-3">Beta</div>
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <Image src={"/icons/agent-menu-icon.svg"} alt={""} width={22} height={22}></Image>
+        {agentList?.length > 0 && (
+          <Select value={agentKey || ""} onValueChange={handleSelectChange}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select a agent" />
+            </SelectTrigger>
+            <SelectContent>
+              {agentList?.map((item, index) => {
+                return (
+                  <SelectItem key={index} value={item?.name}>
+                    <div className="flex gap-3">{item?.name}</div>
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
+        )}
       </div>
       <div className="h-px border-[#333333] justify-center items-center inline-flex">
         <div className="w-80 h-px border border-[#333333]" />
