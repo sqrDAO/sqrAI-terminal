@@ -131,10 +131,10 @@ const Index = () => {
                         {`@EledraNguyen`}
                       </div>
                       <div>
-                        <span class="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
                           ·
                         </span>
-                        <span class="text-[#a4fb0e] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#a4fb0e] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
                           Next 6h
                         </span>
                       </div>
@@ -196,10 +196,10 @@ const Index = () => {
                         @EledraNguyen
                       </div>
                       <div>
-                        <span class="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
                           ·
                         </span>
-                        <span class="text-[#a4fb0e] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#a4fb0e] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
                           Next 8h
                         </span>
                       </div>
@@ -245,10 +245,10 @@ const Index = () => {
                         @EledraNguyen
                       </div>
                       <div>
-                        <span class="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
                           ·
                         </span>
-                        <span class="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
                           Next 1d
                         </span>
                       </div>
