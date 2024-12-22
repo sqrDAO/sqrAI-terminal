@@ -5,6 +5,7 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navbar: React.FC = () => {
   const buttonStyle = {
@@ -20,14 +21,14 @@ const Navbar: React.FC = () => {
   return (
     <div className="w-full px-6 py-4 justify-between items-center inline-flex">
       <div className="w-[113.22px] h-[30px] justify-center items-center flex">
-        <div className="w-[113.21px] h-[30px] relative">
+        <Link href={'/'} className="w-[113.21px] h-[30px] relative">
           <Image
             src={"/imgs/sqr-logo.svg"}
             alt={""}
             width={113}
             height={30}
           ></Image>
-        </div>
+        </Link>
       </div>
       <div className="justify-start items-start flex">
         <WalletMultiButton style={buttonStyle} />
