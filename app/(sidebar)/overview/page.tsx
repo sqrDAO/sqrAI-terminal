@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 const Overview = () => {
@@ -40,7 +41,9 @@ const Overview = () => {
                 <div className="text-center text-[#a4fb0e] text-xl font-semibold font-bricolage leading-[27px]">Collaborate with your project’s GitHub repo!</div>
                 <div className="text-center text-[#999999] text-sm font-normal font-bricolage leading-tight">Enable the agent to explore and understand your code by sharing your repository.</div>
               </div>
-              <Button>Get started</Button>
+              <Link href={"/github"}>
+                <Button>Get started</Button>
+              </Link>
             </div>
             <div className="w-[101px] h-[101px] relative  overflow-hidden" />
           </div>
@@ -51,7 +54,9 @@ const Overview = () => {
                   <div className="self-stretch text-[#a4fb0e] text-xl font-semibold font-bricolage leading-[27px]">Discover and Learn from X Accounts!</div>
                   <div className="self-stretch text-[#999999] text-sm font-normal font-bricolage leading-tight">Scrape and follow multiple X accounts to help the AI gain deeper insights.</div>
                 </div>
-                <Button>Try it</Button>
+                <Link href={"/scrape"}>
+                  <Button>Try it</Button>
+                </Link>
               </div>
             </div>
             <div className="grow shrink basis-0 p-5 bg-black border-2 border-[#dcff9f] flex-col justify-start items-start gap-2.5 inline-flex">
@@ -60,7 +65,9 @@ const Overview = () => {
                   <div className="self-stretch text-[#a4fb0e] text-xl font-semibold font-bricolage leading-[27px]">Expand Knowledge with Your Documents!</div>
                   <div className="self-stretch text-[#999999] text-sm font-normal font-bricolage leading-tight">Provide documents to help the AI gain deeper insights and understanding.</div>
                 </div>
-                <Button>Upload documents</Button>
+                <Link href={"/other"}>
+                  <Button>Upload documents</Button>
+                </Link>
               </div>
             </div>
           </div>
