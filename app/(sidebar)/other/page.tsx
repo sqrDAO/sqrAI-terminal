@@ -83,7 +83,7 @@ const Overview = () => {
   };
 
   return (
-    <div className="h-[917px] w-full px-6 pt-6 flex-col justify-start items-center inline-flex">
+    <div className=" h-[calc(100vh_-77px)] overflow-auto w-full px-6 pt-6 flex-col justify-start items-center inline-flex">
       <div className="self-stretch h-32 pb-16 flex-col justify-start items-start gap-4 flex">
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
