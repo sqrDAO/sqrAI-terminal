@@ -9,9 +9,9 @@ import { useEffect, useState } from "react";
 
 const Overview = () => {
   const [knowledgeLink, setKnowledgeLink] = useState("");
-  const [rowPerPage, setRowPerPage] = useState(50);
+  const [rowPerPage, setRowPerPage] = useState('50');
   const [isDragging, setIsDragging] = useState(false);
-  const handleSelectChange = (value: number) => {
+  const handleSelectChange = (value: string) => {
     setRowPerPage(value);
   };
 
@@ -173,7 +173,7 @@ const Overview = () => {
           <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
             <div className="justify-start items-center gap-2.5 flex">
               <div className="text-[#999999] text-sm font-normal font-bricolage leading-tight">Rows per page:</div>
-              <Select value={rowPerPage?.toString()} onValueChange={handleSelectChange}>
+              <Select value={rowPerPage} onValueChange={handleSelectChange}>
                 <SelectTrigger className="w-[64px]">
                   <SelectValue placeholder="Select a agent" />
                 </SelectTrigger>
