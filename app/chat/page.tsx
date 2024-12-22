@@ -1,100 +1,39 @@
 "use client";
-import { useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import "./App.css";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-type TextResponse = {
-  text: string;
-  user: string;
-};
+import ChatBox from "@/components/chat-box";
+import { useSQRAI } from "../provider/sqrai.provider";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useEffect } from "react";
+import Image from "next/image";
+
 const ListAgents: React.FC = () => {
-  const { agentId } = useParams();
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<TextResponse[]>([]);
-
-  const mutation = useMutation({
-    mutationFn: async (text: string) => {
-      const res = await fetch(`http://35.197.139.133:3000/d1b9e94b-4448-02cc-bb43-4c2ba12fa15c/message`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          text,
-          userId: "user",
-          roomId: `default-room-d1b9e94b-4448-02cc-bb43-4c2ba12fa15c`,
-        }),
-      });
-      return res.json() as Promise<TextResponse[]>;
-    },
-    onSuccess: (data) => {
-      console.log(data);
-      setMessages((prev) => [...prev, ...data]);
-    },
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
-
-    // Add user message immediately to state
-    const userMessage: TextResponse = {
-      text: input,
-      user: "user",
-    };
-    setMessages((prev) => [...prev, userMessage]);
-
-    mutation.mutate(input);
-    setInput("");
-  };
+  const { setSessionId, setSessionContent } = useSQRAI();
+  const { connected, publicKey } = useWallet();
+  useEffect(() => {
+    if (connected) {
+      if (publicKey) {
+        const listChat = window.localStorage.getItem(publicKey?.toString());
+        const _logChat = listChat ? JSON.parse(listChat) : [];
+        setSessionId(publicKey?.toString());
+        setSessionContent(_logChat[0].content);
+      }
+    } else {
+      setSessionId("");
+      setSessionContent([]);
+    }
+  }, [connected]);
   return (
-    <div className="flex flex-col h-[calc(100vh_-_74px)] max-h-screen w-full">
-      <div className="flex-1 min-h-0 overflow-y-auto p-4">
-        <div className="max-w-3xl mx-auto space-y-4">
-          {messages.length > 0 ? (
-            messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${
-                  message.user === "user" ? "justify-end" : "justify-start"
-                }`}
-              >
-                <div
-                  className={`max-w-[80%] rounded-lg px-4 py-2 text-white ${
-                    message.user === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted"
-                  }`}
-                >
-                  {message.text}
-                </div>
-              </div>
-            ))
-          ) : (
-            <div className="text-center text-muted-foreground text-white">
-              No messages yet. Start a conversation!
-            </div>
-          )}
-        </div>
+    <div className="w-full h-full border-t border-[#dcff9f]">
+      <div className="w-[1280px] mx-auto h-[calc(100vh_-_124px)] mt-10 relative z-20">
+        <ChatBox></ChatBox>;
       </div>
-
-      <div className="border-t p-4 bg-background">
-        <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSubmit} className="flex gap-2">
-            <Input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message..."
-              className="flex-1"
-              disabled={mutation.isPending}
-            />
-            <Button type="submit" disabled={mutation.isPending}>
-              {mutation.isPending ? "..." : "Send"}
-            </Button>
-          </form>
-        </div>
+      <div className="fixed bottom-0 right-0 w-full z-10">
+        <Image
+          src="/imgs/bg-home.svg"
+          alt=""
+          className="object-cover w-full"
+          width={2560}
+          height={615}
+        />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
 
@@ -7,21 +7,15 @@ type Props = {
 };
 
 const InputGroup: React.FC<Props> = ({ isLoading }) => {
-  const { connected, connect, publicKey, disconnect, signMessage } =
-    useWallet();
-  const { isSubmit, setDataChat } = useSQRAI();
+  const { publicKey } = useWallet();
+  const { setDataChat } = useSQRAI();
   const [value, setValue] = useState<string>("");
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       if (isLoading) return;
       const dataChat = {
         from: publicKey?.toString() ?? "user",
-        value: [
-          {
-            type: "string",
-            content: event.target.value,
-          },
-        ],
+        value: event.target.value,
       };
       setDataChat(dataChat);
       setValue("");
@@ -29,12 +23,13 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
   };
 
   return (
-    <div className={`w-full transition-all`}>
-      <div className="bg-gray-50 border border-gray-300 rounded-lg w-full flex items-center overflow-hidden px-5 py-3">
+    <div className={`w-full transition-all border-t border-[#a4fb0e]`}>
+      <div className="bg-black w-full flex items-center overflow-hidden px-5 py-3">
         <input
           type="text"
           placeholder="Tell me what you're thinking about..."
-          className="text-gray-900 text-sm w-full"
+          disabled={isLoading}
+          className="text-white text-sm w-full bg-black"
           onChange={(event) => setValue(event.target.value)}
           onKeyDown={handleKeyDown}
           value={value}

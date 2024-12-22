@@ -43,7 +43,7 @@ const Sidebar = () => {
             className={`self-stretch px-3.5 py-3 justify-center items-center gap-3 inline-flex ${pathName === "/overview" ? "bg-[#A4FB0E] text-black" : "bg-transparent text-white"}`}
           >
             <Image src={"/icons/overview-menu.svg"} alt={""} width={22} height={22}></Image>
-            <div className={`grow shrink basis-0 text-base font-medium font-['Bricolage Grotesque'] leading-snug`}>Overview</div>
+            <div className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug`}>Overview</div>
           </Link>
         </div>
       </div>
@@ -52,7 +52,7 @@ const Sidebar = () => {
       </div>
       <div className="self-stretch h-[194px] px-3 flex-col justify-start items-start flex">
         <div className="self-stretch p-3.5 justify-center items-center gap-2.5 inline-flex">
-          <div className="grow shrink basis-0 text-[#999999] text-sm font-medium font-['Bricolage Grotesque'] leading-tight">Generative AI</div>
+          <div className="grow shrink basis-0 text-[#999999] text-sm font-medium font-bricolage leading-tight">Generative AI</div>
         </div>
         <div className="self-stretch h-[146px] flex-col justify-start items-start gap-1 flex">
           <Link
@@ -60,18 +60,18 @@ const Sidebar = () => {
             className={`self-stretch px-3.5 py-3 justify-center items-center gap-3 inline-flex ${pathName === "/tech-learn" ? "bg-[#A4FB0E] text-black" : "bg-transparent text-white"}`}
           >
             <Image src={"/icons/tech-learn-menu.svg"} alt={""} width={22} height={22}></Image>
-            <div className={`grow shrink basis-0 text-base font-medium font-['Bricolage Grotesque'] leading-snug`}>Technical learn</div>
+            <div className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug`}>Technical learn</div>
           </Link>
           <Link
             href={"/scrape"}
             className={`self-stretch px-3.5 py-3 justify-center items-center gap-3 inline-flex ${pathName === "/scrape" ? "bg-[#A4FB0E] text-black" : "bg-transparent text-white"}`}
           >
             <Image src={"/icons/scrape-menu.svg"} alt={""} width={22} height={22}></Image>
-            <div className={`grow shrink basis-0 text-base font-medium font-['Bricolage Grotesque'] leading-snug`}>Scrape social accounts</div>
+            <div className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug`}>Scrape social accounts</div>
           </Link>
           <Link href={"/other"} className={`self-stretch px-3.5 py-3 justify-center items-center gap-3 inline-flex ${pathName === "/other" ? "bg-[#A4FB0E] text-black" : "bg-transparent text-white"}`}>
             <Image src={"/icons/other-menu.svg"} alt={""} width={22} height={22}></Image>
-            <div className={`grow shrink basis-0 text-base font-medium font-['Bricolage Grotesque'] leading-snug`}>Other data</div>
+            <div className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug`}>Other data</div>
           </Link>
         </div>
       </div>
@@ -80,7 +80,7 @@ const Sidebar = () => {
       </div>
       <div className="self-stretch h-[94px] px-3 flex-col justify-start items-start flex">
         <div className="self-stretch p-3.5 justify-center items-center gap-2.5 inline-flex">
-          <div className="grow shrink basis-0 text-[#999999] text-sm font-medium font-['Bricolage Grotesque'] leading-tight">Export</div>
+          <div className="grow shrink basis-0 text-[#999999] text-sm font-medium font-bricolage leading-tight">Export</div>
         </div>
         <div className="self-stretch h-[46px] flex-col justify-start items-start gap-1 flex">
           <Link
@@ -88,7 +88,7 @@ const Sidebar = () => {
             className={`self-stretch px-3.5 py-3 justify-center items-center gap-3 inline-flex ${pathName === "/github" ? "bg-[#A4FB0E] text-black" : "bg-transparent text-white"}`}
           >
             <Image src={"/icons/github-menu.svg"} alt={""} width={22} height={22}></Image>
-            <div className={`grow shrink basis-0 text-base font-medium font-['Bricolage Grotesque'] leading-snug `}>Github</div>
+            <div className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug `}>Github</div>
           </Link>
         </div>
       </div>

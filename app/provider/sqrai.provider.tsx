@@ -10,17 +10,13 @@ const sqraiContext = createContext({
   setSessionId: (a) => {},
   sessionContent: [],
   setSessionContent: (a) => {},
-  isSubmit: false,
-  setIsSubmit: (a) => {},
 });
 
 export const SQRAIProvider = ({ children }) => {
   const [dataChat, setDataChat] = useState<IChat>(null);
   const [sessionId, setSessionId] = useState("");
   const [sessionContent, setSessionContent] = useState<IChat[]>([]);
-  const [isSubmit, setIsSubmit] = useState(false);
-  const { connected, connect, publicKey, disconnect, signMessage } =
-    useWallet();
+  const { publicKey } = useWallet();
   useEffect(() => {
     try {
       if (!publicKey) return;
@@ -50,8 +46,6 @@ export const SQRAIProvider = ({ children }) => {
         setSessionId,
         sessionContent,
         setSessionContent,
-        isSubmit,
-        setIsSubmit,
       }}
     >
       {children}
