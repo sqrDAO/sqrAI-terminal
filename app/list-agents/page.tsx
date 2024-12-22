@@ -23,11 +23,11 @@ const AgentCard: React.FC<{
   chat = false,
 }) => (
   <div
-    className={`w-[302px] min-w-[302px] h-52 p-5 ${bgColor} ${
+    className={`w-[260px] min-w-[260px] h-52 p-5 ${chat ? `card-animation` : ""} ${bgColor} ${
       shadow ? shadow : ""
     } border-2 ${borderColor} flex-col justify-start items-start gap-2.5 inline-flex hover:bg-[#111111]`}
   >
-    <div className="self-stretch grow shrink basis-0 flex-col justify-between items-start flex">
+    <div className="self-stretch grow shrink basis-0 flex-col justify-between items-start flex relative z-10">
       <div className="flex-col justify-start items-start flex">
         <div className="text-center text-[#a4fb0e] text-xl font-semibold font-bricolage leading-[27px]">
           {name}
@@ -65,7 +65,7 @@ const AgentCard: React.FC<{
 const ListAgents: React.FC = () => {
   return (
     <div className="h-full px-6 pt-4 flex-col justify-start items-center inline-flex w-full relative mt-10">
-      <div className="self-stretch h-[280px] p-6 border border-[#dcff9f] flex-col justify-between items-start flex absolute top-0 left-0 right-0 z-10 w-[1690px] mx-auto">
+      <div className="self-stretch h-[280px] p-6 border border-[#dcff9f] flex-col justify-between items-start flex absolute top-0 left-0 right-0 z-10 w-[1580px] mx-auto">
         <div className="text-[#a4fb0e] text-xl font-medium font-bricolage leading-[27px] animate-blink">
           &gt;_
         </div>
@@ -86,7 +86,7 @@ const ListAgents: React.FC = () => {
           />
         </div>
       </div>
-      <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-4 flex mx-auto bg-black w-[1280px] relative z-20 mt-10">
+      <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-4 flex mx-auto bg-black w-[1112px] relative z-20 mt-10">
         <div className="self-stretch h-[487px] flex-col justify-start items-start gap-4 flex">
           <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
             <div className="grow shrink basis-0 text-white text-2xl font-semibold font-chakra leading-[31.20px]">
@@ -94,7 +94,7 @@ const ListAgents: React.FC = () => {
             </div>
           </div>
           <div className="self-stretch justify-start items-start gap-6 inline-flex flex-wrap">
-            <div className="w-[302px] min-w-[302px] h-52 bg-black border-4 border-[#a4fb0e] flex-col justify-center items-center gap-2.5 inline-flex">
+            <div className="w-[260px] min-w-[260px] h-52 bg-black border-4 border-[#a4fb0e] flex-col justify-center items-center gap-2.5 inline-flex">
               <div className="flex-col justify-start items-center gap-4 flex">
                 <div className="w-[34px] h-[34px] relative">
                   <div className="w-1 h-[34px] left-[15px] top-0 absolute bg-[#a4fb0e]" />

@@ -24,7 +24,7 @@ export default function Home() {
             <div className="text-center text-[#a4fb0e] text-7xl font-medium font-chakra leading-[86.40px]">
               Unleash the Power of AI
             </div>
-            <div className="text-center text-white text-xl font-medium font-bricolage leading-[27px]">
+            <div className="text-center text-white text-xl font-medium font-bricolage leading-[27px] typewriter">
               Teach and customize your AI to adapt, learn, and deliver insights
               tailored to your unique needs.
             </div>
