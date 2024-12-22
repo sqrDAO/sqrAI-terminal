@@ -25,10 +25,10 @@ const Sidebar = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="ajax">
-              <div className="flex gap-3 text-white">Ajax</div>
+              <div className="flex gap-3">Ajax</div>
             </SelectItem>
             <SelectItem value="beta">
-              <div className="flex gap-3 text-white">Beta</div>
+              <div className="flex gap-3">Beta</div>
             </SelectItem>
           </SelectContent>
         </Select>
