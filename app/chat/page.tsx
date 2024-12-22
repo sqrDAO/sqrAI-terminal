@@ -11,10 +11,10 @@ const ListAgents: React.FC = () => {
   useEffect(() => {
     if (connected) {
       if (publicKey) {
-        const listChat = window.localStorage.getItem(publicKey?.toString());
+        const listChat = localStorage.getItem(publicKey?.toString());
         const _logChat = listChat ? JSON.parse(listChat) : [];
         setSessionId(publicKey?.toString());
-        setSessionContent(_logChat[0].content);
+        setSessionContent(_logChat[0]?.content || []);
       }
     } else {
       setSessionId("");
