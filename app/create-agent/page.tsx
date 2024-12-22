@@ -9,9 +9,20 @@ const CreateAgentPage = () => {
   const route = useRouter();
   const [agentName, setAgentName] = useState("");
 
+  const saveAgentToLocalStorage = (agentName: string) => {
+    const agent = { name: agentName };
+    let agents = JSON.parse(localStorage.getItem("agents") || "[]");
+    if (!Array.isArray(agents)) {
+      agents = [];
+    }
+    agents.push(agent);
+    localStorage.setItem("agents", JSON.stringify(agents));
+  };
+
   const createAgent = () => {
     if (agentName) {
       // call api to create agent
+      saveAgentToLocalStorage(agentName);
       route.push(`/overview?agent=${agentName}`);
     }
   };
