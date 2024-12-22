@@ -52,18 +52,21 @@ const ListAgents: React.FC = () => {
     setDiffMinutes(Math.floor((diff / (1000 * 60)) % 60));
   }, []);
 
-  let agents = JSON.parse(localStorage.getItem("agents") || "[]");
+  let agents = [];
 
   useEffect(() => {
-    const agentName = "Beta";
-    if (!Array.isArray(agents)) {
-      agents = [];
-    }
-    const agentExists = agents.some((agent: { name: string }) => agent.name === agentName);
-    if (!agentExists) {
-      const agent = { name: agentName };
-      agents.push(agent);
-      localStorage.setItem("agents", JSON.stringify(agents));
+    if (typeof window !== "undefined") {
+      agents = JSON.parse(localStorage.getItem("agents") || "[]");
+      const agentName = "Beta";
+      if (!Array.isArray(agents)) {
+        agents = [];
+      }
+      const agentExists = agents.some((agent: { name: string }) => agent.name === agentName);
+      if (!agentExists) {
+        const agent = { name: agentName };
+        agents.push(agent);
+        localStorage.setItem("agents", JSON.stringify(agents));
+      }
     }
   }, []);
 
