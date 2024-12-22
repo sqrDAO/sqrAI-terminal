@@ -52,37 +52,38 @@ const Index = () => {
             <div className="h-[216px] bg-[#111111] border-b border-[#444444] flex-col justify-start items-end flex">
               <div className="self-stretch px-5 py-7 justify-start items-start inline-flex">
                 <div className="grow shrink basis-0 h-[116px] pl-2.5 pr-8 justify-start items-start gap-3 flex">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="https://via.placeholder.com/40x40"
+                  <Image
+                    className="w-[40px] h-[40px] rounded-full"
+                    width={40}
+                    height={40}
+                    alt=""
+                    src="/imgs/page-3.svg"
                   />
                   <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                     <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
                       <div className="text-white text-base font-bold font-['Bricolage Grotesque'] leading-snug">
-                        Long Nguyen (꧁IP꧂)
+                        {`Long Nguyen (꧁IP꧂)`}
                       </div>
                       <div className="w-[18px] h-[18px] relative  overflow-hidden" />
                       <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
-                        @EledraNguyen
+                        {`@EledraNguyen`}
                       </div>
                       <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
-                        · Next 3h
+                        {"·"}
                       </div>
                     </div>
                     <div className="self-stretch text-white text-base font-normal font-['Bricolage Grotesque'] leading-snug">
-                      What are the next step of this journey ?  We aim to build
-                      in public and have the first base version after Christmas.
-                      This will be followed by series of partnerships with our
-                      network partners for closed alpha test but you know :),
-                      everything is on-chain
+                      {`sqrAI focuses on web3 project pain points As builders for many years,
+                       we have seen projects with limited resources struggling in maintaining good public code presence,
+                        communication and quality. sqrAI fixes these problems. sqrAI is based on @ai16zdao`}
                     </div>
                   </div>
                 </div>
                 <div className="h-10 px-2.5 justify-center items-center gap-2.5 flex">
                   <div className="grow shrink basis-0 text-right text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
-                    Scheduled at
+                    {`Scheduled at 12:43 PM 23/12/2024`}
                     <br />
-                    12:43 PM 23/12/2024
+                    {`Next 6h`}
                   </div>
                 </div>
               </div>
@@ -90,21 +91,21 @@ const Index = () => {
                 <div className="grow shrink basis-0 h-11 px-2.5 py-1.5 bg-[#a4fb0e] justify-center items-center flex overflow-hidden">
                   <div className="px-1 justify-center items-center gap-2.5 flex">
                     <div className="text-center text-black text-base font-semibold font-['Chakra Petch'] leading-normal">
-                      Save
+                      {`Save`}
                     </div>
                   </div>
                 </div>
                 <div className="grow shrink basis-0 h-11 px-2.5 py-1.5 border-t border-b border-[#dcff9f] justify-center items-center flex overflow-hidden">
                   <div className="px-1 justify-center items-center gap-2.5 flex">
                     <div className="text-center text-[#a4fb0e] text-base font-semibold font-['Chakra Petch'] leading-normal">
-                      Edit
+                      {`Edit`}
                     </div>
                   </div>
                 </div>
                 <div className="w-[148px] h-11 px-2.5 py-1.5 border-l border-t border-b border-[#dcff9f] justify-center items-center flex overflow-hidden">
                   <div className="px-1 justify-center items-center gap-2.5 flex">
                     <div className="text-center text-white text-base font-semibold font-['Chakra Petch'] leading-normal">
-                      Discard
+                      {`Discard`}
                     </div>
                   </div>
                 </div>
@@ -113,18 +114,21 @@ const Index = () => {
             <div className="h-[238px] border-b border-[#444444] flex-col justify-start items-end flex">
               <div className="self-stretch px-5 py-7 border-b border-[#444444] justify-start items-start inline-flex">
                 <div className="grow shrink basis-0 h-[138px] pl-2.5 pr-8 justify-start items-start gap-3 flex">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="https://via.placeholder.com/40x40"
+                  <Image
+                    className="w-[40px] h-[40px] rounded-full"
+                    width={40}
+                    height={40}
+                    alt=""
+                    src="/imgs/page-3.svg"
                   />
                   <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                     <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
                       <div className="text-white text-base font-bold font-['Bricolage Grotesque'] leading-snug">
-                        Long Nguyen (꧁IP꧂)
+                        {`Long Nguyen (꧁IP꧂)`}
                       </div>
                       <div className="w-[18px] h-[18px] relative  overflow-hidden" />
                       <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
-                        @EledraNguyen
+                        {`@EledraNguyen`}
                       </div>
                       <div>
                         <span class="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
@@ -136,11 +140,11 @@ const Index = () => {
                       </div>
                     </div>
                     <div className="self-stretch text-white text-base font-normal font-['Bricolage Grotesque'] leading-snug">
-                      sqrAI focuses on web3 project pain points   As builders
-                      for many years, we have seen projects with limited
-                      resources struggling in maintaining good public code
-                      presence, communication and quality. sqrAI fixes these
-                      problems. sqrAI is based on @ai16zdao
+                      {`@sqrAI focuses on web3 project pain points As builders for
+                      many years, we have seen projects with limited resources
+                      struggling in maintaining good public code presence,
+                      communication and quality. sqrAI fixes these problems.
+                      sqrAI is based on @ai16zdao`}
                     </div>
                   </div>
                 </div>
@@ -175,14 +179,17 @@ const Index = () => {
             <div className="h-[194px] border-b border-[#444444] flex-col justify-start items-end flex">
               <div className="self-stretch px-5 py-7 border-b border-[#444444] justify-start items-start inline-flex">
                 <div className="grow shrink basis-0 h-[138px] pl-2.5 pr-8 justify-start items-start gap-3 flex">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="https://via.placeholder.com/40x40"
+                  <Image
+                    className="w-[40px] h-[40px] rounded-full"
+                    width={40}
+                    height={40}
+                    alt=""
+                    src="/imgs/page-3.svg"
                   />
                   <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                     <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
                       <div className="text-white text-base font-bold font-['Bricolage Grotesque'] leading-snug">
-                        Long Nguyen (꧁IP꧂)
+                        {`Long Nguyen (꧁IP꧂)`}
                       </div>
                       <div className="w-[18px] h-[18px] relative  overflow-hidden" />
                       <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
@@ -221,14 +228,17 @@ const Index = () => {
             <div className="h-[194px] border-b border-[#444444] flex-col justify-start items-end flex">
               <div className="self-stretch px-5 py-7 border-b border-[#444444] justify-start items-start inline-flex">
                 <div className="grow shrink basis-0 h-[138px] pl-2.5 pr-8 justify-start items-start gap-3 flex">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src="https://via.placeholder.com/40x40"
+                  <Image
+                    className="w-[40px] h-[40px] rounded-full"
+                    width={40}
+                    height={40}
+                    alt=""
+                    src="/imgs/page-3.svg"
                   />
                   <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                     <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
                       <div className="text-white text-base font-bold font-['Bricolage Grotesque'] leading-snug">
-                        Long Nguyen (꧁IP꧂)
+                        {`Long Nguyen (꧁IP꧂)`}
                       </div>
                       <div className="w-[18px] h-[18px] relative  overflow-hidden" />
                       <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
@@ -244,11 +254,11 @@ const Index = () => {
                       </div>
                     </div>
                     <div className="self-stretch text-white text-base font-normal font-['Bricolage Grotesque'] leading-snug">
-                      sqrAI focuses on web3 project pain points   As builders
-                      for many years, we have seen projects with limited
-                      resources struggling in maintaining good public code
-                      presence, communication and quality. sqrAI fixes these
-                      problems. sqrAI is based on @ai16zdao
+                      sqrAI focuses on web3 project pain points As builders for
+                      many years, we have seen projects with limited resources
+                      struggling in maintaining good public code presence,
+                      communication and quality. sqrAI fixes these problems.
+                      sqrAI is based on @ai16zdao
                     </div>
                   </div>
                 </div>
