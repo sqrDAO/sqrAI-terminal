@@ -52,9 +52,10 @@ const ListAgents: React.FC = () => {
     setDiffMinutes(Math.floor((diff / (1000 * 60)) % 60));
   }, []);
 
+  let agents = JSON.parse(localStorage.getItem("agents") || "[]");
+
   useEffect(() => {
     const agentName = "Beta";
-    let agents = JSON.parse(localStorage.getItem("agents") || "[]");
     if (!Array.isArray(agents)) {
       agents = [];
     }
@@ -105,6 +106,21 @@ const ListAgents: React.FC = () => {
             <AgentCard name="Ajax" code="Ajax" edited="Comming soon..." imgSrc="/imgs/agents/agents-2.svg" borderColor="border-[#dcff9f]" />
             <AgentCard name="Beta" code="Beta-c9det" edited="Comming soon..." imgSrc="/imgs/agents/agents-3.svg" borderColor="border-[#dcff9f]" />
             <AgentCard name="Ce" code="Ce" edited="Comming soon..." imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" />
+            {agents
+              ?.filter((x) => x?.name !== "Beta")
+              .map((agent: { name: string }, index: number) => {
+                return (
+                  <Link key={index} href={`/overview?agent=${agent?.name}`} className="cursor-pointer">
+                    <AgentCard
+                      name={agent?.name}
+                      code={`${agent?.name}-a3cs4`}
+                      edited={`Edited ${diffHours ? diffHours + " hours:" : ""}${diffMinutes} minutes ago`}
+                      imgSrc="/imgs/agents/agents-4.svg"
+                      borderColor="border-[#dcff9f]"
+                    />
+                  </Link>
+                );
+              })}
           </div>
         </div>
       </div>

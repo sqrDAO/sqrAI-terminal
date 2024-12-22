@@ -9,22 +9,29 @@ import { useState } from "react";
 const CreateAgentPage = () => {
   const route = useRouter();
   const [agentName, setAgentName] = useState("");
+  const [isExistErr, setIsExistErr] = useState(false);
 
   const saveAgentToLocalStorage = (agentName: string) => {
     const agent = { name: agentName };
     let agents = JSON.parse(localStorage.getItem("agents") || "[]");
+
     if (!Array.isArray(agents)) {
       agents = [];
     }
+    if (agents.find((a) => a?.name?.toLowerCase() === agentName?.toLowerCase())) {
+      setIsExistErr(true);
+      return;
+    }
+
     agents.push(agent);
     localStorage.setItem("agents", JSON.stringify(agents));
+    route.push(`/overview?agent=${agentName}`);
   };
 
   const createAgent = () => {
     if (agentName) {
       // call api to create agent
       saveAgentToLocalStorage(agentName);
-      route.push(`/overview?agent=${agentName}`);
     }
   };
 
@@ -49,12 +56,14 @@ const CreateAgentPage = () => {
                   <Input
                     value={agentName}
                     onChange={(e) => {
+                      setIsExistErr(false);
                       setAgentName(e?.target?.value);
                     }}
                     className="w-[454px]"
                     type="text"
                     placeholder="Enter your agent name"
                   />
+                  {isExistErr && <div className="text-[#888888] font-bricolage">Agent's name has existed!</div>}
                 </div>
               </div>
               <div className="self-stretch justify-start items-center gap-6 inline-flex">
