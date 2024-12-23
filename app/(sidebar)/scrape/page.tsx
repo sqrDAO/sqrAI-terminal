@@ -1,18 +1,22 @@
 "use client";
+import LoadingSpinner from "@/app/components/loading-spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import useScrapeList from "@/hooks/useScrapeList";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const Overview = () => {
   const [scrapeLink, setScrapeLink] = useState("");
-  const [rowPerPage, setRowPerPage] = useState('50');
+  const [rowPerPage, setRowPerPage] = useState("50");
   const handleSelectChange = (value: string) => {
     setRowPerPage(value);
   };
+
+  const { data: scrapeList, isLoading, error } = useScrapeList();
 
   const agentList = JSON.parse(localStorage.getItem("agents"));
 
@@ -76,7 +80,7 @@ const Overview = () => {
               Add
             </Button>
           </div>
-            <div className="self-stretch h-fit flex-col justify-start items-start flex">
+          <div className="self-stretch h-fit flex-col justify-start items-start flex">
             <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-4 gap-2.5">
               <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">User</div>
               <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
@@ -85,40 +89,37 @@ const Overview = () => {
             </div>
             {scrapeLinks.map((link, index) => {
               return (
-              <div key={index} className="w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5 items-center">
-                <div className="col-span-1 flex items-center gap-2.5">
-                <img
-                  className="w-[22px] h-[22px] rounded-full border border-[#dcff9f]"
-                  src="https://via.placeholder.com/22x22"
-                />
-                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">@name</div>
-                </div>
-                <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
-                <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.updatedAt).format("MMM DD, YYYY")}</div>
-                <div className="col-span-1 flex justify-end items-center gap-2.5">
-                <Button variant="outline" className="text-[#A4FB0E]">
-                  Scrape
-                </Button>
-                <Popover>
-                  <PopoverTrigger>
-                  <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
-                  </PopoverTrigger>
-                  <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                  <div
-                    className="cursor-pointer text-white text-base font-medium font-bricolage"
-                    onClick={() => {
-                    handleDeleteLink(index);
-                    }}
-                  >
-                    Delete
+                <div key={index} className="w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5 items-center">
+                  <div className="col-span-1 flex items-center gap-2.5">
+                    <img className="w-[22px] h-[22px] rounded-full border border-[#dcff9f]" src="https://via.placeholder.com/22x22" />
+                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">@name</div>
                   </div>
-                  </PopoverContent>
-                </Popover>
+                  <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
+                  <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.updatedAt).format("MMM DD, YYYY")}</div>
+                  <div className="col-span-1 flex justify-end items-center gap-2.5">
+                    <Button variant="outline" className="text-[#A4FB0E] min-w-[85px]">
+                      {link?.status === "pending" ? <LoadingSpinner></LoadingSpinner> : "Scrape"}
+                    </Button>
+                    <Popover>
+                      <PopoverTrigger>
+                        <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
+                      </PopoverTrigger>
+                      <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
+                        <div
+                          className="cursor-pointer text-white text-base font-medium font-bricolage"
+                          onClick={() => {
+                            handleDeleteLink(index);
+                          }}
+                        >
+                          Delete
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                 </div>
-              </div>
               );
             })}
-            </div>
+          </div>
           <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
             <div className="justify-start items-center gap-2.5 flex">
               <div className="text-[#999999] text-sm font-normal font-bricolage leading-tight">Rows per page:</div>
@@ -127,10 +128,10 @@ const Overview = () => {
                   <SelectValue placeholder="Select a agent" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={'25'}>
+                  <SelectItem value={"25"}>
                     <div>25</div>
                   </SelectItem>
-                  <SelectItem value={'50'}>
+                  <SelectItem value={"50"}>
                     <div>50</div>
                   </SelectItem>
                 </SelectContent>
