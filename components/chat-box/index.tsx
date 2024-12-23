@@ -38,6 +38,14 @@ const ChatBox = () => {
 
       setSessionContent([...sessionContent, reply]);
       setLoading(false);
+    } else {
+      const reply: IChat = {
+        from: "bot",
+        value: "Something went wrong, please try again",
+      };
+
+      setSessionContent([...sessionContent, reply]);
+      setLoading(false);
     }
   };
 
@@ -146,7 +154,7 @@ const ChatBox = () => {
                 height={30}
               ></Image> */}
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
-              <span className="text-sm font-semibold text-[#a4fb0e] font-bricolage">
+                <span className="text-sm font-semibold text-[#a4fb0e] font-bricolage">
                   B-a3cs4
                 </span>
               </div>
