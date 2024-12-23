@@ -27,7 +27,7 @@ const Overview = () => {
       knowledgeLinks: knowledgeLinks,
     };
 
-    const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent.name ? updatedAgent : agent));
+    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
 
     setKnowledgeLink("");
 
@@ -46,7 +46,7 @@ const Overview = () => {
   };
 
   const handleDeleteLink = (index: number) => {
-    const updatedLinks = knowledgeLinks.filter((_, i) => i !== index);
+    const updatedLinks = knowledgeLinks?.filter((_, i) => i !== index);
     setKnowledgeLinks(updatedLinks);
   };
 

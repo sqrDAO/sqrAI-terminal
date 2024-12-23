@@ -52,21 +52,27 @@ const ListAgents: React.FC = () => {
     setDiffMinutes(Math.floor((diff / (1000 * 60)) % 60));
   }, []);
 
-  let agents = [];
+  // let agents = [];
+  const [agents, setAgents] = useState([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      agents = JSON.parse(localStorage.getItem("agents") || "[]");
+      setAgents(JSON.parse(localStorage.getItem("agents") || "[]"));
+
       const agentName = "Beta";
       if (!Array.isArray(agents)) {
-        agents = [];
+        setAgents([]);
       }
-      const agentExists = agents.some((agent: { name: string }) => agent.name === agentName);
-      if (!agentExists) {
-        const agent = { name: agentName };
-        agents.push(agent);
-        localStorage.setItem("agents", JSON.stringify(agents));
-      }
+
+      setAgents((prevAgents) => {
+        const agentExists = prevAgents?.some((agent: { name: string }) => agent?.name === agentName);
+        if (!agentExists) {
+          const newAgents = [...prevAgents, { name: agentName }];
+          localStorage.setItem("agents", JSON.stringify(newAgents));
+          return newAgents;
+        }
+        return prevAgents;
+      });
     }
   }, []);
 
@@ -110,7 +116,7 @@ const ListAgents: React.FC = () => {
             <AgentCard name="Beta" code="Beta-c9det" edited="Comming soon..." imgSrc="/imgs/agents/agents-3.svg" borderColor="border-[#dcff9f]" />
             <AgentCard name="Ce" code="Ce" edited="Comming soon..." imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" />
             {agents
-              ?.filter((x) => x?.name !== "Beta")
+              ?.filter((x) => x?.name?.toLowerCase() !== "beta")
               .map((agent: { name: string }, index: number) => {
                 return (
                   <Link key={index} href={`/overview?agent=${agent?.name}`} className="cursor-pointer">

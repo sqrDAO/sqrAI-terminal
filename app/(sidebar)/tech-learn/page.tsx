@@ -26,7 +26,7 @@ const Overview = () => {
       githubLinks: githubLinks,
     };
 
-    const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent.name ? updatedAgent : agent));
+    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
 
     setGithubLink("");
 

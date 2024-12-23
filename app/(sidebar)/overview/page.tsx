@@ -3,13 +3,21 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 const Overview = () => {
   const searchParams = useSearchParams();
   const agentName = searchParams.get("agent");
   const agents = JSON.parse(localStorage.getItem("agents") || "[]");
   const selectedAgent = JSON.parse(localStorage.getItem("selectedAgent") || "{}");
-  const agent = agents.find((a: { name: string }) => a.name === agentName || a?.name === selectedAgent?.name);
+  const agent = agents?.find((a: { name: string }) => a?.name === agentName || a?.name === selectedAgent?.name);
+
+  useEffect(() => {
+    if (selectedAgent?.name !== agentName && agents?.length > 0) {
+      const item = agents?.find((a: { name: string }) => a?.name === agentName);
+      localStorage.setItem("selectedAgent", JSON.stringify(item));
+    }
+  }, [agents, agentName]);
 
   return (
     <div className="h-[917px] w-full mx-6 mt-6 flex-col justify-start items-center inline-flex relative">

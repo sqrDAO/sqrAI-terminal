@@ -26,7 +26,7 @@ const Overview = () => {
       scrapeLinks: scrapeLinks,
     };
 
-    const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent.name ? updatedAgent : agent));
+    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
 
     setScrapeLink("");
 
@@ -45,7 +45,7 @@ const Overview = () => {
   };
 
   const handleDeleteLink = (index: number) => {
-    const updatedLinks = scrapeLinks.filter((_, i) => i !== index);
+    const updatedLinks = scrapeLinks?.filter((_, i) => i !== index);
     setScrapeLinks(updatedLinks);
   };
 
