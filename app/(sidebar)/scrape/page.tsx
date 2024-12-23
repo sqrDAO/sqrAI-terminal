@@ -26,7 +26,7 @@ const Overview = () => {
       scrapeLinks: scrapeLinks,
     };
 
-    const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent.name ? updatedAgent : agent));
+    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
 
     setScrapeLink("");
 
@@ -45,7 +45,7 @@ const Overview = () => {
   };
 
   const handleDeleteLink = (index: number) => {
-    const updatedLinks = scrapeLinks.filter((_, i) => i !== index);
+    const updatedLinks = scrapeLinks?.filter((_, i) => i !== index);
     setScrapeLinks(updatedLinks);
   };
 
@@ -76,61 +76,49 @@ const Overview = () => {
               Add
             </Button>
           </div>
-          <div className="self-stretch h-fit flex-col justify-start items-start flex">
-            <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] justify-center items-center inline-flex">
-              <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">User</div>
-              </div>
-              <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
-              </div>
-              <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Last update</div>
-              </div>
-              <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                <div className="grow shrink basis-0 opacity-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">action</div>
-              </div>
+            <div className="self-stretch h-fit flex-col justify-start items-start flex">
+            <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-4 gap-2.5">
+              <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">User</div>
+              <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
+              <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Last update</div>
+              <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight text-right"></div>
             </div>
             {scrapeLinks.map((link, index) => {
               return (
-                <div key={index} className="w-[936px] px-5 py-4 border-b border-[#444444] justify-center items-center inline-flex">
-                  <div className="grow shrink basis-0 h-[22px] px-2.5 justify-center items-center gap-2.5 flex">
-                    <img
-                      className="w-[22px] h-[22px] relative rounded-[200px] shadow-[0px_4px_6px_-2px_rgba(16,24,40,0.03)] shadow-[0px_12px_16px_-4px_rgba(16,24,40,0.08)] border border-[#dcff9f]"
-                      src="https://via.placeholder.com/22x22"
-                    />
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">@name</div>
-                  </div>
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.updatedAt).format("MMM DD, YYYY")}</div>
-                  </div>
-                  <div className="h-[34px] px-2.5 justify-between items-center flex">
-                    <Button variant="outline" className="text-[#A4FB0E]">
-                      Scrape
-                    </Button>
-                    <Popover>
-                      <PopoverTrigger>
-                        <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
-                      </PopoverTrigger>
-                      <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                        <div
-                          className="cursor-pointer text-white text-base font-medium font-bricolage"
-                          onClick={() => {
-                            handleDeleteLink(index);
-                          }}
-                        >
-                          Delete
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                  </div>
+              <div key={index} className="w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5 items-center">
+                <div className="col-span-1 flex items-center gap-2.5">
+                <img
+                  className="w-[22px] h-[22px] rounded-full border border-[#dcff9f]"
+                  src="https://via.placeholder.com/22x22"
+                />
+                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">@name</div>
                 </div>
+                <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
+                <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.updatedAt).format("MMM DD, YYYY")}</div>
+                <div className="col-span-1 flex justify-end items-center gap-2.5">
+                <Button variant="outline" className="text-[#A4FB0E]">
+                  Scrape
+                </Button>
+                <Popover>
+                  <PopoverTrigger>
+                  <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
+                  </PopoverTrigger>
+                  <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
+                  <div
+                    className="cursor-pointer text-white text-base font-medium font-bricolage"
+                    onClick={() => {
+                    handleDeleteLink(index);
+                    }}
+                  >
+                    Delete
+                  </div>
+                  </PopoverContent>
+                </Popover>
+                </div>
+              </div>
               );
             })}
-          </div>
+            </div>
           <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
             <div className="justify-start items-center gap-2.5 flex">
               <div className="text-[#999999] text-sm font-normal font-bricolage leading-tight">Rows per page:</div>

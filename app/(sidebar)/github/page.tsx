@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 const Overview = () => {
   const [githubLink, setGithubLink] = useState("");
-  const [rowPerPage, setRowPerPage] = useState('50');
+  const [rowPerPage, setRowPerPage] = useState("50");
   const [isConnected, setIsConnected] = useState(false);
   const handleSelectChange = (value: string) => {
     setRowPerPage(value);
@@ -27,7 +27,7 @@ const Overview = () => {
       githubLinks: githubLinks,
     };
 
-    const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent.name ? updatedAgent : agent));
+    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
 
     setGithubLink("");
 
@@ -85,8 +85,8 @@ const Overview = () => {
           </div>
         )}
         {isConnected && (
-          <div className="h-[372px] flex-col justify-start items-start gap-8 inline-flex">
-            <div className="self-stretch h-[372px] py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex">
+          <div className="h-fit flex-col justify-start items-start gap-8 inline-flex">
+            <div className="self-stretch h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex">
               <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
                 <div className="grow shrink basis-0 h-[66px] p-4 border border-[#dcff9f] justify-between items-center flex">
                   <div className="justify-start items-center gap-4 flex">
@@ -105,61 +105,17 @@ const Overview = () => {
                 </div>
               </div>
               <div className="self-stretch h-[196px] flex-col justify-start items-start flex">
-                <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] justify-center items-center inline-flex">
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Commits </div>
-                  </div>
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Detail</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Status</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Push time</div>
-                  </div>
+                <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-4 gap-2.5">
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Commits</div>
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Detail</div>
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Status</div>
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Push time</div>
                 </div>
-                <div className="w-[936px] px-5 py-4 border-b border-[#444444] justify-center items-center inline-flex">
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">mess</div>
-                  </div>
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#c5ff53] text-sm font-semibold font-bricolage leading-tight">8cd2380</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Status</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Jun 28, 2021</div>
-                  </div>
-                </div>
-                <div className="w-[936px] px-5 py-4 border-b border-[#444444] justify-center items-center inline-flex">
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">mess</div>
-                  </div>
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#c5ff53] text-sm font-semibold font-bricolage leading-tight">8cd2380</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Status</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Jun 28, 2021</div>
-                  </div>
-                </div>
-                <div className="w-[936px] px-5 py-4 border-[#444444] justify-center items-center inline-flex">
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">mess</div>
-                  </div>
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#c5ff53] text-sm font-semibold font-bricolage leading-tight">8cd2380</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Status</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Jun 28, 2021</div>
-                  </div>
+                <div className="w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5">
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">mess</div>
+                  <div className="text-[#c5ff53] text-sm font-semibold font-bricolage leading-tight">8cd2380</div>
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Status</div>
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Jun 28, 2021</div>
                 </div>
               </div>
               <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">

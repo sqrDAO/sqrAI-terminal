@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 const Overview = () => {
   const [knowledgeLink, setKnowledgeLink] = useState("");
-  const [rowPerPage, setRowPerPage] = useState('50');
+  const [rowPerPage, setRowPerPage] = useState("50");
   const [isDragging, setIsDragging] = useState(false);
   const handleSelectChange = (value: string) => {
     setRowPerPage(value);
@@ -27,7 +27,7 @@ const Overview = () => {
       knowledgeLinks: knowledgeLinks,
     };
 
-    const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent.name ? updatedAgent : agent));
+    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
 
     setKnowledgeLink("");
 
@@ -46,7 +46,7 @@ const Overview = () => {
   };
 
   const handleDeleteLink = (index: number) => {
-    const updatedLinks = knowledgeLinks.filter((_, i) => i !== index);
+    const updatedLinks = knowledgeLinks?.filter((_, i) => i !== index);
     setKnowledgeLinks(updatedLinks);
   };
 
@@ -119,53 +119,37 @@ const Overview = () => {
             </Button>
           </div>
           <div className="self-stretch h-fit flex-col justify-start items-start flex">
-            <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] justify-center items-center inline-flex">
-              <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Name</div>
-              </div>
-              <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Size</div>
-              </div>
-              <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Type</div>
-              </div>
-              <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
-              </div>
-              <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                <div className="grow shrink basis-0 opacity-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">action</div>
-              </div>
+            <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-5 gap-2.5">
+              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Name</div>
+              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Size</div>
+              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Type</div>
+              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
+              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight text-right"></div>
             </div>
             {knowledgeLinks.map((link, index) => {
               return (
-                <div key={index} className="w-[936px] px-5 py-4 border-b border-[#444444] justify-center items-center inline-flex">
-                  <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.name}</div>
+                <div key={index} className="w-full px-5 py-4 border-b border-[#444444] grid grid-cols-5 gap-2.5">
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.name}</div>
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.size ? (link?.size / 1024576)?.toFixed(2) + ' MB' : ''}</div>
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.type}</div>
+                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
+                  <div className="text-right">
+                    <Popover>
+                      <PopoverTrigger>
+                        <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
+                      </PopoverTrigger>
+                      <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
+                        <div
+                          className="cursor-pointer text-white text-base font-medium font-bricolage"
+                          onClick={() => {
+                            handleDeleteLink(index);
+                          }}
+                        >
+                          Delete
+                        </div>
+                      </PopoverContent>
+                    </Popover>
                   </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{(link?.size / 1024576)?.toFixed(2)} MB</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.type}</div>
-                  </div>
-                  <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-                    <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
-                  </div>
-                  <Popover>
-                    <PopoverTrigger>
-                      <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
-                    </PopoverTrigger>
-                    <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                      <div
-                        className="cursor-pointer text-white text-base font-medium font-bricolage"
-                        onClick={() => {
-                          handleDeleteLink(index);
-                        }}
-                      >
-                        Delete
-                      </div>
-                    </PopoverContent>
-                  </Popover>
                 </div>
               );
             })}
