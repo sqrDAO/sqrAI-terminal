@@ -9,7 +9,7 @@ const ScheduleList = () => {
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
             <div className="self-stretch text-white text-3xl font-semibold font-['Chakra Petch'] leading-[37.50px]">
-              Auto generate social post{" "}
+              Auto generate social post <span className="text-[10px] font-chakra text-[#A4FB0E]">(comming soon)</span>
             </div>
           </div>
           <Image
