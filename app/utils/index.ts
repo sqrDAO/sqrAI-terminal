@@ -1,5 +1,4 @@
 import { minidenticon } from "minidenticons";
-import { IChatContent } from "../types/types";
 
 const genAVT = (adress: string) => {
   if (adress && adress?.length > 5) {
@@ -14,44 +13,6 @@ const genAVT = (adress: string) => {
     );
   }
 };
-
-function extractStringAndScripts(stringString: string): IChatContent[] {
-  let remainingstring = stringString;
-  let chunks: IChatContent[] = [];
-
-  const startScriptTag = "<script";
-  const endScriptTag = "</script>";
-
-  while (remainingstring !== "") {
-    const startIndex = remainingstring.indexOf(startScriptTag);
-    const endIndex = remainingstring.indexOf(endScriptTag, startIndex);
-
-    if (startIndex === -1) {
-      chunks.push({ type: "string", content: remainingstring });
-      remainingstring = "";
-    } else if (endIndex === -1) {
-      chunks.push({ type: "string", content: remainingstring });
-      remainingstring = "";
-    } else {
-      const stringBeforeScript = remainingstring.slice(0, startIndex);
-      chunks.push({ type: "string", content: stringBeforeScript });
-
-      const scriptContent = remainingstring.slice(
-        startIndex,
-        endIndex + endScriptTag.length
-      );
-
-      chunks.push({
-        type: "script",
-        content: scriptContent,
-        json: extractJSONFromHTML(scriptContent),
-      });
-      remainingstring = remainingstring.slice(endIndex + endScriptTag.length);
-    }
-  }
-
-  return chunks;
-}
 
 function extractJSONFromHTML(html: string) {
   const pattern = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
@@ -79,4 +40,4 @@ function extractJSONFromHTML(html: string) {
   return null;
 }
 
-export default { genAVT, extractStringAndScripts };
+export default { genAVT };
