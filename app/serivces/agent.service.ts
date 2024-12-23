@@ -18,7 +18,7 @@ export async function scrapeTwitter(username: string): Promise<any> {
     const response = await axios.post(`${apiUrl}/api/characters`, {
       username: username, // twitter username
       date: dayjs().format("YYYY-MM-DD"), // generate character from this date "2024-12-23"
-      is_crawl: false, // scrape tweets and blogs
+      is_crawl: true, // scrape tweets and blogs
     });
     return response?.data;
   } catch (error) {
