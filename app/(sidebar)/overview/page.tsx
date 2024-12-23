@@ -13,7 +13,7 @@ const Overview = () => {
   const agent = agents?.find((a: { name: string }) => a?.name === agentName || a?.name === selectedAgent?.name);
 
   useEffect(() => {
-    if (selectedAgent?.name !== agentName && agents?.length > 0) {
+    if (selectedAgent?.name !== agentName && agents?.length > 0 && agentName) {
       const item = agents?.find((a: { name: string }) => a?.name === agentName);
       localStorage.setItem("selectedAgent", JSON.stringify(item));
     }
