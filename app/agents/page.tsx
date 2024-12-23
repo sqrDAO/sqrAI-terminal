@@ -104,17 +104,17 @@ const ListAgents: React.FC = () => {
             </Link>
             <Link href={"/overview?agent=Beta"} className="cursor-pointer">
               <AgentCard
-                name="Beta"
-                code="Beta-a3cs4"
+                name="DEV"
+                code="Dev-a999"
                 edited={`Edited ${diffHours ? diffHours + " hours:" : ""}${diffMinutes} minutes ago`}
                 imgSrc="/imgs/agents/agents-1.svg"
                 borderColor="border-[#dcff9f]"
                 chat={true}
               />
             </Link>
-            <AgentCard name="Ajax" code="Ajax" edited="Comming soon..." imgSrc="/imgs/agents/agents-2.svg" borderColor="border-[#dcff9f]" />
-            <AgentCard name="Beta" code="Beta-c9det" edited="Comming soon..." imgSrc="/imgs/agents/agents-3.svg" borderColor="border-[#dcff9f]" />
-            <AgentCard name="Ce" code="Ce" edited="Comming soon..." imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" />
+            <AgentCard name="MKT" code="mkt-01" edited="Comming soon..." imgSrc="/imgs/agents/agents-2.svg" borderColor="border-[#dcff9f]" />
+            <AgentCard name="CM" code="cm-c321" edited="Comming soon..." imgSrc="/imgs/agents/agents-3.svg" borderColor="border-[#dcff9f]" />
+            <AgentCard name="BD" code="bd-6789" edited="Comming soon..." imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" />
             {agents
               ?.filter((x) => x?.name?.toLowerCase() !== "beta")
               .map((agent: { name: string }, index: number) => {
@@ -123,7 +123,7 @@ const ListAgents: React.FC = () => {
                     <AgentCard
                       name={agent?.name}
                       code={`${agent?.name}-a3cs4`}
-                      edited={`Edited ${diffHours ? diffHours + " hours:" : ""}${diffMinutes} minutes ago`}
+                      edited={`Edited ${diffHours ? diffHours + ":" : ""}${diffMinutes} minutes ago`}
                       imgSrc="/imgs/agents/agents-4.svg"
                       borderColor="border-[#dcff9f]"
                     />

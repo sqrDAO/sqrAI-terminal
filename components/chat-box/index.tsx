@@ -8,6 +8,7 @@ import { useSQRAI } from "@/app/provider/sqrai.provider";
 import BotReply from "@/app/serivces/bot-api";
 import utils from "@/app/utils";
 import Image from "next/image";
+import ReactMarkdown from "react-markdown";
 let intervalId;
 const ChatBox = () => {
   const { publicKey } = useWallet();
@@ -28,23 +29,33 @@ const ChatBox = () => {
   };
 
   const onBotReply = async (message) => {
-    setLoading(true);
-    const res = await BotReply({ message: message, sessionId: sessionId });
-    if (res[0].text) {
-      const reply: IChat = {
-        from: "bot",
-        value: res[0].text,
-      };
+    try {
+      setLoading(true);
+      const res = await BotReply({ message: message, sessionId: sessionId });
 
-      setSessionContent([...sessionContent, reply]);
+      if (!res || res.length === 0) {
+        const reply: IChat = {
+          from: "bot",
+          value: "Something went wrong, please try again",
+        };
+
+        setSessionContent([...sessionContent, reply]);
+        setLoading(false);
+        return;
+      }
+
+      for (const response of res) {
+        if (response.text) {
+          const reply: IChat = {
+            from: "bot",
+            value: response.text,
+          };
+
+          setSessionContent((prevContent) => [...prevContent, reply]);
+        }
+      }
       setLoading(false);
-    } else {
-      const reply: IChat = {
-        from: "bot",
-        value: "Something went wrong, please try again",
-      };
-
-      setSessionContent([...sessionContent, reply]);
+    } catch (e) {
       setLoading(false);
     }
   };
@@ -109,9 +120,12 @@ const ChatBox = () => {
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-md font-normal break-all text-white font-chakra">
-                      {item.value}
-                    </p>
+                    <div className="text-md font-normal break-all text-white font-chakra">
+                      <span style={{ whiteSpace: "pre-line" }}>
+                        {item.value}
+                      </span>
+                      {/* <ReactMarkdown>{item.value}</ReactMarkdown> */}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -135,7 +149,7 @@ const ChatBox = () => {
                   </div>
                   <div className="flex flex-col">
                     <div className="text-md font-normal break-all text-[#a4fb0e]">
-                      {item.value}
+                      <ReactMarkdown>{item.value}</ReactMarkdown>
                     </div>
                   </div>
                 </div>

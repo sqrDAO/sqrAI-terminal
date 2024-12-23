@@ -28,7 +28,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-80 h-[calc(100vh_-77px)] pt-3 border-r border-[#dcff9f] flex-col justify-start items-start gap-3 inline-flex bg-black relative z-[100]">
+    <div className="w-80 h-[calc(100vh_-77px)] pt-3 border-r border-[#dcff9f] flex-col justify-start items-start gap-3 inline-flex bg-black relative z-[100] overflow-hidden">
       <div className="self-stretch px-6 py-3 justify-center items-center gap-2.5 inline-flex">
         <Image src={"/icons/agent-menu-icon.svg"} alt={""} width={22} height={22}></Image>
         {agentList?.length > 0 && (
@@ -48,7 +48,7 @@ const Sidebar = () => {
           </Select>
         )}
       </div>
-      <div className="h-px border-[#333333] justify-center items-center inline-flex">
+      <div className="h-px border-[#333333] justify-center items-center inline-flex w-full">
         <div className="w-80 h-px border border-[#333333]" />
       </div>
       <div className="self-stretch h-[46px] px-3 flex-col justify-start items-start flex">
@@ -75,16 +75,16 @@ const Sidebar = () => {
           </Link>
         </div>
       </div>
-      <div className="h-px border-[#333333] justify-center items-center inline-flex">
+      <div className="h-px border-[#333333] justify-center items-center inline-flex w-full">
         <div className="w-80 h-px border border-[#333333]" />
       </div>
-      <div className="self-stretch h-[194px] px-3 flex-col justify-start items-start flex">
+      <div className="self-stretch px-3 flex-col justify-start items-start flex">
         <div className="self-stretch p-3.5 justify-center items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 text-[#999999] text-sm font-medium font-bricolage leading-tight">
             Generative AI
           </div>
         </div>
-        <div className="self-stretch h-[146px] flex-col justify-start items-start gap-1 flex">
+        <div className="self-stretch flex-col justify-start items-start gap-1 flex pb-2">
           <Link
             href={"/tech-learn"}
             className={`self-stretch px-3.5 py-3 justify-center items-center gap-3 inline-flex ${
@@ -102,7 +102,7 @@ const Sidebar = () => {
             <div
               className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug`}
             >
-              Technical learn
+              Technical learn <span className="text-[10px] font-chakra text-[#A4FB0E]">(comming soon)</span>
             </div>
           </Link>
           <Link
@@ -142,18 +142,18 @@ const Sidebar = () => {
             <div
               className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug`}
             >
-              Other data
+              Other data <span className="text-[10px] font-chakra text-[#A4FB0E]">(comming soon)</span>
             </div>
           </Link>
         </div>
       </div>
-      <div className="h-px border-[#333333] justify-center items-center inline-flex">
+      <div className="h-px border-[#333333] justify-center items-center inline-flex w-full">
         <div className="w-80 h-px border border-[#333333]" />
       </div>
       <div className="self-stretch h-[94px] px-3 flex-col justify-start items-start flex">
         <div className="self-stretch p-3.5 justify-center items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 text-[#999999] text-sm font-medium font-bricolage leading-tight">
-            Export
+            Export <span className="text-[10px] font-chakra text-[#A4FB0E]">(comming soon)</span>
           </div>
         </div>
         <div className="self-stretch h-[46px] flex-col justify-start items-start gap-1 flex">
@@ -174,7 +174,7 @@ const Sidebar = () => {
             <div
               className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug `}
             >
-              Github
+              Github <span className="text-[10px] font-chakra text-[#A4FB0E]">(comming soon)</span>
             </div>
           </Link>
           <Link
@@ -202,7 +202,7 @@ const Sidebar = () => {
             <div
               className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug `}
             >
-              Auto social post
+              Auto social post <span className="text-[10px] font-chakra text-[#A4FB0E]">(comming soon)</span>
             </div>
           </Link>
           <Link
