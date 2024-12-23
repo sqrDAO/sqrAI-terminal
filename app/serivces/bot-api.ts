@@ -10,7 +10,7 @@ const BotReply = async (params: { message: string; sessionId: string }) => {
         body: JSON.stringify({
           text: params.message,
           userId: params.sessionId || "User",
-          roomId: `default-room-${process.env.NEXT_PUBLIC_AGENTID}`,
+          roomId: `default-room-${process.env.NEXT_PUBLIC_AGENTID}-${params.sessionId}`,
         }),
       }
     );
