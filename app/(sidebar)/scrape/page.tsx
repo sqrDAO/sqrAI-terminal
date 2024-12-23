@@ -1,5 +1,6 @@
 "use client";
 import LoadingSpinner from "@/app/components/loading-spinner";
+import { getSampleAgent, getScrapeByUsername, scrapeTwitter, updateCharacter } from "@/app/serivces/agent.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -7,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import useScrapeList from "@/hooks/useScrapeList";
 import dayjs from "dayjs";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Overview = () => {
@@ -16,13 +18,41 @@ const Overview = () => {
     setRowPerPage(value);
   };
 
-  const { data: scrapeList, isLoading, error } = useScrapeList();
+  // const { data: scrapeList, isLoading, error } = useScrapeList();
 
   const agentList = JSON.parse(localStorage.getItem("agents"));
 
   const selectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
 
   const [scrapeLinks, setScrapeLinks] = useState(JSON.parse(localStorage.getItem("selectedAgent"))?.scrapeLinks || []);
+
+  const checkScrapeStatus = async (item) => {
+    const intervalId = setInterval(async () => {
+      const result = await getScrapeByUsername(item?.scrapeLink);
+      if (result) {
+        clearInterval(intervalId);
+        item.status = "success";
+
+        const updatedAgent = {
+          ...selectedAgent,
+          scrapeLinks: scrapeLinks.map((link) => (link.scrapeLink === item.scrapeLink ? item : link)),
+        };
+        const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent.name ? updatedAgent : agent));
+
+        localStorage.setItem("agents", JSON.stringify(updatedAgentList));
+        localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
+        setScrapeLinks(scrapeLinks?.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)));
+
+        const sample = await getSampleAgent();
+        if (sample?.character && result?.characterData) {
+          sample.character.knowledge = [...sample?.character?.knowledge, ...result?.characterData.knowledge];
+          sample.character.messageExamples = [...sample?.character?.messageExamples, ...result?.characterData.messageExamples];
+
+          await updateCharacter(sample?.character);
+        }
+      }
+    }, 5000);
+  };
 
   useEffect(() => {
     const updatedAgent = {
@@ -38,6 +68,16 @@ const Overview = () => {
     localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
   }, [scrapeLinks]);
 
+  useEffect(() => {
+    if (selectedAgent) {
+      selectedAgent?.scrapeLinks?.forEach((item) => {
+        if (item?.status === "pending") {
+          checkScrapeStatus(item);
+        }
+      });
+    }
+  }, [selectedAgent]);
+
   const handleAddLink = () => {
     if (scrapeLink === "") {
       return;
@@ -51,6 +91,22 @@ const Overview = () => {
   const handleDeleteLink = (index: number) => {
     const updatedLinks = scrapeLinks?.filter((_, i) => i !== index);
     setScrapeLinks(updatedLinks);
+  };
+
+  const scrape = async (item: any) => {
+    item.status = "pending";
+
+    const updatedAgent = {
+      ...selectedAgent,
+      scrapeLinks: scrapeLinks.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)),
+    };
+    const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent?.name ? updatedAgent : agent));
+
+    localStorage.setItem("agents", JSON.stringify(updatedAgentList));
+    localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
+    setScrapeLinks(scrapeLinks.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)));
+    scrapeTwitter(item?.scrapeLink);
+    checkScrapeStatus(item);
   };
 
   return (
@@ -92,12 +148,14 @@ const Overview = () => {
                 <div key={index} className="w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5 items-center">
                   <div className="col-span-1 flex items-center gap-2.5">
                     <img className="w-[22px] h-[22px] rounded-full border border-[#dcff9f]" src="https://via.placeholder.com/22x22" />
-                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">@name</div>
+                    <Link href={`https://x.com/${link?.scrapeLink}`} target="_blank" className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">
+                      @{link?.scrapeLink}
+                    </Link>
                   </div>
                   <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
                   <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.updatedAt).format("MMM DD, YYYY")}</div>
                   <div className="col-span-1 flex justify-end items-center gap-2.5">
-                    <Button variant="outline" className="text-[#A4FB0E] min-w-[85px]">
+                    <Button variant="outline" className="text-[#A4FB0E] min-w-[85px]" onClick={() => scrape(link)}>
                       {link?.status === "pending" ? <LoadingSpinner></LoadingSpinner> : "Scrape"}
                     </Button>
                     <Popover>
