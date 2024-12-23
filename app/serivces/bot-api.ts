@@ -17,10 +17,7 @@ const BotReply = async (params: { message: string; sessionId: string }) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    notification.error({
-      message: "Could not get data",
-    });
-    return false;
+    throw error;
   }
 };
 

@@ -29,23 +29,33 @@ const ChatBox = () => {
   };
 
   const onBotReply = async (message) => {
-    setLoading(true);
-    const res = await BotReply({ message: message, sessionId: sessionId });
-    if (res[0].text) {
-      const reply: IChat = {
-        from: "bot",
-        value: res[0].text,
-      };
+    try {
+      setLoading(true);
+      const res = await BotReply({ message: message, sessionId: sessionId });
 
-      setSessionContent([...sessionContent, reply]);
+      if (!res || res.length === 0) {
+        const reply: IChat = {
+          from: "bot",
+          value: "Something went wrong, please try again",
+        };
+
+        setSessionContent([...sessionContent, reply]);
+        setLoading(false);
+        return;
+      }
+
+      for (const response of res) {
+        if (response.text) {
+          const reply: IChat = {
+            from: "bot",
+            value: response.text,
+          };
+
+          setSessionContent((prevContent) => [...prevContent, reply]);
+        }
+      }
       setLoading(false);
-    } else {
-      const reply: IChat = {
-        from: "bot",
-        value: "Something went wrong, please try again",
-      };
-
-      setSessionContent([...sessionContent, reply]);
+    } catch (e) {
       setLoading(false);
     }
   };
