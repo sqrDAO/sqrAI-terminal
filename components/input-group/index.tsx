@@ -11,7 +11,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
   const { setDataChat } = useSQRAI();
   const [value, setValue] = useState<string>("");
   const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && !event.shiftKey) {
       if (isLoading) return;
       const dataChat = {
         from: publicKey?.toString() ?? "user",
@@ -25,8 +25,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
   return (
     <div className={`w-full transition-all border-t border-[#a4fb0e]`}>
       <div className="bg-black w-full flex items-center overflow-hidden px-5 py-3">
-        <input
-          type="text"
+        <textarea
           placeholder="Tell me what you're thinking about..."
           disabled={isLoading}
           className="text-white text-sm w-full bg-black"

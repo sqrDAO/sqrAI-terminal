@@ -8,7 +8,7 @@ import { useSQRAI } from "@/app/provider/sqrai.provider";
 import BotReply from "@/app/serivces/bot-api";
 import utils from "@/app/utils";
 import Image from "next/image";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 let intervalId;
 const ChatBox = () => {
   const { publicKey } = useWallet();
@@ -110,9 +110,12 @@ const ChatBox = () => {
                     </div>
                   </div>
                   <div className="flex flex-col">
-                    <p className="text-md font-normal break-all text-white font-chakra">
-                      <ReactMarkdown>{item.value}</ReactMarkdown>
-                    </p>
+                    <div className="text-md font-normal break-all text-white font-chakra">
+                      <span style={{ whiteSpace: "pre-line" }}>
+                        {item.value}
+                      </span>
+                      {/* <ReactMarkdown>{item.value}</ReactMarkdown> */}
+                    </div>
                   </div>
                 </div>
               </div>
