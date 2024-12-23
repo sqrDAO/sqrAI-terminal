@@ -1,6 +1,6 @@
 "use client";
 import ChatBox from "@/components/chat-box";
-import { useSQRAI } from "../provider/sqrai.provider";
+import { useSQRAI } from "../../provider/sqrai.provider";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useEffect } from "react";
 import Image from "next/image";

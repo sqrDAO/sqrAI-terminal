@@ -28,7 +28,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-80 h-[calc(100vh_-77px)] pt-3 border-r border-[#dcff9f] flex-col justify-start items-start gap-3 inline-flex">
+    <div className="w-80 h-[calc(100vh_-77px)] pt-3 border-r border-[#dcff9f] flex-col justify-start items-start gap-3 inline-flex bg-black relative z-90">
       <div className="self-stretch px-6 py-3 justify-center items-center gap-2.5 inline-flex">
         <Image src={"/icons/agent-menu-icon.svg"} alt={""} width={22} height={22}></Image>
         {agentList?.length > 0 && (
