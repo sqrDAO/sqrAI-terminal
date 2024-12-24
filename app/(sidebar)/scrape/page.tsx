@@ -144,7 +144,7 @@ const Overview = () => {
         </div>
       </div>
       <div className="h-fit flex-col justify-start items-start gap-8 inline-flex">
-        <div className="self-stretch h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex w-[936px]">
+        <div className="self-stretch h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex w-full md:w-[936px]">
           <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
             <Input
               value={scrapeLink}
@@ -160,7 +160,7 @@ const Overview = () => {
             </Button>
           </div>
           <div className="self-stretch h-fit flex-col justify-start items-start flex">
-            <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-4 gap-2.5">
+            <div className="w-full md:w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-4 gap-2.5">
               <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">User</div>
               <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
               <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Last update</div>
@@ -168,7 +168,7 @@ const Overview = () => {
             </div>
             {scrapeLinks.map((link, index) => {
               return (
-                <div key={index} className="w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5 items-center">
+                <div key={index} className="w-full md:w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5 items-center">
                   <div className="col-span-1 flex items-center gap-2.5">
                     <img className="w-[22px] h-[22px] rounded-full border border-[#dcff9f]" src="https://via.placeholder.com/22x22" />
                     <Link href={`https://x.com/${link?.scrapeLink}`} target="_blank" className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">
@@ -225,7 +225,7 @@ const Overview = () => {
           </div>
         </div>
         <div
-          className="self-stretch max-h-[400px] overflow-y-auto break-words whitespace-pre-wrap h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex w-[936px] text-white"
+          className="self-stretch max-h-[400px] overflow-y-auto break-words whitespace-pre-wrap h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex w-full md:w-[936px] text-white"
           id="logs"
         ></div>
       </div>

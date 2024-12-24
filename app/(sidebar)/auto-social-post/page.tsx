@@ -42,7 +42,7 @@ const Overview = () => {
           />
         </div>
       </div>
-      <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-8 flex w-[936px] mx-auto">
+      <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-8 flex w-full md:w-[936px] mx-auto">
         <div className="self-stretch h-48 flex-col justify-start items-start gap-8 flex">
           <div className="self-stretch h-48 py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex">
             <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">

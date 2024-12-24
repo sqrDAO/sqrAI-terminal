@@ -25,7 +25,7 @@ export default function SidebarLayout({
 }>) {
   return (
     <div className={`w-full flex ${bricolage.variable} ${chakra.variable} border-t border-t-[#DCFF9F]`}>
-      <Sidebar></Sidebar>
+      <Sidebar />
       {children}
     </div>
   );

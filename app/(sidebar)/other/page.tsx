@@ -127,7 +127,7 @@ const Overview = () => {
               Add
             </Button>
           </div>
-          <div className="self-stretch h-fit flex-col justify-start items-start flex w-[936px]">
+          <div className="self-stretch h-fit flex-col justify-start items-start flex w-full md:w-[936px]">
             <div className="w-full px-5 py-2.5 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5">
               <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Name</div>
               <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Size</div>

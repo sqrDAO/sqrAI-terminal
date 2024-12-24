@@ -23,7 +23,7 @@ const ListAgents: React.FC = () => {
   }, [connected]);
   return (
     <div className="w-full h-full border-t border-[#dcff9f]">
-      <div className="w-[1280px] mx-auto h-[calc(100vh_-_124px)] mt-10 relative z-20">
+      <div className="w-full md:w-[1280px] mx-auto h-[calc(100vh_-_124px)] mt-10 relative z-20">
         <ChatBox></ChatBox>;
       </div>
       <div className="fixed bottom-0 right-0 w-full z-10">

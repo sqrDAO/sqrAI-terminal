@@ -58,7 +58,7 @@ const Overview = () => {
       </div>
       <div className="h-fit flex-col justify-start items-start gap-8 inline-flex">
         {!isConnected && (
-          <div className="self-stretch h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex w-[936px]">
+          <div className="self-stretch h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex w-full md:w-[936px]">
             <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
               <Input
                 value={githubLink}
@@ -105,13 +105,13 @@ const Overview = () => {
                 </div>
               </div>
               <div className="self-stretch h-[196px] flex-col justify-start items-start flex">
-                <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-4 gap-2.5">
+                <div className="w-full md:w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-4 gap-2.5">
                   <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Commits</div>
                   <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Detail</div>
                   <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Status</div>
                   <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Push time</div>
                 </div>
-                <div className="w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5">
+                <div className="w-full md:w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5">
                   <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">mess</div>
                   <div className="text-[#c5ff53] text-sm font-semibold font-bricolage leading-tight">8cd2380</div>
                   <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Status</div>

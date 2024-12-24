@@ -60,7 +60,7 @@ const Overview = () => {
           <Image src={"/imgs/tech-learn.png"} alt={""} width={110} height={110}></Image>
         </div>
       </div>
-      <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-8 flex w-[936px] mx-auto">
+      <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-8 flex w-full md:w-[936px] mx-auto">
         <div className="self-stretch h-fit flex-col justify-start items-start gap-8 flex">
           <div className="self-stretch h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex">
             <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
@@ -78,7 +78,7 @@ const Overview = () => {
               </Button>
             </div>
             <div className="self-stretch h-fit flex-col justify-start items-start flex">
-              <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-12 gap-2.5">
+              <div className="w-full md:w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-12 gap-2.5">
               <div className="col-span-4 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Name</div>
               <div className="col-span-5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Link</div>
               <div className="col-span-2 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
@@ -86,7 +86,7 @@ const Overview = () => {
               </div>
               {githubLinks.map((link: any, index: number) => {
               return (
-                <div key={index} className="w-[936px] px-5 py-4 grid grid-cols-12 gap-2.5 items-center">
+                <div key={index} className="w-full md:w-[936px] px-5 py-4 grid grid-cols-12 gap-2.5 items-center">
                 <div className="col-span-4 text-[#999999] text-sm font-semibold font-bricolage leading-tight">json-data</div>
                 <div className="col-span-5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.githubLink}</div>
                 <div className="col-span-2 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
