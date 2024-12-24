@@ -112,9 +112,9 @@ const ListAgents: React.FC = () => {
                 chat={true}
               />
             </Link>
-            <AgentCard name="MKT" code="mkt-01" edited="Comming soon..." imgSrc="/imgs/agents/agents-2.svg" borderColor="border-[#dcff9f]" />
-            <AgentCard name="CM" code="cm-c321" edited="Comming soon..." imgSrc="/imgs/agents/agents-3.svg" borderColor="border-[#dcff9f]" />
-            <AgentCard name="BD" code="bd-6789" edited="Comming soon..." imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" />
+            <AgentCard name="MKT" code="mkt-01" edited="coming soon..." imgSrc="/imgs/agents/agents-2.svg" borderColor="border-[#dcff9f]" />
+            <AgentCard name="CM" code="cm-c321" edited="coming soon..." imgSrc="/imgs/agents/agents-3.svg" borderColor="border-[#dcff9f]" />
+            <AgentCard name="BD" code="bd-6789" edited="coming soon..." imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" />
             {agents
               ?.filter((x) => x?.name?.toLowerCase() !== "beta")
               .map((agent: { name: string }, index: number) => {
