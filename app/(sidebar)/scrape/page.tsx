@@ -109,20 +109,28 @@ const Overview = () => {
     checkScrapeStatus(item);
   };
 
-  if (typeof window !== "undefined") {
-    const eventSource = new EventSource("https://scraper.sqrfund.ai/logs");
+  useEffect(() => {
     const logsDiv = document.getElementById("logs");
+    const eventSource = new EventSource("https://scraper.sqrfund.ai/logs");
 
+    // Handle incoming messages
     eventSource.onmessage = (event) => {
       if (logsDiv) {
         logsDiv.textContent += event.data + "\n";
       }
     };
 
+    // Handle errors
     eventSource.onerror = () => {
-      console.log("Error connecting to the server");
+      console.error("Error connecting to the server");
+      eventSource.close(); // Optionally close the connection
     };
-  }
+
+    // Clean up on unmount
+    return () => {
+      eventSource.close();
+    };
+  }, []);
 
   return (
     <div className=" h-[calc(100vh_-77px)] overflow-auto w-full px-6 pt-6 flex-col justify-start items-center inline-flex">
@@ -216,7 +224,10 @@ const Overview = () => {
             </div>
           </div>
         </div>
-        <div className="self-stretch max-h-[400px] overflow-y-auto break-words whitespace-pre-wrap h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex w-[936px] text-white" id="logs"></div>
+        <div
+          className="self-stretch max-h-[400px] overflow-y-auto break-words whitespace-pre-wrap h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex w-[936px] text-white"
+          id="logs"
+        ></div>
       </div>
     </div>
   );
