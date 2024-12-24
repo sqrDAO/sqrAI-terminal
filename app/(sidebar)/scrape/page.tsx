@@ -51,7 +51,7 @@ const Overview = () => {
           await updateCharacter(sample?.character);
         }
       }
-    }, 5000);
+    }, 20000);
   };
 
   useEffect(() => {
@@ -108,6 +108,21 @@ const Overview = () => {
     scrapeTwitter(item?.scrapeLink);
     checkScrapeStatus(item);
   };
+
+  if (typeof window !== "undefined") {
+    const eventSource = new EventSource("https://scraper.sqrfund.ai/logs");
+    const logsDiv = document.getElementById("logs");
+
+    eventSource.onmessage = (event) => {
+      if (logsDiv) {
+        logsDiv.textContent += event.data + "\n";
+      }
+    };
+
+    eventSource.onerror = () => {
+      console.log("Error connecting to the server");
+    };
+  }
 
   return (
     <div className=" h-[calc(100vh_-77px)] overflow-auto w-full px-6 pt-6 flex-col justify-start items-center inline-flex">
@@ -201,6 +216,7 @@ const Overview = () => {
             </div>
           </div>
         </div>
+        <div className="self-stretch max-h-[400px] overflow-y-auto break-words whitespace-pre-wrap h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex w-[936px] text-white" id="logs"></div>
       </div>
     </div>
   );
