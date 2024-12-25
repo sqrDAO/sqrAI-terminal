@@ -76,6 +76,19 @@ const Overview = () => {
         ]);
       };
       reader.readAsText(file);
+    } else {
+      const droppedData = event.dataTransfer.getData("text/plain");
+      setKnowledgeLinks((prev) => [
+        ...prev,
+        {
+          knowledgeLink: droppedData,
+          addedAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          name: '',
+          size: '',
+          type: 'Link',
+        },
+      ]);
     }
   };
 
@@ -115,6 +128,9 @@ const Overview = () => {
           </div>
           <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
             <Input
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
               value={knowledgeLink}
               onChange={(e) => {
                 setKnowledgeLink(e?.target?.value);
