@@ -3,21 +3,32 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Overview = () => {
   const searchParams = useSearchParams();
   const agentName = searchParams.get("agent");
-  const agents = JSON.parse(localStorage.getItem("agents") || "[]");
-  const selectedAgent = JSON.parse(localStorage.getItem("selectedAgent") || "{}");
-  const agent = agents?.find((a: { name: string }) => a?.name === agentName || a?.name === selectedAgent?.name);
+
+  const [agents, setAgents] = useState<{ name: string }[]>([]);
+  const [selectedAgent, setSelectedAgent] = useState<{ name: string } | null>(null);
+  const [agent, setAgent] = useState<{ name: string } | null>(null);
 
   useEffect(() => {
-    if (selectedAgent?.name !== agentName && agents?.length > 0 && agentName) {
-      const item = agents?.find((a: { name: string }) => a?.name === agentName);
+    const storedAgents = JSON.parse(localStorage.getItem("agents") || "[]");
+    const storedSelectedAgent = JSON.parse(localStorage.getItem("selectedAgent") || "{}");
+    setAgents(storedAgents);
+    setSelectedAgent(storedSelectedAgent);
+    const foundAgent = storedAgents.find((a: { name: string }) => a?.name === agentName || a?.name === storedSelectedAgent?.name);
+    setAgent(foundAgent);
+  }, [agentName]);
+
+  useEffect(() => {
+    if (selectedAgent?.name !== agentName && agents.length > 0 && agentName) {
+      const item = agents.find((a: { name: string }) => a?.name === agentName);
       localStorage.setItem("selectedAgent", JSON.stringify(item));
+      setSelectedAgent(item);
     }
-  }, [agents, agentName]);
+  }, [agents, agentName, selectedAgent]);
 
   return (
     <div className="w-full mx-6 pt-6 flex-col justify-start items-center inline-flex relative h-[calc(100vh_-_77px)] overflow-auto">
