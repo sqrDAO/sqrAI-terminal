@@ -53,9 +53,19 @@ const Sidebar = () => {
                   <SelectValue placeholder="Select a agent" />
                 </SelectTrigger>
                 <SelectContent>
+                  <div className="flex flex-col">
+                    <Link href={"/agents"} className="font-bricolage text-base px-[14px] py-3">
+                      See all agents
+                    </Link>
+                    <Link href={"/create-agent"} className="font-bricolage text-base px-[14px] py-3">
+                      Create a agent
+                    </Link>
+                  </div>
+                  <div className="w-full border-t border-t-[#333333]  my-[2px]"></div>
+                  <div className="font-bricolage text-sm text-[#999999] px-[14px] py-3">Your agents</div>
                   {agentList?.map((item, index) => {
                     return (
-                      <SelectItem key={index} value={item?.name}>
+                      <SelectItem className="font-bricolage text-base px-[14px] py-3" key={index} value={item?.name}>
                         <div className="flex gap-3">{item?.name}</div>
                       </SelectItem>
                     );
