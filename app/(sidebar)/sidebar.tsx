@@ -154,7 +154,7 @@ const Sidebar = () => {
                   Auto social post <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
                 </div>
               </Link>
-              <Link
+              {/* <Link
                 href={"/chat"}
                 className={`self-stretch px-3.5 py-3 justify-center items-center gap-3 inline-flex ${pathName === "/chat" ? "bg-[#A4FB0E] text-black" : "bg-transparent text-white"}`}
                 onClick={() => setIsSidebarVisible(false)}
@@ -168,7 +168,7 @@ const Sidebar = () => {
                   />
                 </svg>
                 <div className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug `}>Chat bot</div>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

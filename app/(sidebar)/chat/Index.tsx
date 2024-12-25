@@ -5,7 +5,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useEffect } from "react";
 import Image from "next/image";
 
-const ListAgents: React.FC = () => {
+const AiChat: React.FC = () => {
   const { setSessionId, setSessionContent } = useSQRAI();
   const { connected, publicKey } = useWallet();
   useEffect(() => {
@@ -21,22 +21,7 @@ const ListAgents: React.FC = () => {
       setSessionContent([]);
     }
   }, [connected]);
-  return (
-    <div className="w-full h-full border-t border-[#dcff9f]">
-      <div className="w-full md:w-[1280px] mx-auto h-[calc(100vh_-_124px)] mt-10 relative z-20">
-        <ChatBox></ChatBox>;
-      </div>
-      <div className="fixed bottom-0 right-0 w-full z-10">
-        <Image
-          src="/imgs/bg-home.svg"
-          alt=""
-          className="object-cover w-full"
-          width={2560}
-          height={615}
-        />
-      </div>
-    </div>
-  );
+  return <ChatBox></ChatBox>;
 };
 
-export default ListAgents;
+export default AiChat;
