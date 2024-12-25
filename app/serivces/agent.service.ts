@@ -1,7 +1,7 @@
 import axios from "axios";
 import dayjs from "dayjs";
 
-const apiUrl = "https://scraper.sqrfund.ai";
+const apiUrl = "https://scraper-feat.sqrfund.ai";
 
 export async function addScrapeLink(scrapeLink: string): Promise<any> {
   try {
@@ -39,7 +39,7 @@ export async function getScrapeByUsername(username: string): Promise<any> {
 
 export async function getSampleAgent(): Promise<any> {
   try {
-    const response = await axios.get(`https://sqrai.sqrfund.ai/agents/d1b9e94b-4448-02cc-bb43-4c2ba12fa15c`);
+    const response = await axios.get(`https://sqrai-feat.sqrfund.ai/agents/d1b9e94b-4448-02cc-bb43-4c2ba12fa15c`);
     return response?.data;
   } catch (error) {
     console.error("Error adding scrape link:", error);
@@ -49,10 +49,20 @@ export async function getSampleAgent(): Promise<any> {
 
 export async function updateCharacter(data: any): Promise<any> {
   try {
-    const response = await axios.post(`https://sqrai.sqrfund.ai/agents`, data);
+    const response = await axios.post(`https://sqrai-feat.sqrfund.ai/agents`, data);
     return response?.data;
   } catch (error) {
     console.error("Error scraping Twitter:", error);
+    throw error;
+  }
+}
+
+export async function getScrapeProgress(taskId: string): Promise<any> {
+  try {
+    const response = await axios.get(`${apiUrl}/api/task-progress/${taskId}`);
+    return response?.data;
+  } catch (error) {
+    console.error("Error:", error);
     throw error;
   }
 }
