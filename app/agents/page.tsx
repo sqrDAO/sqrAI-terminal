@@ -22,11 +22,11 @@ const AgentCard: React.FC<{
       <div className="flex-col justify-start items-start flex">
         <div className="text-center text-[#a4fb0e] text-xl font-semibold font-bricolage leading-[27px]">{name}</div>
         <div className="text-center text-[#999999] text-sm font-normal font-bricolage leading-tight">{code}</div>
-        {chat && (
+        {/* {chat && (
           <Link href={chat ? `/chat` : "#"} className="px-2 bg-[#a4fb0e] justify-center items-center inline-flex overflow-hidden mt-2">
             <div className="text-center text-black text-sm font-semibold font-chakra leading-relaxed">Chat now</div>
           </Link>
-        )}
+        )} */}
       </div>
       <div className="self-stretch justify-between items-center inline-flex">
         <Image width={80} height={90} alt="" className="w-10 h-10 rounded-full border border-black" src={imgSrc} />
