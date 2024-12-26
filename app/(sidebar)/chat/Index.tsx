@@ -8,6 +8,7 @@ import Image from "next/image";
 const AiChat: React.FC = () => {
   const { setSessionId, setSessionContent } = useSQRAI();
   const { connected, publicKey } = useWallet();
+  
   useEffect(() => {
     if (connected) {
       if (publicKey) {

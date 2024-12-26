@@ -1,6 +1,8 @@
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
+import { useEvent } from "@/app/context/ChatContext";
 
 type Props = {
   isLoading: boolean;
@@ -10,6 +12,13 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
   const { publicKey } = useWallet();
   const { setDataChat } = useSQRAI();
   const [value, setValue] = useState<string>("");
+  const { event } = useEvent(); // event from chat context
+
+  // useEffect to set value when event from chat context change
+  useEffect(() => {
+    setValue(`connect to github with this link ${event}`);
+  }, [event]);
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       if (isLoading) return;
@@ -25,9 +34,7 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
   return (
     <div className={`w-full transition-all border-t border-[#a4fb0e]`}>
       <div className="bg-black w-full flex items-center overflow-hidden pl-11 py-3 relative">
-        <div className="text-[#a4fb0e] text-sm font-medium font-bricolage leading-[27px] flex absolute left-5 top-2">
-          &gt;_
-        </div>
+        <div className="text-[#a4fb0e] text-sm font-medium font-bricolage leading-[27px] flex absolute left-5 top-2">&gt;_</div>
         <textarea
           placeholder="Ask follow-up"
           disabled={isLoading}

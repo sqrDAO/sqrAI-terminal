@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Image from "next/image";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import { useEvent } from "@/app/context/ChatContext";
 
 const Overview = () => {
   const [githubLink, setGithubLink] = useState("");
@@ -14,6 +15,8 @@ const Overview = () => {
   const handleSelectChange = (value: string) => {
     setRowPerPage(value);
   };
+
+  const { setEvent } = useEvent();
 
   const agentList = JSON.parse(localStorage.getItem("agents"));
 
@@ -50,7 +53,9 @@ const Overview = () => {
       <div className="self-stretch h-32 pb-16 flex-col justify-start items-start gap-4 flex">
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
-            <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">Push to github repo <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span></div>
+            <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
+              Push to github repo <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
+            </div>
             <div className="self-stretch text-[#999999] text-sm font-medium font-bricolage leading-tight">Drop your project’s Github repo here so</div>
           </div>
           <Image src={"/imgs/github.png"} alt={""} width={110} height={110}></Image>
@@ -76,6 +81,8 @@ const Overview = () => {
                     return;
                   }
 
+                  setEvent(githubLink);
+
                   setIsConnected(true);
                 }}
               >
@@ -92,7 +99,7 @@ const Overview = () => {
                   <div className="justify-start items-center gap-4 flex">
                     <Image src={"/icons/repo.svg"} alt={""} width={22} height={22}></Image>
                     <div className="text-center text-white text-sm font-medium font-bricolage leading-tight">repo-name</div>
-                    <div className="text-center text-[#c5ff53] text-sm font-medium font-bricolage leading-tight">https://github.com/nicbarker/clay.git</div>
+                    <div className="text-center text-[#c5ff53] text-sm font-medium font-bricolage leading-tight">{githubLink}</div>
                   </div>
                   <div className="justify-start items-center gap-6 flex">
                     <div className="w-[120px] h-[34px] px-2 py-1 bg-[#a4fb0e] justify-center items-center flex overflow-hidden">
