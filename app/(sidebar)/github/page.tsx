@@ -6,7 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import Image from "next/image";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { useEvent } from "@/app/context/ChatContext";
+import { useSQRAI } from "@/app/provider/sqrai.provider";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const Overview = () => {
   const [githubLink, setGithubLink] = useState("");
@@ -16,7 +17,9 @@ const Overview = () => {
     setRowPerPage(value);
   };
 
-  const { setEvent } = useEvent();
+  const { publicKey } = useWallet();
+
+  const { setDataChat } = useSQRAI();
 
   const agentList = JSON.parse(localStorage.getItem("agents"));
 
@@ -81,7 +84,12 @@ const Overview = () => {
                     return;
                   }
 
-                  setEvent(githubLink);
+                  const dataChat = {
+                    from: publicKey?.toString() ?? "user",
+                    value: `Connect to github repo: ${githubLink}`,
+                  };
+
+                  setDataChat(dataChat);
 
                   setIsConnected(true);
                 }}

@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
-import { useEvent } from "@/app/context/ChatContext";
 
 type Props = {
   isLoading: boolean;
@@ -12,12 +11,6 @@ const InputGroup: React.FC<Props> = ({ isLoading }) => {
   const { publicKey } = useWallet();
   const { setDataChat } = useSQRAI();
   const [value, setValue] = useState<string>("");
-  const { event } = useEvent(); // event from chat context
-
-  // useEffect to set value when event from chat context change
-  useEffect(() => {
-    setValue(`connect to github with this link ${event}`);
-  }, [event]);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
