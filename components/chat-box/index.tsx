@@ -93,34 +93,35 @@ const ChatBox = () => {
   }, [publicKey?.toString()]);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-_170px)] max-h-screen w-full border border-[#a4fb0e] bg-black">
+    <div className="flex flex-col h-full w-full border-l border-[#a4fb0e] bg-black">
       <div className="grow overflow-auto transition-all p-5">
         {sessionContent.map((item, index) => (
           <>
             {item.from !== "bot" && (
               <div key={index}>
-                <div className="flex flex-col items-end gap-4 mb-4">
-                  <div className="flex gap-1 p-1 border border-[#a4fb0e] overflow-hidden">
-                    <img
+                <div className="flex flex-col items-start gap-0 mb-4">
+                  {/* <div className="flex gap-1 p-1 border border-[#a4fb0e] overflow-hidden"> */}
+                  {/* <img
                       className="w-6 h-6 rounded-full"
                       src={avatar}
                       alt={publicKey?.toString()}
-                    />
-                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                      <span className="text-sm font-semibold text-yellow-300 font-bricolage">
-                        {publicKey
+                    /> */}
+                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                    <div className="text-sm font-bold text-[#a4fb0e] font-bricolage flex">
+                      {/* {publicKey
                           ? ` ..${publicKey
                               ?.toString()
                               ?.substring(
                                 publicKey?.toString().length - 6,
                                 publicKey?.toString().length
                               )}`
-                          : "User"}
-                      </span>
+                          : "User"} */}
+                      &gt;_ You
                     </div>
                   </div>
+                  {/* </div> */}
                   <div className="flex flex-col">
-                    <div className="text-md font-normal break-all text-white font-chakra">
+                    <div className="text-sm font-normal break-all text-[#a4fb0e] font-chakra">
                       <span style={{ whiteSpace: "pre-line" }}>
                         {item.value}
                       </span>
@@ -132,8 +133,8 @@ const ChatBox = () => {
             )}
             {item.from == "bot" && (
               <div key={index}>
-                <div className="flex flex-col items-start gap-2 mb-4 ">
-                  <div className="flex gap-2 items-center justify-center p-1 border border-[#a4fb0e] overflow-hidden">
+                <div className="flex flex-col items-start gap-0 mb-4 ">
+                  {/* <div className="flex gap-2 items-center justify-center p-1 border border-[#a4fb0e] overflow-hidden"> */}
                     {/* <Image
                       src={"/imgs/sqr-logo.svg"}
                       className=""
@@ -142,13 +143,13 @@ const ChatBox = () => {
                       height={30}
                     ></Image> */}
                     <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                      <span className="text-sm font-semibold text-[#a4fb0e] font-bricolage">
-                        B-a3cs4
+                      <span className="text-sm font-bold text-white font-bricolage">
+                      &gt;_  beta
                       </span>
                     </div>
-                  </div>
+                  {/* </div> */}
                   <div className="flex flex-col">
-                    <div className="text-md font-normal break-all text-[#a4fb0e]">
+                    <div className="text-sm font-normal break-all text-white">
                       <ReactMarkdown>{item.value}</ReactMarkdown>
                     </div>
                   </div>

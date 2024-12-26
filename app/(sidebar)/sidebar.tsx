@@ -53,9 +53,19 @@ const Sidebar = () => {
                   <SelectValue placeholder="Select a agent" />
                 </SelectTrigger>
                 <SelectContent>
+                  <div className="flex flex-col">
+                    <Link href={"/agents"} className="font-bricolage text-base px-[14px] py-3">
+                      See all agents
+                    </Link>
+                    <Link href={"/create-agent"} className="font-bricolage text-base px-[14px] py-3">
+                      Create a agent
+                    </Link>
+                  </div>
+                  <div className="w-full border-t border-t-[#333333]  my-[2px]"></div>
+                  <div className="font-bricolage text-sm text-[#999999] px-[14px] py-3">Your agents</div>
                   {agentList?.map((item, index) => {
                     return (
-                      <SelectItem key={index} value={item?.name}>
+                      <SelectItem className="font-bricolage text-base px-[14px] py-3" key={index} value={item?.name}>
                         <div className="flex gap-3">{item?.name}</div>
                       </SelectItem>
                     );
@@ -154,7 +164,7 @@ const Sidebar = () => {
                   Auto social post <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
                 </div>
               </Link>
-              <Link
+              {/* <Link
                 href={"/chat"}
                 className={`self-stretch px-3.5 py-3 justify-center items-center gap-3 inline-flex ${pathName === "/chat" ? "bg-[#A4FB0E] text-black" : "bg-transparent text-white"}`}
                 onClick={() => setIsSidebarVisible(false)}
@@ -168,7 +178,7 @@ const Sidebar = () => {
                   />
                 </svg>
                 <div className={`grow shrink basis-0 text-base font-medium font-bricolage leading-snug `}>Chat bot</div>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

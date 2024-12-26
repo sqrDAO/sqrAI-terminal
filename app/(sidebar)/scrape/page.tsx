@@ -1,6 +1,6 @@
 "use client";
 import LoadingSpinner from "@/app/components/loading-spinner";
-import { getSampleAgent, getScrapeByUsername, scrapeTwitter, updateCharacter } from "@/app/serivces/agent.service";
+import { getSampleAgent, getScrapeByUsername, getScrapeProgress, scrapeTwitter, updateCharacter } from "@/app/serivces/agent.service";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -18,63 +18,111 @@ const Overview = () => {
     setRowPerPage(value);
   };
 
-  // const { data: scrapeList, isLoading, error } = useScrapeList();
+  const [agentList, setAgentList] = useState([]);
+  const [selectedAgent, setSelectedAgent] = useState(null);
 
-  const agentList = JSON.parse(localStorage.getItem("agents"));
+  useEffect(() => {
+    const logsDiv = document.getElementById("logs");
+    const scrapeApiUrl = process.env.NEXT_PUBLIC_SCRAPE_API;
+    const eventSource = new EventSource(`${scrapeApiUrl}/logs`);
 
-  const selectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
+    // Handle incoming messages
+    eventSource.onmessage = (event) => {
+      if (logsDiv) {
+        logsDiv.textContent += event.data + "\n";
+      }
+    };
 
-  const [scrapeLinks, setScrapeLinks] = useState(JSON.parse(localStorage.getItem("selectedAgent"))?.scrapeLinks || []);
+    // Handle errors
+    eventSource.onerror = () => {
+      console.error("Error connecting to the server");
+      eventSource.close(); // Optionally close the connection
+    };
+
+    // Clean up on unmount
+    return () => {
+      eventSource.close();
+    };
+  }, []);
+
+  useEffect(() => {
+    const agents = JSON.parse(localStorage.getItem("agents")) || [];
+    const selected = JSON.parse(localStorage.getItem("selectedAgent")) || null;
+    setAgentList(agents);
+    setSelectedAgent(selected);
+  }, []);
+
+  const [scrapeLinks, setScrapeLinks] = useState([]);
 
   const checkScrapeStatus = async (item) => {
     const intervalId = setInterval(async () => {
-      const result = await getScrapeByUsername(item?.scrapeLink);
-      if (result) {
+      const result = await getScrapeProgress(item?.taskId);
+      item.taskProgress = result?.progress;
+      item.status = "in-progress";
+      if (result?.progress === 100) {
         clearInterval(intervalId);
+
+        const characterRes = await getScrapeByUsername(item?.scrapeLink);
         item.status = "success";
 
+        // update local storage
         const updatedAgent = {
           ...selectedAgent,
-          scrapeLinks: scrapeLinks.map((link) => (link.scrapeLink === item.scrapeLink ? item : link)),
+          scrapeLinks: scrapeLinks?.map((link) => (link.scrapeLink === item.scrapeLink ? item : link)),
         };
         const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent.name ? updatedAgent : agent));
 
         localStorage.setItem("agents", JSON.stringify(updatedAgentList));
         localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
+
         setScrapeLinks(scrapeLinks?.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)));
 
-        const sample = await getSampleAgent();
-        if (sample?.character && result?.characterData) {
-          sample.character.knowledge = [...sample?.character?.knowledge, ...result?.characterData.knowledge];
-          sample.character.messageExamples = [...sample?.character?.messageExamples, ...result?.characterData.messageExamples];
+        // const sample = await getSampleAgent();
+        // if (sample?.character && characterRes?.characterData) {
+        //   sample.character.knowledge = [...sample?.character?.knowledge, ...characterRes?.characterData.knowledge];
+        //   sample.character.messageExamples = [...sample?.character?.messageExamples, ...characterRes?.characterData.messageExamples];
 
-          await updateCharacter(sample?.character);
-        }
+        //   await updateCharacter(sample?.character);
+        // }
+      } else {
+        // update local storage
+        const updatedAgent = {
+          ...selectedAgent,
+          scrapeLinks: scrapeLinks?.map((link) => (link.scrapeLink === item.scrapeLink ? { ...item, taskProgress: result?.progress } : link)),
+        };
+        const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent.name ? updatedAgent : agent));
+
+        localStorage.setItem("agents", JSON.stringify(updatedAgentList));
+        localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
+
+        setScrapeLinks(scrapeLinks?.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)));
       }
-    }, 20000);
+    }, 10000);
   };
 
   useEffect(() => {
-    const updatedAgent = {
-      ...selectedAgent,
-      scrapeLinks: scrapeLinks,
-    };
+    if (agentList?.length > 0) {
+      const updatedAgent = {
+        ...selectedAgent,
+        scrapeLinks: scrapeLinks,
+      };
 
-    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
+      const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
 
-    setScrapeLink("");
-
-    localStorage.setItem("agents", JSON.stringify(updatedAgentList));
-    localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
-  }, [scrapeLinks]);
+      localStorage.setItem("agents", JSON.stringify(updatedAgentList));
+      localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
+    }
+  }, [agentList, scrapeLinks]);
 
   useEffect(() => {
     if (selectedAgent) {
       selectedAgent?.scrapeLinks?.forEach((item) => {
-        if (item?.status === "pending") {
+        if (item?.status === "pending" || item?.status === "in-progress") {
           checkScrapeStatus(item);
         }
       });
+
+      setScrapeLinks(selectedAgent.scrapeLinks || []);
     }
   }, [selectedAgent]);
 
@@ -96,41 +144,22 @@ const Overview = () => {
   const scrape = async (item: any) => {
     item.status = "pending";
 
+    setScrapeLinks(scrapeLinks?.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)));
+
+    const scrapeRes = await scrapeTwitter(item?.scrapeLink);
+    item.taskId = scrapeRes?.taskId;
+
     const updatedAgent = {
       ...selectedAgent,
-      scrapeLinks: scrapeLinks.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)),
+      scrapeLinks: scrapeLinks?.map((link) => (link?.scrapeLink === item?.scrapeLink ? { ...link, taskId: item.taskId } : link)),
     };
     const updatedAgentList = agentList.map((agent) => (agent.name === selectedAgent?.name ? updatedAgent : agent));
 
     localStorage.setItem("agents", JSON.stringify(updatedAgentList));
     localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
-    setScrapeLinks(scrapeLinks.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)));
-    scrapeTwitter(item?.scrapeLink);
+
     checkScrapeStatus(item);
   };
-
-  useEffect(() => {
-    const logsDiv = document.getElementById("logs");
-    const eventSource = new EventSource("https://scraper.sqrfund.ai/logs");
-
-    // Handle incoming messages
-    eventSource.onmessage = (event) => {
-      if (logsDiv) {
-        logsDiv.textContent += event.data + "\n";
-      }
-    };
-
-    // Handle errors
-    eventSource.onerror = () => {
-      console.error("Error connecting to the server");
-      eventSource.close(); // Optionally close the connection
-    };
-
-    // Clean up on unmount
-    return () => {
-      eventSource.close();
-    };
-  }, []);
 
   return (
     <div className=" h-[calc(100vh_-77px)] overflow-auto w-full px-6 pt-6 flex-col justify-start items-center inline-flex">
@@ -166,7 +195,7 @@ const Overview = () => {
               <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Last update</div>
               <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight text-right"></div>
             </div>
-            {scrapeLinks.map((link, index) => {
+            {scrapeLinks?.map((link, index) => {
               return (
                 <div key={index} className="w-full md:w-[936px] px-5 py-4 border-b border-[#444444] grid grid-cols-4 gap-2.5 items-center">
                   <div className="col-span-1 flex items-center gap-2.5">
@@ -178,9 +207,15 @@ const Overview = () => {
                   <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
                   <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.updatedAt).format("MMM DD, YYYY")}</div>
                   <div className="col-span-1 flex justify-end items-center gap-2.5">
-                    <Button variant="outline" className="text-[#A4FB0E] min-w-[85px]" onClick={() => scrape(link)}>
-                      {link?.status === "pending" ? <LoadingSpinner></LoadingSpinner> : "Scrape"}
-                    </Button>
+                    {link?.status === "in-progress" ? (
+                      <Button variant="outline" className="text-[#A4FB0E] min-w-[85px]" onClick={() => scrape(link)}>
+                        {link?.taskProgress < 100 ? link?.taskProgress + "%" : "Scrape"}
+                      </Button>
+                    ) : (
+                      <Button variant="outline" className="text-[#A4FB0E] min-w-[85px]" onClick={() => scrape(link)}>
+                        {link?.status === "pending" ? <LoadingSpinner /> : "Scrape"}
+                      </Button>
+                    )}
                     <Popover>
                       <PopoverTrigger>
                         <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
