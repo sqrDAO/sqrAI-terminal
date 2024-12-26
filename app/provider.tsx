@@ -15,6 +15,8 @@ import {
 import { clusterApiUrl } from "@solana/web3.js";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { SQRAIProvider } from "./provider/sqrai.provider";
+import "@solana/wallet-adapter-react-ui/styles.css";
+import { SessionProvider } from "next-auth/react";
 
 export default function Providers({ children }) {
   const queryClient = new QueryClient();
@@ -39,12 +41,14 @@ export default function Providers({ children }) {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletModalProvider>
-            <SQRAIProvider>
-              <Navbar />
-              <Suspense fallback={<div>Loading data...</div>}>
-                {children}
-              </Suspense>
-            </SQRAIProvider>
+            <SessionProvider>
+              <SQRAIProvider>
+                <Navbar />
+                <Suspense fallback={<div>Loading data...</div>}>
+                  {children}
+                </Suspense>
+              </SQRAIProvider>
+            </SessionProvider>
           </WalletModalProvider>
         </WalletProvider>
       </ConnectionProvider>

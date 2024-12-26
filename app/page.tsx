@@ -1,21 +1,17 @@
 "use client";
+import ConnectWallet from "@/components/ConnectWallet";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-  const { connected, publicKey } = useWallet();
-  const buttonStyle = {
-    background: "#a4fb0e",
-    color: "#000000",
-    padding: "4px 20px",
-    borderRadius: "0px",
-    border: "0px solid transparent",
-    fontFamily: "var(--font-chakra)",
-    fontSize: "18px",
-    height: "42px",
-  };
+  const { connected } = useWallet();
+  const { data: session } = useSession();
+  console.log(session);
+  if (!session) {
+    return <p>Bạn cần đăng nhập để truy cập trang này.</p>;
+  }
   return (
     <div className="bg-black flex-col justify-start items-start inline-flex overflow-hidden w-full">
       <div className="self-stretch grow shrink basis-0 px-6 pt-4 flex-col justify-start items-center flex">
@@ -41,7 +37,7 @@ export default function Home() {
               </div>
             </Link>
           ) : (
-            <WalletMultiButton style={buttonStyle} />
+            <ConnectWallet></ConnectWallet>
           )}
         </div>
         <div className="fixed bottom-0 right-0 w-full z-10">
