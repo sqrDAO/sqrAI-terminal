@@ -23,7 +23,8 @@ const Overview = () => {
 
   useEffect(() => {
     const logsDiv = document.getElementById("logs");
-    const eventSource = new EventSource("https://scraper-feat.sqrfund.ai/logs");
+    const scrapeApiUrl = process.env.NEXT_PUBLIC_SCRAPE_API;
+    const eventSource = new EventSource(`${scrapeApiUrl}/logs`);
 
     // Handle incoming messages
     eventSource.onmessage = (event) => {
@@ -76,13 +77,13 @@ const Overview = () => {
 
         setScrapeLinks(scrapeLinks?.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)));
 
-        const sample = await getSampleAgent();
-        if (sample?.character && characterRes?.characterData) {
-          sample.character.knowledge = [...sample?.character?.knowledge, ...characterRes?.characterData.knowledge];
-          sample.character.messageExamples = [...sample?.character?.messageExamples, ...characterRes?.characterData.messageExamples];
+        // const sample = await getSampleAgent();
+        // if (sample?.character && characterRes?.characterData) {
+        //   sample.character.knowledge = [...sample?.character?.knowledge, ...characterRes?.characterData.knowledge];
+        //   sample.character.messageExamples = [...sample?.character?.messageExamples, ...characterRes?.characterData.messageExamples];
 
-          await updateCharacter(sample?.character);
-        }
+        //   await updateCharacter(sample?.character);
+        // }
       } else {
         // update local storage
         const updatedAgent = {
