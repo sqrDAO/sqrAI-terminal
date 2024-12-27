@@ -34,7 +34,7 @@ export const authOptions = {
 
                     return null;
                 } catch (error) {
-                    console.error("Lỗi xác thực:", error);
+                    console.error("Authentication error:", error);
                     return null;
                 }
             },
@@ -42,11 +42,11 @@ export const authOptions = {
     ],
     secret: process.env.NEXTAUTH_SECRET,
     session: {
-        strategy: "jwt", // Hoặc "database" nếu dùng cơ sở dữ liệu
+        strategy: "jwt",
     },
     callbacks: {
         async session({ session, token }) {
-            session.user = token.user; // Thêm thông tin user vào session
+            session.user = token.user;
             return session;
         },
         async jwt({ token, user }) {
@@ -55,10 +55,15 @@ export const authOptions = {
             }
             return token;
         },
+
+        async signOut({ token, session }) {
+            console.log("User is logging out:", session?.user?.email);
+            return true;
+        },
     },
 };
 
-// Cấu hình các phương thức HTTP
+
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

@@ -32,7 +32,6 @@ const ChatBox = () => {
     try {
       setLoading(true);
       const res = await BotReply({ message: message, sessionId: sessionId });
-
       if (!res || res.length === 0) {
         const reply: IChat = {
           from: "bot",

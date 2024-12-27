@@ -1,9 +1,12 @@
 "use client";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import bs58 from "bs58";
-import { useEffect } from "react";
-import { signIn } from "next-auth/react";
+// import bs58 from "bs58";
+import { useEffect, useState } from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { notification } from "antd";
+import { Button } from "./ui/button";
+import Router from "next/router";
 
 const ConnectWallet = () => {
   const buttonStyle = {
@@ -16,16 +19,15 @@ const ConnectWallet = () => {
     fontSize: "18px",
     height: "42px",
   };
-  const { publicKey, signMessage, connected } = useWallet();
-
+  const { publicKey, signMessage, connected, disconnect } = useWallet();
+  const { data: session } = useSession();
   const handleSignIn = async () => {
     if (!publicKey || !signMessage) {
-      alert("Vui lòng kết nối ví!");
       return;
     }
 
     try {
-      const message = `Xác thực đăng nhập vào ${new Date().toISOString()}`;
+      const message = `Authenticate login at ${new Date().toISOString()}`;
       const encodedMessage = new TextEncoder().encode(message);
       const signature = await signMessage(encodedMessage);
 
@@ -41,35 +43,75 @@ const ConnectWallet = () => {
       });
 
       if (result?.error) {
-        alert(`Lỗi xác thực: ${result.error}`);
+        notification.error({
+          message: "Authentication error",
+          description: result.error,
+        });
       } else {
-        alert("Đăng nhập thành công!");
-        window.location.href = "/";
+        notification.success({
+          message: "Login successful!",
+          description: result.error,
+        });
+        window.location.href = "/agents";
+        Router.push("/agents");
       }
     } catch (error) {
-      console.error("Lỗi khi ký tin nhắn:", error);
+      console.error("Error signing message:", error);
     }
   };
+
+  const handleLogout = () => {
+    signOut({
+      callbackUrl: "/",
+    });
+  };
+
   return (
-    <>
-      <WalletMultiButton style={buttonStyle} />
-      {connected && (
-        <button
-          onClick={handleSignIn}
-          style={{
-            padding: "10px 20px",
-            marginTop: "20px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Đăng nhập
-        </button>
+    <div className="flex flex-row gap-4">
+      {!connected && <WalletMultiButton style={buttonStyle} />}
+
+      {connected && !session && (
+        <Button onClick={handleSignIn}>SIGN IN WITH WALLET</Button>
       )}
-    </>
+      {connected && session && (
+        <>
+          <div className="h-[42px] px-3.5 py-2 border border-[#dcff9f] justify-center items-center inline-flex overflow-hidden">
+            <div className="px-1 justify-center items-center gap-2.5 flex">
+              <div className="text-center text-white text-lg font-semibold font-['Chakra Petch'] leading-relaxed">
+                {`${publicKey?.toString()?.substring(0, 6)} ..${publicKey
+                  ?.toString()
+                  ?.substring(
+                    publicKey?.toString().length - 6,
+                    publicKey?.toString().length
+                  )}`}
+              </div>
+            </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5.83317 6.6665H4.1665V8.33317H5.83317V9.99984H7.49984V11.6665H9.1665V13.3332H10.8332V11.6665H12.4998V9.99984H14.1665V8.33317H15.8332V6.6665H14.1665V8.33317H12.4998V9.99984H10.8332V11.6665H9.1665V9.99984H7.49984V8.33317H5.83317V6.6665Z"
+                fill="white"
+              />
+            </svg>
+          </div>
+          <Button
+            onClick={() => {
+              handleLogout();
+              disconnect();
+            }}
+          >
+            LogOut
+          </Button>
+        </>
+      )}
+    </div>
   );
 };
 
