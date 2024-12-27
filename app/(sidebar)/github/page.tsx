@@ -133,7 +133,7 @@ const Overview = () => {
                   <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Jun 28, 2021</div>
                 </div>
               </div>
-              <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
+              {/* <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
                 <div className="justify-start items-center gap-2.5 flex">
                   <div className="text-[#999999] text-sm font-normal font-bricolage leading-tight">Rows per page:</div>
                   <Select value={rowPerPage} onValueChange={handleSelectChange}>
@@ -154,7 +154,7 @@ const Overview = () => {
                   <Image src={"/icons/arrow-left.svg"} alt={""} width={22} height={22} className="cursor-pointer"></Image>
                   <Image src={"/icons/arrow-right.svg"} alt={""} width={22} height={22} className="cursor-pointer"></Image>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         )}
