@@ -1,6 +1,9 @@
 import { notification } from "antd";
 
-const BotReply = async (params: { message: string; sessionId: string }) => {
+export const BotReply = async (params: {
+  message: string;
+  sessionId: string;
+}) => {
   try {
     const res = await fetch(`/api/message`, {
       method: "POST",
@@ -17,4 +20,16 @@ const BotReply = async (params: { message: string; sessionId: string }) => {
   }
 };
 
-export default BotReply;
+export const BotAutoReply = async (sessionId: string) => {
+  try {
+    console.log("BotAutoReply sessionId", sessionId);
+    const res = await fetch(`/api/messages?sessionId=${sessionId}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+};

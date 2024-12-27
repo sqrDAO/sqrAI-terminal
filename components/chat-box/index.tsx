@@ -5,7 +5,7 @@ import InputGroup from "../input-group";
 import { IChat } from "@/app/types/types";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
-import BotReply from "@/app/serivces/bot-api";
+import { BotAutoReply, BotReply } from "@/app/serivces/bot-api";
 import utils from "@/app/utils";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
@@ -58,6 +58,45 @@ const ChatBox = () => {
       setLoading(false);
     }
   };
+
+  const onBotAutoReply = async () => {
+    try {
+      setLoading(true);
+      const res = await BotAutoReply(publicKey.toString());
+      if (!res || res.length === 0) {
+        const reply: IChat = {
+          from: "bot",
+          value: "Something went wrong, please try again",
+        };
+
+        setSessionContent([...sessionContent, reply]);
+        setLoading(false);
+        return;
+      }
+
+      for (const response of res) {
+        if (response.text) {
+          const reply: IChat = {
+            from: "bot",
+            value: response.text,
+          };
+
+          setSessionContent((prevContent) => [...prevContent, reply]);
+        }
+      }
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      onBotAutoReply();
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -134,18 +173,18 @@ const ChatBox = () => {
               <div key={index}>
                 <div className="flex flex-col items-start gap-0 mb-4 ">
                   {/* <div className="flex gap-2 items-center justify-center p-1 border border-[#a4fb0e] overflow-hidden"> */}
-                    {/* <Image
+                  {/* <Image
                       src={"/imgs/sqr-logo.svg"}
                       className=""
                       alt={""}
                       width={50}
                       height={30}
                     ></Image> */}
-                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                      <span className="text-sm font-bold text-white font-bricolage">
-                      &gt;_  beta
-                      </span>
-                    </div>
+                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                    <span className="text-sm font-bold text-white font-bricolage">
+                      &gt;_ beta
+                    </span>
+                  </div>
                   {/* </div> */}
                   <div className="flex flex-col">
                     <div className="text-sm font-normal break-all text-white">

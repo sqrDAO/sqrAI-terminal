@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/route";
 
-export async function POST(request) {
+export async function GET(request) {
     const session = await getServerSession(authOptions);
 
     if (!session) {
@@ -15,23 +15,18 @@ export async function POST(request) {
     }
 
     try {
-        const { message, sessionId } = await request.json();
-        if (!message || !sessionId) {
+        const { sessionId } = await request.json();
+        if (!sessionId) {
             return new Response(
-                JSON.stringify({ error: "Missing parameters: message and sessionId are required" }),
+                JSON.stringify({ error: "Missing parameters: sessionId are required" }),
                 { status: 400, headers: { "Content-Type": "application/json" } }
             );
         }
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/messages`,
+            `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/messages?roomId=default-room-${process.env.NEXT_PUBLIC_AGENTID}-${sessionId}`,
             {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    text: message,
-                    userId: sessionId || "User",
-                    roomId: `default-room-${process.env.NEXT_PUBLIC_AGENTID}-${sessionId}`,
-                }),
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
             }
         );
         const data = await res.json();
