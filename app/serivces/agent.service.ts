@@ -16,7 +16,7 @@ export async function addScrapeLink(scrapeLink: string): Promise<any> {
 
 export async function scrapeTwitter(username: string): Promise<any> {
   try {
-    const response = await axios.post(`${scrapeApiUrl}/api/characters`, {
+    const response = await axios.post(`/api/scrapeTwitter`, {
       username: username, // twitter username
       date: dayjs().format("YYYY-MM-DD"), // generate character from this date "2024-12-23"
       is_crawl: true, // scrape tweets and blogs
