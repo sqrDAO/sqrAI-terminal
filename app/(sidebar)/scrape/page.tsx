@@ -77,13 +77,13 @@ const Overview = () => {
 
         setScrapeLinks(scrapeLinks?.map((link) => (link?.scrapeLink === item?.scrapeLink ? item : link)));
 
-        // const sample = await getSampleAgent();
-        // if (sample?.character && characterRes?.characterData) {
-        //   sample.character.knowledge = [...sample?.character?.knowledge, ...characterRes?.characterData.knowledge];
-        //   sample.character.messageExamples = [...sample?.character?.messageExamples, ...characterRes?.characterData.messageExamples];
+        const sample = await getSampleAgent();
+        if (sample?.character && characterRes?.characterData) {
+          sample.character.knowledge = [...sample?.character?.knowledge, ...characterRes?.characterData.knowledge];
+          sample.character.messageExamples = [...sample?.character?.messageExamples, ...characterRes?.characterData.messageExamples];
 
-        //   await updateCharacter(sample?.character);
-        // }
+          await updateCharacter(sample?.character);
+        }
       } else {
         // update local storage
         const updatedAgent = {
