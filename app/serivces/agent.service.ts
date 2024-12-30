@@ -67,3 +67,13 @@ export async function getScrapeProgress(taskId: string): Promise<any> {
     throw error;
   }
 }
+
+export async function getAgents(): Promise<any> {
+  try {
+    const response = await axios.get(`/api/getAgents`);
+    return response?.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
