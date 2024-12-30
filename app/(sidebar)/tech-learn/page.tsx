@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 const Overview = () => {
   const [githubLink, setGithubLink] = useState("");
-  const [rowPerPage, setRowPerPage] = useState('50');
+  const [rowPerPage, setRowPerPage] = useState("50");
   const handleSelectChange = (value: string) => {
     setRowPerPage(value);
   };
@@ -54,7 +54,9 @@ const Overview = () => {
       <div className="self-stretch h-32 pb-16 flex-col justify-start items-start gap-4 flex">
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
-            <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">Technical knowledge <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span></div>
+            <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
+              Technical knowledge <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
+            </div>
             <div className="self-stretch text-[#999999] text-sm font-medium font-bricolage leading-tight">Drop your project’s Github repo so the agent can understand how it works</div>
           </div>
           <Image src={"/imgs/tech-learn.png"} alt={""} width={110} height={110}></Image>
@@ -77,41 +79,43 @@ const Overview = () => {
                 Add
               </Button>
             </div>
-            <div className="self-stretch h-fit flex-col justify-start items-start flex">
-              <div className="w-full md:w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-12 gap-2.5">
-              <div className="col-span-4 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Name</div>
-              <div className="col-span-5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Link</div>
-              <div className="col-span-2 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
-              <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight"></div>
-              </div>
-              {githubLinks.map((link: any, index: number) => {
-              return (
-                <div key={index} className="w-full md:w-[936px] px-5 py-4 grid grid-cols-12 gap-2.5 items-center">
-                <div className="col-span-4 text-[#999999] text-sm font-semibold font-bricolage leading-tight">json-data</div>
-                <div className="col-span-5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.githubLink}</div>
-                <div className="col-span-2 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
-                <div className="col-span-1 flex justify-center">
-                  <Popover>
-                  <PopoverTrigger>
-                    <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
-                  </PopoverTrigger>
-                  <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                    <div
-                    className="cursor-pointer text-white text-base font-medium font-bricolage"
-                    onClick={() => {
-                      handleDeleteLink(index);
-                    }}
-                    >
-                    Delete
+            {githubLinks?.length > 0 && (
+              <div className="self-stretch h-fit flex-col justify-start items-start flex">
+                <div className="w-full md:w-[936px] px-5 py-2.5 border-b border-[#444444] grid grid-cols-12 gap-2.5">
+                  <div className="col-span-4 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Name</div>
+                  <div className="col-span-5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Link</div>
+                  <div className="col-span-2 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
+                  <div className="col-span-1 text-[#999999] text-sm font-semibold font-bricolage leading-tight"></div>
+                </div>
+                {githubLinks.map((link: any, index: number) => {
+                  return (
+                    <div key={index} className="w-full md:w-[936px] px-5 py-4 grid grid-cols-12 gap-2.5 items-center">
+                      <div className="col-span-4 text-[#999999] text-sm font-semibold font-bricolage leading-tight">json-data</div>
+                      <div className="col-span-5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.githubLink}</div>
+                      <div className="col-span-2 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
+                      <div className="col-span-1 flex justify-center">
+                        <Popover>
+                          <PopoverTrigger>
+                            <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
+                          </PopoverTrigger>
+                          <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
+                            <div
+                              className="cursor-pointer text-white text-base font-medium font-bricolage"
+                              onClick={() => {
+                                handleDeleteLink(index);
+                              }}
+                            >
+                              Delete
+                            </div>
+                          </PopoverContent>
+                        </Popover>
+                      </div>
                     </div>
-                  </PopoverContent>
-                  </Popover>
-                </div>
-                </div>
-              );
-              })}
-            </div>
-            <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
+                  );
+                })}
+              </div>
+            )}
+            {/* <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
               <div className="justify-start items-center gap-2.5 flex w-1/4">
                 <div className="text-[#999999] text-sm font-normal font-bricolage leading-tight">Rows per page:</div>
                 <Select value={rowPerPage} onValueChange={handleSelectChange}>
@@ -132,7 +136,7 @@ const Overview = () => {
                 <Image src={"/icons/arrow-left.svg"} alt={""} width={22} height={22} className="cursor-pointer"></Image>
                 <Image src={"/icons/arrow-right.svg"} alt={""} width={22} height={22} className="cursor-pointer"></Image>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

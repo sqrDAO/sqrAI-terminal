@@ -84,9 +84,9 @@ const Overview = () => {
           knowledgeLink: droppedData,
           addedAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
-          name: '',
-          size: '',
-          type: 'Link',
+          name: "",
+          size: "",
+          type: "Link",
         },
       ]);
     }
@@ -115,7 +115,7 @@ const Overview = () => {
           <Image src={"/imgs/other.png"} alt={""} width={110} height={110}></Image>
         </div>
       </div>
-      <div className="h-fit flex-col justify-start items-start gap-8 inline-flex">
+      <div className="h-fit flex-col justify-start items-start gap-8 inline-flex w-full md:w-[936px] mx-auto">
         <div className="self-stretch h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex">
           <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex" onDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave}>
             <div className={`grow shrink basis-0 px-4 py-8 border border-[#dcff9f] flex-col justify-center items-center gap-4 inline-flex ${isDragging ? "bg-[#444444]" : ""}`}>
@@ -143,43 +143,45 @@ const Overview = () => {
               Add
             </Button>
           </div>
-          <div className="self-stretch h-fit flex-col justify-start items-start flex w-full md:w-[936px]">
-            <div className="w-full px-5 py-2.5 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5">
-              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Name</div>
-              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Size</div>
-              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Type</div>
-              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
-              <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight text-right"></div>
-            </div>
-            {knowledgeLinks.map((link, index) => {
-              return (
-                <div key={index} className="w-full px-5 py-4 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5">
-                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.name || link?.knowledgeLink}</div>
-                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.size ? (link?.size / 1024576)?.toFixed(2) + " MB" : ""}</div>
-                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.type}</div>
-                  <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
-                  <div className="text-right">
-                    <Popover>
-                      <PopoverTrigger>
-                        <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
-                      </PopoverTrigger>
-                      <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                        <div
-                          className="cursor-pointer text-white text-base font-medium font-bricolage"
-                          onClick={() => {
-                            handleDeleteLink(index);
-                          }}
-                        >
-                          Delete
-                        </div>
-                      </PopoverContent>
-                    </Popover>
+          {knowledgeLinks?.length > 0 && (
+            <div className="self-stretch h-fit flex-col justify-start items-start flex w-full md:w-[936px]">
+              <div className="w-full px-5 py-2.5 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5">
+                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Name</div>
+                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Size</div>
+                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Type</div>
+                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
+                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight text-right"></div>
+              </div>
+              {knowledgeLinks.map((link, index) => {
+                return (
+                  <div key={index} className="w-full px-5 py-4 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5">
+                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.name || link?.knowledgeLink}</div>
+                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.size ? (link?.size / 1024576)?.toFixed(2) + " MB" : ""}</div>
+                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{link?.type}</div>
+                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(link?.addedAt).format("MMM DD, YYYY")}</div>
+                    <div className="text-right">
+                      <Popover>
+                        <PopoverTrigger>
+                          <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
+                        </PopoverTrigger>
+                        <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
+                          <div
+                            className="cursor-pointer text-white text-base font-medium font-bricolage"
+                            onClick={() => {
+                              handleDeleteLink(index);
+                            }}
+                          >
+                            Delete
+                          </div>
+                        </PopoverContent>
+                      </Popover>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-          <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
+                );
+              })}
+            </div>
+          )}
+          {/* <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
             <div className="justify-start items-center gap-2.5 flex">
               <div className="text-[#999999] text-sm font-normal font-bricolage leading-tight">Rows per page:</div>
               <Select value={rowPerPage} onValueChange={handleSelectChange}>
@@ -200,7 +202,7 @@ const Overview = () => {
               <Image src={"/icons/arrow-left.svg"} alt={""} width={22} height={22} className="cursor-pointer"></Image>
               <Image src={"/icons/arrow-right.svg"} alt={""} width={22} height={22} className="cursor-pointer"></Image>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

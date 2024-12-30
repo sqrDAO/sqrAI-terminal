@@ -6,7 +6,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API;
 
 export async function addScrapeLink(scrapeLink: string): Promise<any> {
   try {
-    const response = await axios.post(`${scrapeApiUrl}/scrape-link`, { link: scrapeLink });
+    const response = await axios.post(`/api/addScrapeLink`, { link: scrapeLink });
     return response?.data;
   } catch (error) {
     console.error("Error adding scrape link:", error);
@@ -16,7 +16,7 @@ export async function addScrapeLink(scrapeLink: string): Promise<any> {
 
 export async function scrapeTwitter(username: string): Promise<any> {
   try {
-    const response = await axios.post(`${scrapeApiUrl}/api/characters`, {
+    const response = await axios.post(`/api/scrapeTwitter`, {
       username: username, // twitter username
       date: dayjs().format("YYYY-MM-DD"), // generate character from this date "2024-12-23"
       is_crawl: true, // scrape tweets and blogs
@@ -30,7 +30,7 @@ export async function scrapeTwitter(username: string): Promise<any> {
 
 export async function getScrapeByUsername(username: string): Promise<any> {
   try {
-    const response = await axios.get(`${scrapeApiUrl}/api/characters/${username}`);
+    const response = await axios.get(`/api/getScrapeByUsername/${username}`);
     return response?.data;
   } catch (error) {
     console.error("Error adding scrape link:", error);
@@ -40,7 +40,7 @@ export async function getScrapeByUsername(username: string): Promise<any> {
 
 export async function getSampleAgent(): Promise<any> {
   try {
-    const response = await axios.get(`${apiUrl}/agents/d1b9e94b-4448-02cc-bb43-4c2ba12fa15c`);
+    const response = await axios.get(`/api/getSampleAgent`);
     return response?.data;
   } catch (error) {
     console.error("Error adding scrape link:", error);
@@ -50,7 +50,7 @@ export async function getSampleAgent(): Promise<any> {
 
 export async function updateCharacter(data: any): Promise<any> {
   try {
-    const response = await axios.post(`${apiUrl}/agents`, data);
+    const response = await axios.post(`/api/updateCharacter`, data);
     return response?.data;
   } catch (error) {
     console.error("Error scraping Twitter:", error);
@@ -60,7 +60,17 @@ export async function updateCharacter(data: any): Promise<any> {
 
 export async function getScrapeProgress(taskId: string): Promise<any> {
   try {
-    const response = await axios.get(`${scrapeApiUrl}/api/task-progress/${taskId}`);
+    const response = await axios.get(`/api/getScrapeProgress/${taskId}`);
+    return response?.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function getAgents(): Promise<any> {
+  try {
+    const response = await axios.get(`/api/getAgents`);
     return response?.data;
   } catch (error) {
     console.error("Error:", error);
