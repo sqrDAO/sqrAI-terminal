@@ -21,25 +21,35 @@ const Overview = () => {
 
   const { setDataChat } = useSQRAI();
 
-  const agentList = JSON.parse(localStorage.getItem("agents"));
-
-  const selectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
-
-  const [githubLinks, setGithubLinks] = useState(JSON.parse(localStorage.getItem("selectedAgent"))?.githubLinks || []);
+  const [agentList, setAgentList] = useState([]);
+  const [selectedAgent, setSelectedAgent] = useState(null);
+  const [githubLinks, setGithubLinks] = useState([]);
 
   useEffect(() => {
-    const updatedAgent = {
-      ...selectedAgent,
-      githubLinks: githubLinks,
-    };
+    const storedAgentList = JSON.parse(localStorage.getItem("agents"));
+    const storedSelectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
 
-    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
+    setGithubLinks(storedSelectedAgent?.githubLinks || []);
 
-    setGithubLink("");
+    setAgentList(storedAgentList || []);
+    setSelectedAgent(storedSelectedAgent || null);
+  }, []);
 
-    localStorage.setItem("agents", JSON.stringify(updatedAgentList));
-    localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
-  }, [githubLinks]);
+  useEffect(() => {
+    if (selectedAgent) {
+      const updatedAgent = {
+        ...selectedAgent,
+        githubLinks: githubLinks,
+      };
+
+      const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
+
+      setGithubLink("");
+
+      localStorage.setItem("agents", JSON.stringify(updatedAgentList));
+      localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
+    }
+  }, [githubLinks, selectedAgent]);
 
   const handleAddLink = () => {
     if (githubLink === "") {
@@ -57,7 +67,8 @@ const Overview = () => {
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
             <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
-              Push to github repo <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
+              Push to github repo
+              {/* <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span> */}
             </div>
             <div className="self-stretch text-[#999999] text-sm font-medium font-bricolage leading-tight">Drop your project’s Github repo here so</div>
           </div>

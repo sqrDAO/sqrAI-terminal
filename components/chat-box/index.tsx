@@ -10,8 +10,18 @@ let intervalId;
 const ChatBox = () => {
   const { publicKey } = useWallet();
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const { sessionContent, setSessionContent, dataChat } = useSQRAI();
+  const { sessionContent, setSessionContent, sessionId, dataChat, agent } =
+    useSQRAI();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [selectedAgent, setSelectedAgent] = useState(null);
+
+  useEffect(() => {
+    const storedAgentList = JSON.parse(localStorage.getItem("agents"));
+    const storedSelectedAgent = JSON.parse(
+      localStorage.getItem("selectedAgent")
+    );
+    setSelectedAgent(storedSelectedAgent || null);
+  }, []);
 
   const {
     data: botReplies,
@@ -106,7 +116,7 @@ const ChatBox = () => {
                 <div className="flex flex-col items-start gap-0 mb-4 ">
                   <div className="flex items-center space-x-2 rtl:space-x-reverse">
                     <span className="text-sm font-bold text-white font-bricolage">
-                      &gt;_ beta
+                      &gt;_ {agent?.name || selectedAgent?.name}
                     </span>
                   </div>
                   <div className="flex flex-col">
@@ -124,7 +134,7 @@ const ChatBox = () => {
           <div className="flex flex-col items-start gap-2 mb-4">
             <div className="flex items-center space-x-2 rtl:space-x-reverse">
               <span className="text-sm font-bold text-white font-bricolage">
-                &gt;_ beta
+                &gt;_ {agent?.name || selectedAgent?.name}
               </span>
             </div>
             <div className="flex flex-col animate-pulse space-y-2.5 w-full">

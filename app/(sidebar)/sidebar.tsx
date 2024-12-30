@@ -6,12 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSQRAI } from "../provider/sqrai.provider";
 
 const Sidebar = () => {
   const route = useRouter();
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const [agentKey, setAgentKey] = useState("");
+  const { setAgent } = useSQRAI();
 
   // const agentList = JSON.parse(localStorage.getItem("agents") || "[]");
   const [agentList, setAgentList] = useState([]);
@@ -169,6 +171,7 @@ const Sidebar = () => {
     const agents = JSON.parse(localStorage.getItem("agents") || "[]");
     const selectedAgent = agents?.find((agent: any) => agent?.name === value);
     localStorage.setItem("selectedAgent", JSON.stringify(selectedAgent));
+    setAgent(selectedAgent);
 
     route.push(`/overview?agent=${value}`);
   };
