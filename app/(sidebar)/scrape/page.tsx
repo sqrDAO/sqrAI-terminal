@@ -109,6 +109,8 @@ const Overview = () => {
 
       const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
 
+      setScrapeLink("");
+
       localStorage.setItem("agents", JSON.stringify(updatedAgentList));
       localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
     }

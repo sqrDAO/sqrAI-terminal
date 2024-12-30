@@ -6,6 +6,8 @@ import { IChat } from "../types/types";
 const sqraiContext = createContext({
   dataChat: null,
   setDataChat: (a) => {},
+  agent: null,
+  setAgent: (a) => {},
   sessionId: "",
   setSessionId: (a) => {},
   sessionContent: [],
@@ -14,6 +16,7 @@ const sqraiContext = createContext({
 
 export const SQRAIProvider = ({ children }) => {
   const [dataChat, setDataChat] = useState<IChat>(null);
+  const [agent, setAgent] = useState(null);
   const [sessionId, setSessionId] = useState("");
   const [sessionContent, setSessionContent] = useState<IChat[]>([]);
   const { publicKey } = useWallet();
@@ -42,6 +45,8 @@ export const SQRAIProvider = ({ children }) => {
       value={{
         dataChat,
         setDataChat,
+        agent,
+        setAgent,
         sessionId,
         setSessionId,
         sessionContent,

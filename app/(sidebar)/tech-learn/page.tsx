@@ -14,25 +14,33 @@ const Overview = () => {
     setRowPerPage(value);
   };
 
-  const agentList = JSON.parse(localStorage.getItem("agents"));
-
-  const selectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
-
-  const [githubLinks, setGithubLinks] = useState(JSON.parse(localStorage.getItem("selectedAgent"))?.githubLinks || []);
+  const [agentList, setAgentList] = useState([]);
+  const [selectedAgent, setSelectedAgent] = useState(null);
+  const [githubLinks, setGithubLinks] = useState([]);
 
   useEffect(() => {
-    const updatedAgent = {
-      ...selectedAgent,
-      githubLinks: githubLinks,
-    };
+    const agents = JSON.parse(localStorage.getItem("agents"));
+    const agent = JSON.parse(localStorage.getItem("selectedAgent"));
+    setAgentList(agents || []);
+    setSelectedAgent(agent);
+    setGithubLinks(agent?.githubLinks || []);
+  }, []);
 
-    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
+  useEffect(() => {
+    if (selectedAgent) {
+      const updatedAgent = {
+        ...selectedAgent,
+        githubLinks: githubLinks,
+      };
 
-    setGithubLink("");
+      const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
 
-    localStorage.setItem("agents", JSON.stringify(updatedAgentList));
-    localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
-  }, [githubLinks]);
+      setGithubLink("");
+
+      localStorage.setItem("agents", JSON.stringify(updatedAgentList));
+      localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
+    }
+  }, [githubLinks, selectedAgent]);
 
   const handleAddLink = () => {
     if (githubLink === "") {

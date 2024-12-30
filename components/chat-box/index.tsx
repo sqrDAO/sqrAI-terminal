@@ -10,14 +10,17 @@ let intervalId;
 const ChatBox = () => {
   const { publicKey } = useWallet();
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const { sessionContent, setSessionContent, sessionId, dataChat } = useSQRAI();
+  const { sessionContent, setSessionContent, sessionId, dataChat, agent } = useSQRAI();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [selectedAgent, setSelectedAgent] = useState(null);
 
-  const {
-    data: botReplies,
-    error,
-    refetch: refetchMesages,
-  } = useBotAutoReply(publicKey?.toString());
+  useEffect(() => {
+    const storedAgentList = JSON.parse(localStorage.getItem("agents"));
+    const storedSelectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
+    setSelectedAgent(storedSelectedAgent || null);
+  }, []);
+
+  const { data: botReplies, error, refetch: refetchMesages } = useBotAutoReply(publicKey?.toString());
 
   useEffect(() => {
     setSessionContent(botReplies);
@@ -83,16 +86,12 @@ const ChatBox = () => {
               <div key={index}>
                 <div className="flex flex-col items-start gap-0 mb-4">
                   <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                    <div className="text-sm font-bold text-[#a4fb0e] font-bricolage flex">
-                      &gt;_ You
-                    </div>
+                    <div className="text-sm font-bold text-[#a4fb0e] font-bricolage flex">&gt;_ You</div>
                   </div>
                   {/* </div> */}
                   <div className="flex flex-col">
                     <div className="text-sm font-normal break-all text-[#a4fb0e] font-chakra">
-                      <span style={{ whiteSpace: "pre-line" }}>
-                        {item.value}
-                      </span>
+                      <span style={{ whiteSpace: "pre-line" }}>{item.value}</span>
                     </div>
                   </div>
                 </div>
@@ -102,9 +101,7 @@ const ChatBox = () => {
               <div key={index}>
                 <div className="flex flex-col items-start gap-0 mb-4 ">
                   <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                    <span className="text-sm font-bold text-white font-bricolage">
-                      &gt;_ beta
-                    </span>
+                    <span className="text-sm font-bold text-white font-bricolage">&gt;_ {agent?.name || selectedAgent?.name}</span>
                   </div>
                   <div className="flex flex-col">
                     <div className="text-sm font-normal break-all text-white">
@@ -120,9 +117,7 @@ const ChatBox = () => {
         {isLoading && (
           <div className="flex flex-col items-start gap-2 mb-4">
             <div className="flex items-center space-x-2 rtl:space-x-reverse">
-              <span className="text-sm font-bold text-white font-bricolage">
-                &gt;_ beta
-              </span>
+              <span className="text-sm font-bold text-white font-bricolage">&gt;_ {agent?.name || selectedAgent?.name}</span>
             </div>
             <div className="flex flex-col animate-pulse space-y-2.5 w-full">
               <div className="flex items-center w-1/2">
