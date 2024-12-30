@@ -24,18 +24,18 @@ const ChatBox = () => {
   } = useBotAutoReply(publicKey?.toString());
 
   useEffect(() => {
-    console.log("botReplies", botReplies);
-    const listMessages = Object.values(
-      [...sessionContent, ...botReplies].reduce((acc, message) => {
-      acc[message.id] = message;
-      return acc;
-      }, {})
-    ).sort(
-      (a: IChat, b: IChat) =>
-      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-    );
-    console.log("listMessages", listMessages);
-    setSessionContent(listMessages);
+    // console.log("botReplies", botReplies);
+    // const listMessages = Object.values(
+    //   [...sessionContent, ...botReplies].reduce((acc, message) => {
+    //   acc[message.id] = message;
+    //   return acc;
+    //   }, {})
+    // ).sort(
+    //   (a: IChat, b: IChat) =>
+    //   new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    // );
+    // console.log("listMessages", listMessages);
+    setSessionContent(botReplies);
   }, [botReplies]);
 
   // useEffect(() => {

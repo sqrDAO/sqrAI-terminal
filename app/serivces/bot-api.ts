@@ -25,12 +25,11 @@ export const BotReply = async (params: {
 };
 
 export const useBotAutoReply = (sessionId: string) => {
-  // const [messages, setMessages] = useState<{ [key: string]: IChat }>({});
   return useQuery({
     queryKey: ["botAutoReply", sessionId],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/messages?roomId=default-room-${process.env.NEXT_PUBLIC_AGENTID}-${sessionId}`,
+        `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/messages?roomId=default-room-${process.env.NEXT_PUBLIC_AGENTID}-${sessionId}&count=30`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -41,7 +40,7 @@ export const useBotAutoReply = (sessionId: string) => {
         throw new Error("Network response was not ok");
       }
       const data = await res.json();
-      // console.log('data', data);
+
       const newMessages = data.reduce((acc, message) => {
         acc[message.id] = {
           from: message.content.user === "codebot" ? "bot" : "user",
@@ -50,11 +49,10 @@ export const useBotAutoReply = (sessionId: string) => {
         };
         return acc;
       }, {});
-      return newMessages;
-      // setMessages((prevMessages) => ({ ...prevMessages, ...newMessages }));
-      // return Object.values({ ...messages, ...newMessages }).sort(
-      //   (a: IChat, b: IChat) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      // );
+      return Object.values({ ...newMessages }).sort(
+        (a: IChat, b: IChat) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
     },
     refetchInterval: 10000, // Adjust the interval as needed
   });
