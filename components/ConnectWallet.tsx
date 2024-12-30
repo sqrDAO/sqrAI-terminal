@@ -61,9 +61,10 @@ const ConnectWallet = () => {
   };
 
   const handleLogout = () => {
-    signOut({
-      callbackUrl: "/",
-    });
+    // signOut({
+    //   callbackUrl: "/",
+    // });
+    signOut();
   };
 
   return (
