@@ -5,7 +5,7 @@ import InputGroup from "../input-group";
 import { IChat } from "@/app/types/types";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
-import { BotAutoReply, BotReply } from "@/app/serivces/bot-api";
+import { BotReply, useBotAutoReply } from "@/app/serivces/bot-api";
 import utils from "@/app/utils";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
@@ -16,6 +16,48 @@ const ChatBox = () => {
   const messagesEndRef = useRef<HTMLInputElement>(null);
   const { sessionContent, setSessionContent, sessionId, dataChat } = useSQRAI();
   const [isLoading, setLoading] = useState<boolean>(false);
+
+  const {
+    data: botReplies,
+    error,
+    refetch: refetchMesages,
+  } = useBotAutoReply(publicKey?.toString());
+
+  useEffect(() => {
+    console.log("botReplies", botReplies);
+    const listMessages = Object.values(
+      [...sessionContent, ...botReplies].reduce((acc, message) => {
+      acc[message.id] = message;
+      return acc;
+      }, {})
+    ).sort(
+      (a: IChat, b: IChat) =>
+      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+    console.log("listMessages", listMessages);
+    setSessionContent(listMessages);
+  }, [botReplies]);
+
+  // useEffect(() => {
+  //   if (botReplies) {
+  //     for (const response of botReplies) {
+  //       if (response.text) {
+  //         const reply: IChat = {
+  //           from: "bot",
+  //           value: response.text,
+  //         };
+  //         setSessionContent((prevContent) => [...prevContent, reply]);
+  //       }
+  //     }
+  //   }
+  //   if (error) {
+  //     const reply: IChat = {
+  //       from: "bot",
+  //       value: "Something went wrong, please try again",
+  //     };
+  //     setSessionContent((prevContent) => [...prevContent, reply]);
+  //   }
+  // }, [botReplies, error]);
 
   const userChat = (dataChat: IChat) => {
     if (Object.keys(dataChat).length == 0) return;
@@ -32,71 +74,33 @@ const ChatBox = () => {
     try {
       setLoading(true);
       const res = await BotReply({ message: message, sessionId: sessionId });
-      if (!res || res.length === 0) {
-        const reply: IChat = {
-          from: "bot",
-          value: "Something went wrong, please try again",
-        };
+      await refetchMesages();
+      // if (!res || res.length === 0) {
+      //   const reply: IChat = {
+      //     from: "bot",
+      //     value: "Something went wrong, please try again",
+      //   };
 
-        setSessionContent([...sessionContent, reply]);
-        setLoading(false);
-        return;
-      }
+      //   setSessionContent([...sessionContent, reply]);
+      //   setLoading(false);
+      //   return;
+      // }
 
-      for (const response of res) {
-        if (response.text) {
-          const reply: IChat = {
-            from: "bot",
-            value: response.text,
-          };
+      // for (const response of res) {
+      //   if (response.text) {
+      //     const reply: IChat = {
+      //       from: "bot",
+      //       value: response.text,
+      //     };
 
-          setSessionContent((prevContent) => [...prevContent, reply]);
-        }
-      }
+      //     setSessionContent((prevContent) => [...prevContent, reply]);
+      //   }
+      // }
       setLoading(false);
     } catch (e) {
       setLoading(false);
     }
   };
-
-  const onBotAutoReply = async () => {
-    try {
-      setLoading(true);
-      const res = await BotAutoReply(publicKey.toString());
-      if (!res || res.length === 0) {
-        const reply: IChat = {
-          from: "bot",
-          value: "Something went wrong, please try again",
-        };
-
-        setSessionContent([...sessionContent, reply]);
-        setLoading(false);
-        return;
-      }
-
-      for (const response of res) {
-        if (response.text) {
-          const reply: IChat = {
-            from: "bot",
-            value: response.text,
-          };
-
-          setSessionContent((prevContent) => [...prevContent, reply]);
-        }
-      }
-      setLoading(false);
-    } catch (e) {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      onBotAutoReply();
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     scrollToBottom();
