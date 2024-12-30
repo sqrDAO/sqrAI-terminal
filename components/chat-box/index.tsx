@@ -24,40 +24,8 @@ const ChatBox = () => {
   } = useBotAutoReply(publicKey?.toString());
 
   useEffect(() => {
-    // console.log("botReplies", botReplies);
-    // const listMessages = Object.values(
-    //   [...sessionContent, ...botReplies].reduce((acc, message) => {
-    //   acc[message.id] = message;
-    //   return acc;
-    //   }, {})
-    // ).sort(
-    //   (a: IChat, b: IChat) =>
-    //   new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-    // );
-    // console.log("listMessages", listMessages);
     setSessionContent(botReplies);
   }, [botReplies]);
-
-  // useEffect(() => {
-  //   if (botReplies) {
-  //     for (const response of botReplies) {
-  //       if (response.text) {
-  //         const reply: IChat = {
-  //           from: "bot",
-  //           value: response.text,
-  //         };
-  //         setSessionContent((prevContent) => [...prevContent, reply]);
-  //       }
-  //     }
-  //   }
-  //   if (error) {
-  //     const reply: IChat = {
-  //       from: "bot",
-  //       value: "Something went wrong, please try again",
-  //     };
-  //     setSessionContent((prevContent) => [...prevContent, reply]);
-  //   }
-  // }, [botReplies, error]);
 
   const userChat = (dataChat: IChat) => {
     if (Object.keys(dataChat).length == 0) return;
@@ -75,27 +43,6 @@ const ChatBox = () => {
       setLoading(true);
       const res = await BotReply({ message: message, sessionId: sessionId });
       await refetchMesages();
-      // if (!res || res.length === 0) {
-      //   const reply: IChat = {
-      //     from: "bot",
-      //     value: "Something went wrong, please try again",
-      //   };
-
-      //   setSessionContent([...sessionContent, reply]);
-      //   setLoading(false);
-      //   return;
-      // }
-
-      // for (const response of res) {
-      //   if (response.text) {
-      //     const reply: IChat = {
-      //       from: "bot",
-      //       value: response.text,
-      //     };
-
-      //     setSessionContent((prevContent) => [...prevContent, reply]);
-      //   }
-      // }
       setLoading(false);
     } catch (e) {
       setLoading(false);
@@ -103,6 +50,9 @@ const ChatBox = () => {
   };
 
   useEffect(() => {
+    if (isLoading) {
+      return;
+    }
     scrollToBottom();
     if (sessionContent.length > 0) {
       let lastMessage = sessionContent[sessionContent.length - 1];
