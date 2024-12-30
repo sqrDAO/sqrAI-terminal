@@ -1,12 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { notification } from "antd";
-import { useState } from "react";
-import { IChat } from "../types/types";
-import { useSQRAI } from "../provider/sqrai.provider";
 
 export const BotReply = async (params: {
   message: string;
-  sessionId: string;
+  publicKey: string;
 }) => {
   try {
     const res = await fetch(`/api/message`, {
@@ -14,7 +10,7 @@ export const BotReply = async (params: {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         message: params.message,
-        sessionId: params.sessionId || "User",
+        publicKey: params.publicKey || "User",
       }),
     });
     const data = await res.json();
@@ -24,24 +20,16 @@ export const BotReply = async (params: {
   }
 };
 
-export const useBotAutoReply = (sessionId: string) => {
+export const useBotAutoReply = (publicKey: string) => {
   return useQuery({
-    queryKey: ["botAutoReply", sessionId],
+    queryKey: ["botAutoReply", publicKey],
     queryFn: async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/messages?roomId=default-room-${process.env.NEXT_PUBLIC_AGENTID}-${sessionId}&count=30`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          cache: "no-cache",
-        }
-      );
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
+      const res = await fetch(`/api/messages?publicKey=${publicKey}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await res.json();
-
-      const newMessages = data.reduce((acc, message) => {
+      const newMessages = data.data.reduce((acc, message) => {
         acc[message.id] = {
           from: message.content.user === "codebot" ? "bot" : "user",
           value: message.content.text,
@@ -49,10 +37,11 @@ export const useBotAutoReply = (sessionId: string) => {
         };
         return acc;
       }, {});
-      return Object.values({ ...newMessages }).sort(
-        (a: IChat, b: IChat) =>
+      const sortedMessages = Object.values(newMessages).sort(
+        (a: any, b: any) =>
           new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
       );
+      return sortedMessages;
     },
     refetchInterval: 10000, // Adjust the interval as needed
   });

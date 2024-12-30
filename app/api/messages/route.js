@@ -1,7 +1,10 @@
-import { getServerSession } from "next-auth/next";
+import { NextResponse } from "next/server";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { getServerSession } from "next-auth/next";
 
-export async function GET(request) {
+export async function GET(req) {
+    const { searchParams } = new URL(req.url);
+    const publicKey = searchParams.get("publicKey");
     const session = await getServerSession(authOptions);
 
     if (!session) {
@@ -13,37 +16,22 @@ export async function GET(request) {
             }
         );
     }
-
     try {
-        const { sessionId } = await request.json();
-        if (!sessionId) {
-            return new Response(
-                JSON.stringify({ error: "Missing parameters: sessionId are required" }),
-                { status: 400, headers: { "Content-Type": "application/json" } }
-            );
-        }
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/messages?roomId=default-room-${process.env.NEXT_PUBLIC_AGENTID}-${sessionId}`,
+            `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/messages?roomId=default-room-${process.env.NEXT_PUBLIC_AGENTID}-${publicKey}&count=30`,
             {
                 method: "GET",
-                headers: { "Content-Type": "application/json" }
+                headers: { "Content-Type": "application/json" },
+                cache: "no-cache",
             }
         );
+        if (!res.ok) {
+            throw new Error("Network response was not ok");
+        }
         const data = await res.json();
-        return new Response(
-            JSON.stringify({ message: "Session is valid", user: session.user, data }),
-            {
-                status: 200,
-                headers: { "Content-Type": "application/json" },
-            }
-        );
+
+        return NextResponse.json({ data: data });
     } catch (error) {
-        return new Response(
-            JSON.stringify({ error: "Internal Server Error" }),
-            {
-                status: 500,
-                headers: { "Content-Type": "application/json" },
-            }
-        );
+        return NextResponse.error();
     }
 }

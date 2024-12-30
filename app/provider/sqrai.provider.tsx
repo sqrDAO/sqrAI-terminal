@@ -20,7 +20,7 @@ export const SQRAIProvider = ({ children }) => {
   useEffect(() => {
     try {
       if (!publicKey) return;
-      console.log(sessionId);
+      // console.log(sessionId);
       if (sessionContent && sessionContent.length > 0) {
         const listChat = window.localStorage.getItem(publicKey?.toString());
         let jsonChat = listChat ? JSON.parse(listChat) : [];

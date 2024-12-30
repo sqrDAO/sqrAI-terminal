@@ -1,6 +1,5 @@
 "use client";
 import ConnectWallet from "@/components/ConnectWallet";
-import { useWallet } from "@solana/wallet-adapter-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +7,7 @@ import Link from "next/link";
 export default function Home() {
   // const { connected } = useWallet();
   const { data: session } = useSession();
-  // console.log(session);
+  // console.log("session", session);
   // if (!session) {
   //   return <p>Bạn cần đăng nhập để truy cập trang này.</p>;
   // }

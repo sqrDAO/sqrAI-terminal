@@ -15,8 +15,8 @@ export async function POST(request) {
     }
 
     try {
-        const { message, sessionId } = await request.json();
-        if (!message || !sessionId) {
+        const { message, publicKey } = await request.json();
+        if (!message || !publicKey) {
             return new Response(
                 JSON.stringify({ error: "Missing parameters: message and sessionId are required" }),
                 { status: 400, headers: { "Content-Type": "application/json" } }
@@ -29,8 +29,8 @@ export async function POST(request) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     text: message,
-                    userId: sessionId || "User",
-                    roomId: `default-room-${process.env.NEXT_PUBLIC_AGENTID}-${sessionId}`,
+                    userId: publicKey || "User",
+                    roomId: `default-room-${process.env.NEXT_PUBLIC_AGENTID}-${publicKey}`,
                 }),
             }
         );

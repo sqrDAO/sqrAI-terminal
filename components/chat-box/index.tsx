@@ -10,7 +10,7 @@ let intervalId;
 const ChatBox = () => {
   const { publicKey } = useWallet();
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const { sessionContent, setSessionContent, sessionId, dataChat } = useSQRAI();
+  const { sessionContent, setSessionContent, dataChat } = useSQRAI();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const {
@@ -37,7 +37,10 @@ const ChatBox = () => {
   const onBotReply = async (message) => {
     try {
       setLoading(true);
-      const res = await BotReply({ message: message, sessionId: sessionId });
+      const res = await BotReply({
+        message: message,
+        publicKey: publicKey?.toString(),
+      });
       await refetchMesages();
       setLoading(false);
     } catch (e) {
