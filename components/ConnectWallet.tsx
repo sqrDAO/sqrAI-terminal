@@ -64,7 +64,9 @@ const ConnectWallet = () => {
     // signOut({
     //   callbackUrl: "/",
     // });
+    disconnect();
     signOut();
+    localStorage.clear();
   };
 
   return (
@@ -105,7 +107,6 @@ const ConnectWallet = () => {
           <Button
             onClick={() => {
               handleLogout();
-              disconnect();
             }}
           >
             LogOut
