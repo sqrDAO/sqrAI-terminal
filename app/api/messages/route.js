@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
 import { getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]/authOptions";
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
