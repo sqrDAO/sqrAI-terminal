@@ -100,3 +100,18 @@ textarea:focus-visible {
     --a: 1turn;
   }
 }
+
+.editable::before {
+  content: "Ask follow-up"; /* Placeholder text */
+  color: #777777;
+  position: absolute;
+  pointer-events: none;
+  left: 44px;
+  top: 16px;
+  display: block;
+}
+
+.editable:focus::before,
+.editable:not(:empty)::before {
+  content: ""; /* Ẩn placeholder khi có nội dung */
+}

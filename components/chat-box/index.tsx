@@ -93,7 +93,7 @@ const ChatBox = () => {
                   </div>
                   {/* </div> */}
                   <div className="flex flex-col">
-                    <div className="text-sm font-normal break-all text-[#a4fb0e] font-chakra">
+                    <div className="text-sm font-normal break-words text-[#a4fb0e] font-chakra">
                       <span style={{ whiteSpace: "pre-line" }}>{item.value}</span>
                     </div>
                   </div>
@@ -107,7 +107,7 @@ const ChatBox = () => {
                     <span className="text-sm font-bold text-white font-bricolage">&gt;_ {agent?.name || selectedAgent?.name}</span>
                   </div>
                   <div className="flex flex-col">
-                    <div className="text-sm font-normal break-all text-white">
+                    <div className="text-sm font-normal break-words text-white">
                       <ReactMarkdown>{item.value}</ReactMarkdown>
                     </div>
                   </div>
