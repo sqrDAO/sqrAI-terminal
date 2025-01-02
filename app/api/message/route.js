@@ -23,14 +23,14 @@ export async function POST(request) {
             );
         }
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/message`,
+            `${getConfig().serverRuntimeConfig.NEXT_PUBLIC_API}/${getConfig().serverRuntimeConfig.NEXT_PUBLIC_AGENTID}/message`,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     text: message,
                     userId: publicKey || "User",
-                    roomId: `default-room-${process.env.NEXT_PUBLIC_AGENTID}-${publicKey}`,
+                    roomId: `default-room-${getConfig().serverRuntimeConfig.NEXT_PUBLIC_AGENTID}-${publicKey}`,
                 }),
             }
         );

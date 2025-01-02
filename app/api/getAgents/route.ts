@@ -1,7 +1,8 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
+import getConfig from "next/config";
 
-const apiUrl = process.env.NEXT_PUBLIC_API;
+const apiUrl = getConfig().serverRuntimeConfig.NEXT_PUBLIC_API;
 
 export async function GET() {
   try {

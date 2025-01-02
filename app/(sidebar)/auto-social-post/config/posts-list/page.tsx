@@ -7,7 +7,7 @@ const Index = () => {
       <div className="self-stretch h-[180px] pb-16 flex-col justify-start items-start gap-8 flex">
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
-            <div className="self-stretch text-white text-3xl font-semibold font-['Chakra Petch'] leading-[37.50px]">
+            <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
               Auto generate social post <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
             </div>
           </div>
@@ -24,7 +24,7 @@ const Index = () => {
             href={"#"}
             className="px-4 py-3 border-b-2 border-[#a4fb0e] justify-center items-center gap-2.5 flex"
           >
-            <div className="text-[#a4fb0e] text-base font-semibold font-['Bricolage Grotesque'] leading-snug">
+            <div className="text-[#a4fb0e] text-base font-semibold font-bricolage leading-snug">
               Posts list
             </div>
           </Link>
@@ -32,7 +32,7 @@ const Index = () => {
             href={"/auto-social-post/config/schedule"}
             className="px-4 py-3 justify-center items-center gap-2.5 flex"
           >
-            <div className="text-white text-base font-semibold font-['Bricolage Grotesque'] leading-snug">
+            <div className="text-white text-base font-semibold font-bricolage leading-snug">
               Schedule
             </div>
           </Link>
@@ -40,7 +40,7 @@ const Index = () => {
             href={"/auto-social-post/config/setting"}
             className="px-4 py-3 justify-center items-center gap-2.5 flex"
           >
-            <div className="text-white text-base font-semibold font-['Bricolage Grotesque'] leading-snug">
+            <div className="text-white text-base font-semibold font-bricolage leading-snug">
               Setting
             </div>
           </Link>
@@ -61,18 +61,18 @@ const Index = () => {
                   />
                   <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                     <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
-                      <div className="text-white text-base font-bold font-['Bricolage Grotesque'] leading-snug">
+                      <div className="text-white text-base font-bold font-bricolage leading-snug">
                         {`Long Nguyen (꧁IP꧂)`}
                       </div>
                       <div className="w-[18px] h-[18px] relative  overflow-hidden" />
-                      <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                      <div className="text-[#999999] text-base font-normal font-bricolage leading-snug">
                         {`@EledraNguyen`}
                       </div>
-                      <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                      <div className="text-[#999999] text-base font-normal font-bricolage leading-snug">
                         {"·"}
                       </div>
                     </div>
-                    <div className="self-stretch text-white text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                    <div className="self-stretch text-white text-base font-normal font-bricolage leading-snug">
                       {`sqrAI focuses on web3 project pain points As builders for many years,
                        we have seen projects with limited resources struggling in maintaining good public code presence,
                         communication and quality. sqrAI fixes these problems. sqrAI is based on @ai16zdao`}
@@ -80,7 +80,7 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="h-10 px-2.5 justify-center items-center gap-2.5 flex">
-                  <div className="grow shrink basis-0 text-right text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
+                  <div className="grow shrink basis-0 text-right text-[#999999] text-sm font-semibold font-bricolage leading-tight">
                     {`Scheduled at 12:43 PM 23/12/2024`}
                     <br />
                     {`Next 6h`}
@@ -90,21 +90,21 @@ const Index = () => {
               <div className="self-stretch justify-start items-start inline-flex">
                 <div className="grow shrink basis-0 h-11 px-2.5 py-1.5 bg-[#a4fb0e] justify-center items-center flex overflow-hidden">
                   <div className="px-1 justify-center items-center gap-2.5 flex">
-                    <div className="text-center text-black text-base font-semibold font-['Chakra Petch'] leading-normal">
+                    <div className="text-center text-black text-base font-semibold font-chakra leading-normal">
                       {`Save`}
                     </div>
                   </div>
                 </div>
                 <div className="grow shrink basis-0 h-11 px-2.5 py-1.5 border-t border-b border-[#dcff9f] justify-center items-center flex overflow-hidden">
                   <div className="px-1 justify-center items-center gap-2.5 flex">
-                    <div className="text-center text-[#a4fb0e] text-base font-semibold font-['Chakra Petch'] leading-normal">
+                    <div className="text-center text-[#a4fb0e] text-base font-semibold font-chakra leading-normal">
                       {`Edit`}
                     </div>
                   </div>
                 </div>
                 <div className="w-[148px] h-11 px-2.5 py-1.5 border-l border-t border-b border-[#dcff9f] justify-center items-center flex overflow-hidden">
                   <div className="px-1 justify-center items-center gap-2.5 flex">
-                    <div className="text-center text-white text-base font-semibold font-['Chakra Petch'] leading-normal">
+                    <div className="text-center text-white text-base font-semibold font-chakra leading-normal">
                       {`Discard`}
                     </div>
                   </div>
@@ -123,23 +123,23 @@ const Index = () => {
                   />
                   <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                     <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
-                      <div className="text-white text-base font-bold font-['Bricolage Grotesque'] leading-snug">
+                      <div className="text-white text-base font-bold font-bricolage leading-snug">
                         {`Long Nguyen (꧁IP꧂)`}
                       </div>
                       <div className="w-[18px] h-[18px] relative  overflow-hidden" />
-                      <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                      <div className="text-[#999999] text-base font-normal font-bricolage leading-snug">
                         {`@EledraNguyen`}
                       </div>
                       <div>
-                        <span className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#999999] text-base font-normal font-bricolage leading-snug">
                           ·
                         </span>
-                        <span className="text-[#a4fb0e] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#a4fb0e] text-base font-normal font-bricolage leading-snug">
                           Next 6h
                         </span>
                       </div>
                     </div>
-                    <div className="self-stretch text-white text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                    <div className="self-stretch text-white text-base font-normal font-bricolage leading-snug">
                       {`@sqrAI focuses on web3 project pain points As builders for
                       many years, we have seen projects with limited resources
                       struggling in maintaining good public code presence,
@@ -149,10 +149,10 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="w-[180px] px-2.5 flex-col justify-center items-center gap-1.5 inline-flex">
-                  <div className="self-stretch text-right text-[#a4fb0e] text-base font-semibold font-['Bricolage Grotesque'] leading-snug">
+                  <div className="self-stretch text-right text-[#a4fb0e] text-base font-semibold font-bricolage leading-snug">
                     Saved
                   </div>
-                  <div className="self-stretch text-right text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
+                  <div className="self-stretch text-right text-[#999999] text-sm font-semibold font-bricolage leading-tight">
                     Scheduled at
                     <br />
                     12:43 PM 23/12/2024
@@ -162,14 +162,14 @@ const Index = () => {
               <div className="self-stretch justify-start items-start inline-flex">
                 <div className="grow shrink basis-0 h-11 px-2.5 py-1.5 bg-[#a4fb0e] justify-center items-center flex overflow-hidden">
                   <div className="px-1 justify-center items-center gap-2.5 flex">
-                    <div className="text-center text-black text-base font-semibold font-['Chakra Petch'] leading-normal">
+                    <div className="text-center text-black text-base font-semibold font-chakra leading-normal">
                       Edit
                     </div>
                   </div>
                 </div>
                 <div className="grow shrink basis-0 h-11 px-2.5 py-1.5 border-t border-b border-[#dcff9f] justify-center items-center flex overflow-hidden">
                   <div className="px-1 justify-center items-center gap-2.5 flex">
-                    <div className="text-center text-white text-base font-semibold font-['Chakra Petch'] leading-normal">
+                    <div className="text-center text-white text-base font-semibold font-chakra leading-normal">
                       Unsaved
                     </div>
                   </div>
@@ -188,23 +188,23 @@ const Index = () => {
                   />
                   <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                     <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
-                      <div className="text-white text-base font-bold font-['Bricolage Grotesque'] leading-snug">
+                      <div className="text-white text-base font-bold font-bricolage leading-snug">
                         {`Long Nguyen (꧁IP꧂)`}
                       </div>
                       <div className="w-[18px] h-[18px] relative  overflow-hidden" />
-                      <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                      <div className="text-[#999999] text-base font-normal font-bricolage leading-snug">
                         @EledraNguyen
                       </div>
                       <div>
-                        <span className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#999999] text-base font-normal font-bricolage leading-snug">
                           ·
                         </span>
-                        <span className="text-[#a4fb0e] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#a4fb0e] text-base font-normal font-bricolage leading-snug">
                           Next 8h
                         </span>
                       </div>
                     </div>
-                    <div className="self-stretch text-white text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                    <div className="self-stretch text-white text-base font-normal font-bricolage leading-snug">
                       sqrAI focuses on web3 project pain points   As builders
                       for many years, we have seen projects with limited
                       resources struggling in maintaining good public code
@@ -214,10 +214,10 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="w-[180px] px-2.5 flex-col justify-center items-center gap-1.5 inline-flex">
-                  <div className="self-stretch text-right text-[#a4fb0e] text-base font-semibold font-['Bricolage Grotesque'] leading-snug">
+                  <div className="self-stretch text-right text-[#a4fb0e] text-base font-semibold font-bricolage leading-snug">
                     Saved
                   </div>
-                  <div className="self-stretch text-right text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
+                  <div className="self-stretch text-right text-[#999999] text-sm font-semibold font-bricolage leading-tight">
                     Scheduled at
                     <br />
                     12:43 PM 23/12/2024
@@ -237,23 +237,23 @@ const Index = () => {
                   />
                   <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                     <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
-                      <div className="text-white text-base font-bold font-['Bricolage Grotesque'] leading-snug">
+                      <div className="text-white text-base font-bold font-bricolage leading-snug">
                         {`Long Nguyen (꧁IP꧂)`}
                       </div>
                       <div className="w-[18px] h-[18px] relative  overflow-hidden" />
-                      <div className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                      <div className="text-[#999999] text-base font-normal font-bricolage leading-snug">
                         @EledraNguyen
                       </div>
                       <div>
-                        <span className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#999999] text-base font-normal font-bricolage leading-snug">
                           ·
                         </span>
-                        <span className="text-[#999999] text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                        <span className="text-[#999999] text-base font-normal font-bricolage leading-snug">
                           Next 1d
                         </span>
                       </div>
                     </div>
-                    <div className="self-stretch text-white text-base font-normal font-['Bricolage Grotesque'] leading-snug">
+                    <div className="self-stretch text-white text-base font-normal font-bricolage leading-snug">
                       sqrAI focuses on web3 project pain points As builders for
                       many years, we have seen projects with limited resources
                       struggling in maintaining good public code presence,
@@ -263,7 +263,7 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="w-[180px] px-2.5 flex-col justify-center items-center gap-1.5 inline-flex">
-                  <div className="self-stretch text-right text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
+                  <div className="self-stretch text-right text-[#999999] text-sm font-semibold font-bricolage leading-tight">
                     Scheduled at
                     <br />
                     12:43 PM 23/12/2024

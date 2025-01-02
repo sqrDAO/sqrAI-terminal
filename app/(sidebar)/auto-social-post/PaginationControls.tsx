@@ -2,11 +2,11 @@ const PaginationControls = () => {
   return (
     <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
       <div className="justify-start items-center gap-2.5 flex">
-        <div className="text-[#999999] text-sm font-normal font-['Bricolage Grotesque'] leading-tight">
+        <div className="text-[#999999] text-sm font-normal font-bricolage leading-tight">
           Rows per page:
         </div>
         <div className="justify-start items-center gap-2.5 flex">
-          <div className="text-white text-sm font-normal font-['Bricolage Grotesque'] leading-tight">
+          <div className="text-white text-sm font-normal font-bricolage leading-tight">
             50
           </div>
           <svg

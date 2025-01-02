@@ -2,6 +2,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PublicKey } from "@solana/web3.js";
 import nacl from "tweetnacl";
 // import TwitterProvider from "next-auth/providers/twitter";
+import getConfig from "next/config";
+console.log("getConfig():", getConfig().serverRuntimeConfig.NEXTAUTH_SECRET);
 
 export const authOptions = {
   providers: [
@@ -43,7 +45,7 @@ export const authOptions = {
     //   version: "2.0", // Sử dụng API v2 của Twitter
     // }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: getConfig().serverRuntimeConfig.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
   },

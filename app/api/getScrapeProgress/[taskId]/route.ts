@@ -1,7 +1,8 @@
 import axios from "axios";
+import getConfig from "next/config";
 import { NextRequest, NextResponse } from "next/server";
 
-const scrapeApiUrl = process.env.NEXT_PUBLIC_SCRAPE_API;
+const scrapeApiUrl = getConfig().publicRuntimeConfig.NEXT_PUBLIC_SCRAPE_API;;
 
 export async function GET(req: NextRequest, { params }) {
   try {

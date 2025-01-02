@@ -1,4 +1,6 @@
 import axios from "axios";
+import { get } from "lodash";
+import getConfig from "next/config";
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
@@ -9,7 +11,7 @@ export async function GET(req) {
     return new Response(JSON.stringify({ error: "Authorization code is missing" }), { status: 400, headers: { "Content-Type": "application/json" } });
   }
 
-  const { TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET, TWITTER_REDIRECT_URI } = process.env;
+  const { TWITTER_CLIENT_ID, TWITTER_CLIENT_SECRET, TWITTER_REDIRECT_URI } = getConfig().serverRuntimeConfig;
 
   const credentials = Buffer.from(`${TWITTER_CLIENT_ID}:${TWITTER_CLIENT_SECRET}`).toString("base64");
 
@@ -33,6 +35,7 @@ export async function GET(req) {
     );
 
     const { access_token, refresh_token, expires_in } = response.data;
+    console.log("auth: ", access_token);
 
     try {
       const userResponse = await axios.get("https://api.twitter.com/2/users/me", {
@@ -43,6 +46,7 @@ export async function GET(req) {
 
       const { id, username } = userResponse.data.data;
       console.log("user twitte: ", userResponse.data.data);
+      console.log("user expire: ", expires_in);
 
       // call api save to DB
       try {
@@ -52,7 +56,7 @@ export async function GET(req) {
           body: JSON.stringify({
             accessToken: access_token,
             refreshToken: refresh_token,
-            expires: expires_in,
+            expiredAt: new Date(new Date().getTime() + expires_in * 1000000),
             userId: id,
             name: username,
           }),

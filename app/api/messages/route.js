@@ -18,7 +18,7 @@ export async function GET(req) {
     }
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/messages?roomId=default-room-${process.env.NEXT_PUBLIC_AGENTID}-${publicKey}&count=30`,
+            `${getConfig().serverRuntimeConfig.NEXT_PUBLIC_API}/${getConfig().serverRuntimeConfig.NEXT_PUBLIC_AGENTID}/messages?roomId=default-room-${getConfig().serverRuntimeConfig.NEXT_PUBLIC_AGENTID}-${publicKey}&count=30`,
             {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },

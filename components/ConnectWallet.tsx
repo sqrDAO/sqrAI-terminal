@@ -78,7 +78,7 @@ const ConnectWallet = () => {
         <>
           <div className="h-[42px] px-3.5 py-2 border border-[#dcff9f] justify-center items-center inline-flex overflow-hidden">
             <div className="px-1 justify-center items-center gap-2.5 flex">
-              <div className="text-center text-white text-lg font-semibold font-['Chakra Petch'] leading-relaxed">
+              <div className="text-center text-white text-lg font-semibold font-chakra leading-relaxed">
                 {`${publicKey?.toString()?.substring(0, 6)} ..${publicKey?.toString()?.substring(publicKey?.toString().length - 6, publicKey?.toString().length)}`}
               </div>
             </div>
