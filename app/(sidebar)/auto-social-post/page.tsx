@@ -14,9 +14,9 @@ const Overview = () => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    console.log(litt);
+    getAccount();
     if (litt) {
-      updatetwitter();
+      updateTwitter();
     } else {
       if ((session as any)?.accessToken) {
         route.push("/auto-social-post/config/schedule");
@@ -24,7 +24,31 @@ const Overview = () => {
     }
   }, [litt, session]);
 
-  const updatetwitter = async () => {
+  const handleLogin = () => {
+    const result = signIn("twitter", {
+      callbackUrl: "/auto-social-post?litt=true",
+    });
+  };
+
+  const getAccount = async () => {
+    try {
+      const res = await fetch(
+        `/api/twitter?publicKey=${publicKey?.toString()}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await res.json();
+      console.log(`data`, JSON.stringify(data));
+
+      return data.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const updateTwitter = async () => {
     try {
       const res = await fetch(`/api/twitter`, {
         method: "POST",
@@ -35,7 +59,7 @@ const Overview = () => {
           expiredAt: (session as any)?.expires,
           userId: (session as any)?.user?.id,
           name: (session as any)?.user?.name,
-          // wallet: publicKey?.toString(),
+          walletAddress: publicKey?.toString(),
         }),
       });
       const data = await res.json();
@@ -43,12 +67,6 @@ const Overview = () => {
     } catch (error) {
       // throw error;
     }
-  };
-
-  const handleLogin = () => {
-    const result = signIn("twitter", {
-      callbackUrl: "/auto-social-post?litt=true",
-    });
   };
   return (
     <div className="px-6 pt-6 flex-col justify-start items-center inline-flex w-full">
