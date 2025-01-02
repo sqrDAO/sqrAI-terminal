@@ -1,6 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PublicKey } from "@solana/web3.js";
 import nacl from "tweetnacl";
+import TwitterProvider from "next-auth/providers/twitter";
 
 export const authOptions = {
   providers: [
@@ -40,6 +41,16 @@ export const authOptions = {
         }
       },
     }),
+    TwitterProvider({
+      clientId: process.env.TWITTER_CLIENT_ID, // Lấy từ Twitter Developer Portal
+      clientSecret: process.env.TWITTER_CLIENT_SECRET, // Lấy từ Twitter Developer Portal
+      version: "2.0", // Sử dụng API v2 của Twitter
+      authorization: {
+        params: {
+          scope: "tweet.read tweet.write users.read offline.access",
+        },
+      },
+    }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
@@ -48,11 +59,20 @@ export const authOptions = {
   callbacks: {
     async session({ session, token }) {
       session.user = token.user;
+      if (token) {
+        session.accessToken = token.accessToken;
+        session.refreshToken = token.refreshToken;
+      }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.user = user;
+      }
+      if (account) {
+        token.accessToken = account.access_token;
+        token.refreshToken = account.refresh_token;
+        token.expiredAt = account.expires_at;
       }
       return token;
     },
