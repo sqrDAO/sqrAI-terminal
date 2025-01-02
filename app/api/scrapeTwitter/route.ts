@@ -1,8 +1,10 @@
 import axios from "axios";
 import dayjs from "dayjs";
+import getConfig from "next/config";
 import { NextRequest, NextResponse } from 'next/server';
 
-const scrapeApiUrl = process.env.NEXT_PUBLIC_SCRAPE_API;
+const { publicRuntimeConfig } = getConfig();
+const scrapeApiUrl = publicRuntimeConfig.NEXT_PUBLIC_SCRAPE_API;
 
 export async function POST(req: NextRequest) {
   try {

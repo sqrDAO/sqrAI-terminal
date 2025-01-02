@@ -2,6 +2,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PublicKey } from "@solana/web3.js";
 import nacl from "tweetnacl";
 import TwitterProvider from "next-auth/providers/twitter";
+import getConfig from "next/config";
+
+const {serverRuntimeConfig} = getConfig();
 
 export const authOptions = {
   providers: [
@@ -42,8 +45,8 @@ export const authOptions = {
       },
     }),
     TwitterProvider({
-      clientId: process.env.TWITTER_CLIENT_ID, // Lấy từ Twitter Developer Portal
-      clientSecret: process.env.TWITTER_CLIENT_SECRET, // Lấy từ Twitter Developer Portal
+      clientId: serverRuntimeConfig.TWITTER_CLIENT_ID, // Lấy từ Twitter Developer Portal
+      clientSecret: serverRuntimeConfig.TWITTER_CLIENT_SECRET, // Lấy từ Twitter Developer Portal
       version: "2.0", // Sử dụng API v2 của Twitter
       authorization: {
         params: {
@@ -52,7 +55,7 @@ export const authOptions = {
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: serverRuntimeConfig.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
   },

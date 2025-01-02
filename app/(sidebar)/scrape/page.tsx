@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useScrapeList from "@/hooks/useScrapeList";
 import dayjs from "dayjs";
+import getConfig from "next/config";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -20,10 +21,11 @@ const Overview = () => {
 
   const [agentList, setAgentList] = useState([]);
   const [selectedAgent, setSelectedAgent] = useState(null);
+  const { publicRuntimeConfig } = getConfig();
 
   useEffect(() => {
     const logsDiv = document.getElementById("logs");
-    const scrapeApiUrl = process.env.NEXT_PUBLIC_SCRAPE_API;
+    const scrapeApiUrl = publicRuntimeConfig.NEXT_PUBLIC_SCRAPE_API;
     const eventSource = new EventSource(`${scrapeApiUrl}/logs`);
 
     // Handle incoming messages

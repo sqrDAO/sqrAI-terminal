@@ -7,8 +7,9 @@ export async function middleware(req) {
   if (url.pathname === '/') {
     return NextResponse.next();
   }
+
   // Lấy token từ session
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({ req });
 
   // Nếu không có token, redirect về trang chủ "/"
   if (!token) {

@@ -1,8 +1,6 @@
 import axios from "axios";
 import dayjs from "dayjs";
-
-const scrapeApiUrl = process.env.NEXT_PUBLIC_SCRAPE_API;
-const apiUrl = process.env.NEXT_PUBLIC_API;
+import getConfig from "next/config";
 
 export async function addScrapeLink(scrapeLink: string): Promise<any> {
   try {
