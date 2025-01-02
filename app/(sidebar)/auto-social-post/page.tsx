@@ -2,21 +2,55 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCookie, setCookie } from "cookies-next";
+import axios from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Overview = () => {
-  const [scrapeLink, setScrapeLink] = useState("");
-  const [rowPerPage, setRowPerPage] = useState(50);
-  const handleSelectChange = (value: number) => {
-    setRowPerPage(value);
-  };
+  // const [scrapeLink, setScrapeLink] = useState("");
+  // const [rowPerPage, setRowPerPage] = useState(50);
+  const { data: session } = useSession();
+  console.log(session);
 
-  const handleTwitterLogin = () => {
+  const searchParams = useSearchParams();
+  const route = useRouter();
+
+  useEffect(() => {
+    // /api/auth/callback/twitter?state=6pixzn3o5i&code=T0hSMWx6d09KcE9kRTB2eEo0c2xuN3NUWGRGMHEyUEFYazVNRlVZd2VtQXRSOjE3MzU4MDUwMjgyNTI6MToxOmFjOjE
+    const userTwitter = getCookie("userTwitter");
+    const state = searchParams.get("state");
+    const code = searchParams.get("code");
+
+    if (userTwitter) {
+      route.push("/auto-social-post/config/schedule");
+      return;
+    }
+
+    if (state && code) {
+      axios
+        .get("/api/auth/callback/twitter", {
+          params: {
+            state: state,
+            code: code,
+          },
+        })
+        .then((response) => {
+          setCookie("userTwitter", response?.data);
+          route.push("/auto-social-post/config/schedule");
+        })
+        .catch((error) => {
+          console.error("There was an error making the request:", error);
+        });
+    }
+  }, [searchParams]);
+
+  const handleLogin = () => {
     window.location.href = "/api/twitter/auth";
   };
-
   return (
     <div className="px-6 pt-6 flex-col justify-start items-center inline-flex w-full">
       <div className="self-stretch h-32 pb-16 flex-col justify-start items-start gap-4 flex">
@@ -36,7 +70,6 @@ const Overview = () => {
       <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-8 flex w-full md:w-[936px] mx-auto">
         <div className="self-stretch h-48 flex-col justify-start items-start gap-8 flex">
           <div className="self-stretch h-48 py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex">
-            <Button onClick={handleTwitterLogin}>Conenct Twitter</Button>
             <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
@@ -45,8 +78,9 @@ const Overview = () => {
                 />
               </svg>
               <div className="text-[#a4fb0e] text-sm font-medium font-['Bricolage Grotesque'] leading-tight">Connect X account to continue</div>
+              <Button onClick={handleLogin}>Connect X</Button>
             </div>
-            <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
+            {/* <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
               <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                 <div className="self-stretch h-11 flex-col justify-start items-start gap-2 flex">
                   <div className="self-stretch px-3.5 py-2.5 bg-white border-[#444444] justify-start items-center gap-3 inline-flex overflow-hidden">
@@ -56,9 +90,9 @@ const Overview = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
-              <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
+            </div> */}
+            {/* <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex"> */}
+            {/* <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                 <div className="self-stretch h-11 flex-col justify-start items-start gap-2 flex">
                   <div className="self-stretch px-3.5 py-2.5 bg-white border-[#444444] justify-start items-center gap-3 inline-flex overflow-hidden">
                     <div className="grow shrink basis-0 h-6 justify-center items-center gap-0.5 flex">
@@ -66,13 +100,17 @@ const Overview = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <Link href="/auto-social-post/config/schedule" className="w-[125px] h-11 px-2.5 py-1.5 bg-[#a4fb0e] justify-center items-center flex overflow-hidden">
+              </div> */}
+            {/* <Link
+                href="/auto-social-post/config/schedule"
+                className="w-[125px] h-11 px-2.5 py-1.5 bg-[#a4fb0e] justify-center items-center flex overflow-hidden"
+              >
                 <div className="px-1 justify-center items-center gap-2.5 flex">
                   <div className="text-center text-black text-base font-semibold font-['Chakra Petch'] leading-normal">Continue</div>
                 </div>
-              </Link>
-            </div>
+              </Link> */}
+
+            {/* </div> */}
           </div>
         </div>
       </div>

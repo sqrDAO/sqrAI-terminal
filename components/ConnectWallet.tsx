@@ -7,6 +7,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { notification } from "antd";
 import { Button } from "./ui/button";
 import Router from "next/router";
+import { deleteCookie } from "cookies-next";
 
 const ConnectWallet = () => {
   const buttonStyle = {
@@ -31,9 +32,7 @@ const ConnectWallet = () => {
       const encodedMessage = new TextEncoder().encode(message);
       const signature = await signMessage(encodedMessage);
 
-      const base64Signature = btoa(
-        String.fromCharCode(...new Uint8Array(signature))
-      );
+      const base64Signature = btoa(String.fromCharCode(...new Uint8Array(signature)));
 
       const result = await signIn("credentials", {
         redirect: false,
@@ -67,35 +66,23 @@ const ConnectWallet = () => {
     disconnect();
     signOut();
     localStorage.clear();
+    deleteCookie("userTwitter");
   };
 
   return (
     <div className="flex flex-row gap-4">
       {!connected && <WalletMultiButton style={buttonStyle} />}
 
-      {connected && !session && (
-        <Button onClick={handleSignIn}>SIGN IN WITH WALLET</Button>
-      )}
+      {connected && !session && <Button onClick={handleSignIn}>SIGN IN WITH WALLET</Button>}
       {connected && session && (
         <>
           <div className="h-[42px] px-3.5 py-2 border border-[#dcff9f] justify-center items-center inline-flex overflow-hidden">
             <div className="px-1 justify-center items-center gap-2.5 flex">
               <div className="text-center text-white text-lg font-semibold font-['Chakra Petch'] leading-relaxed">
-                {`${publicKey?.toString()?.substring(0, 6)} ..${publicKey
-                  ?.toString()
-                  ?.substring(
-                    publicKey?.toString().length - 6,
-                    publicKey?.toString().length
-                  )}`}
+                {`${publicKey?.toString()?.substring(0, 6)} ..${publicKey?.toString()?.substring(publicKey?.toString().length - 6, publicKey?.toString().length)}`}
               </div>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"

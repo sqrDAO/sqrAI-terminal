@@ -42,10 +42,30 @@ export async function GET(req) {
       });
 
       const { id, username } = userResponse.data.data;
+      console.log("user twitte: ", userResponse.data.data);
 
       // call api save to DB
-
-      return new Response(JSON.stringify({ user_id: id, username, access_token, refresh_token, expires_in }), { status: 200, headers: { "Content-Type": "application/json" } });
+      try {
+        const res = await fetch(`http://localhost:3000/api/twitter`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            accessToken: access_token,
+            refreshToken: refresh_token,
+            expires: expires_in,
+            userId: id,
+            name: username,
+          }),
+        });
+        const data = await res.json();
+        return new Response(JSON.stringify({ user_id: id, username, access_token, refresh_token, expires_in, data }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
+      } catch (error) {
+        console.error(error.response?.data || error.message);
+        return new Response(JSON.stringify({ error: "Save user failed" }), { status: 500, headers: { "Content-Type": "application/json" } });
+      }
     } catch (error) {
       console.error(error.response?.data || error.message);
       return new Response(JSON.stringify({ error: "Failed to fetch user details" }), { status: 500, headers: { "Content-Type": "application/json" } });
