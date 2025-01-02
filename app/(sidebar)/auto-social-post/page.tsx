@@ -26,7 +26,7 @@ const Overview = () => {
         body: JSON.stringify({
           accessToken: (session as any)?.accessToken,
           refreshToken: (session as any)?.refreshToken,
-          expires: (session as any)?.refreshToken,
+          expiredAt: (session as any)?.expires,
           userId: (session as any)?.user?.id,
           name: (session as any)?.user?.name,
         }),
