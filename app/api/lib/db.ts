@@ -1,12 +1,13 @@
 import getConfig from "next/config";
-import { Client } from "pg";
+import { Pool } from "pg";
 
-export async function connectToDatabase() {
+let pool: Pool;
+if (!global._pgPool) {
   const {serverRuntimeConfig} = getConfig();
-  const client = new Client({
-    connectionString: process.env.POSTGRES_URL,
-  });
-
-  await client.connect();
-  return client;
+  global._pgPool = new Pool({
+    connectionString: serverRuntimeConfig.POSTGRES_URL,
 }
+
+pool = global._pgPool;
+
+export default pool;

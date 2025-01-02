@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connectToDatabase } from "../lib/db";
+import { pool } from "../lib/db";
 import { v4 } from "uuid";
 import getConfig from "next/config";
 
-const client = await connectToDatabase();
 const { serverRuntimeConfig } = getConfig();
 
 export async function POST(request) {
@@ -20,6 +19,7 @@ export async function POST(request) {
       });
     }
 
+    const client = await pool.connect();
     const query = 'SELECT * FROM twitter_client WHERE "agentId" = $1 AND "twitterId"= $2';
     const result = await client.query(query, [agentId, userId]);
 
@@ -28,6 +28,7 @@ export async function POST(request) {
       const values = [accessToken, refreshToken, expiredAt, agentId, userId];
       const result = await client.query(queryUpdate, values);
       console.log(`result: ${JSON.stringify(result)}`);
+      client.release();
       return NextResponse.json(result.rows);
     } else {
       const queryInsert =
@@ -35,10 +36,12 @@ export async function POST(request) {
       const values = [v4(), agentId, userId, name, accessToken, refreshToken, expiredAt, walletAddress];
       const result = await client.query(queryInsert, values);
       console.log(`result: ${JSON.stringify(result)}`);
+      client.release();
       return NextResponse.json(result);
     }
   } catch (error) {
     console.log(`error: ${error}`);
+    client.release();
     return NextResponse.error();
   }
 }
@@ -48,10 +51,13 @@ export async function GET(request) {
     const agentId = serverRuntimeConfig.NEXT_PUBLIC_AGENTID;
     const { searchParams } = new URL(request.url);
     const walletAddress = searchParams.get("publicKey");
-
+    
+    const client = await pool.connect();
     const query = 'SELECT * FROM twitter_client WHERE "walletAddress" = $1 AND "agentId" = $2';
     const values = [walletAddress, agentId];
     const result = await client.query(query, values);
+    client.release();
+
     return NextResponse.json(result.rows);
   } catch (error) {
     console.log(`error: ${error}`);
