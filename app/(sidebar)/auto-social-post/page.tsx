@@ -8,24 +8,50 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Overview = () => {
-  const [scrapeLink, setScrapeLink] = useState("");
-  const [rowPerPage, setRowPerPage] = useState(50);
-  const handleSelectChange = (value: number) => {
-    setRowPerPage(value);
+  // const [scrapeLink, setScrapeLink] = useState("");
+  // const [rowPerPage, setRowPerPage] = useState(50);
+  const { data: session } = useSession();
+  console.log(session);
+  const updatetwitter = async () => {
+    try {
+      const res = await fetch(`/api/twitter`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          accessToken: (session as any)?.accessToken,
+          refreshToken: (session as any)?.refreshToken,
+          expires: (session as any)?.refreshToken,
+          userId: (session as any)?.user?.id,
+          name: (session as any)?.user?.name,
+        }),
+      });
+      const data = await res.json();
+      return data.data;
+    } catch (error) {
+      throw error;
+    }
   };
-
+  useEffect(() => {
+    if (session) {
+      updatetwitter();
+    }
+  }, [[session]]);
+  const handleLogin = () => {
+    signIn("twitter"); // Đăng nhập với Twitter
+  };
   return (
     <div className="px-6 pt-6 flex-col justify-start items-center inline-flex w-full">
       <div className="self-stretch h-32 pb-16 flex-col justify-start items-start gap-4 flex">
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
             <div className="self-stretch text-white text-3xl font-semibold font-['Chakra Petch'] leading-[37.50px]">
-              Auto generate social post 
+              Auto generate social post
               {/* <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span> */}
             </div>
             <div className="text-[#999999] text-sm font-medium font-['Bricolage Grotesque'] leading-tight">
@@ -62,8 +88,9 @@ const Overview = () => {
               <div className="text-[#a4fb0e] text-sm font-medium font-['Bricolage Grotesque'] leading-tight">
                 Connect X account to continue
               </div>
+              <Button onClick={handleLogin}>Connect X</Button>
             </div>
-            <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
+            {/* <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
               <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                 <div className="self-stretch h-11 flex-col justify-start items-start gap-2 flex">
                   <div className="self-stretch px-3.5 py-2.5 bg-white border-[#444444] justify-start items-center gap-3 inline-flex overflow-hidden">
@@ -76,9 +103,9 @@ const Overview = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
-              <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
+            </div> */}
+            {/* <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex"> */}
+            {/* <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
                 <div className="self-stretch h-11 flex-col justify-start items-start gap-2 flex">
                   <div className="self-stretch px-3.5 py-2.5 bg-white border-[#444444] justify-start items-center gap-3 inline-flex overflow-hidden">
                     <div className="grow shrink basis-0 h-6 justify-center items-center gap-0.5 flex">
@@ -89,8 +116,8 @@ const Overview = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <Link
+              </div> */}
+            {/* <Link
                 href="/auto-social-post/config/schedule"
                 className="w-[125px] h-11 px-2.5 py-1.5 bg-[#a4fb0e] justify-center items-center flex overflow-hidden"
               >
@@ -99,8 +126,9 @@ const Overview = () => {
                     Continue
                   </div>
                 </div>
-              </Link>
-            </div>
+              </Link> */}
+
+            {/* </div> */}
           </div>
         </div>
       </div>
