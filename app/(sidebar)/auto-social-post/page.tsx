@@ -1,23 +1,29 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const Overview = () => {
-  // const [scrapeLink, setScrapeLink] = useState("");
-  // const [rowPerPage, setRowPerPage] = useState(50);
+  const { publicKey } = useWallet();
+  const route = useRouter();
+  const searchParams = useSearchParams();
+  const litt = searchParams.get("litt");
   const { data: session } = useSession();
-  console.log(session);
+
+  useEffect(() => {
+    console.log(litt);
+    if (litt) {
+      updatetwitter();
+    } else {
+      if ((session as any)?.accessToken) {
+        route.push("/auto-social-post/config/schedule");
+      }
+    }
+  }, [litt, session]);
+
   const updatetwitter = async () => {
     try {
       const res = await fetch(`/api/twitter`, {
@@ -29,21 +35,20 @@ const Overview = () => {
           expiredAt: (session as any)?.expires,
           userId: (session as any)?.user?.id,
           name: (session as any)?.user?.name,
+          // wallet: publicKey?.toString(),
         }),
       });
       const data = await res.json();
-      return data.data;
+      route.push("/auto-social-post/config/schedule");
     } catch (error) {
-      throw error;
+      // throw error;
     }
   };
-  // useEffect(() => {
-  //   if (session) {
-  //     updatetwitter();
-  //   }
-  // }, [[session]]);
+
   const handleLogin = () => {
-    signIn("twitter"); // Đăng nhập với Twitter
+    const result = signIn("twitter", {
+      callbackUrl: "/auto-social-post?litt=true",
+    });
   };
   return (
     <div className="px-6 pt-6 flex-col justify-start items-center inline-flex w-full">
