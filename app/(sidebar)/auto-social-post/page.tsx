@@ -12,13 +12,15 @@ import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 const Overview = () => {
   // const [scrapeLink, setScrapeLink] = useState("");
   // const [rowPerPage, setRowPerPage] = useState(50);
+  const { publicKey } = useWallet();
   const { data: session } = useSession();
   console.log(session);
-  const updatetwitter = async () => {
+  const updateTwitter = async () => {
     try {
       const res = await fetch(`/api/twitter`, {
         method: "POST",
@@ -29,6 +31,7 @@ const Overview = () => {
           expiredAt: (session as any)?.expires,
           userId: (session as any)?.user?.id,
           name: (session as any)?.user?.name,
+          walletAddress: publicKey?.toString(),
         }),
       });
       const data = await res.json();
@@ -37,11 +40,31 @@ const Overview = () => {
       throw error;
     }
   };
-  // useEffect(() => {
-  //   if (session) {
-  //     updatetwitter();
-  //   }
-  // }, [[session]]);
+  useEffect(() => {
+    if (session) {
+      updateTwitter();
+      getAccount();
+    }
+  }, [[session]]);
+
+  const getAccount = async () => {
+    try {
+      const res = await fetch(
+        `/api/twitter?publicKey=${publicKey?.toString()}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await res.json();
+      console.log(`data`, JSON.stringify(data));
+
+      return data.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const handleLogin = () => {
     signIn("twitter"); // Đăng nhập với Twitter
   };
