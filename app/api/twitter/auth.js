@@ -34,6 +34,8 @@ export const authOptions = {
         refreshToken: token.refreshToken,
       };
 
+      console.log(`session: ${JSON.stringify(session)}`);
+
       return session;
     },
   },

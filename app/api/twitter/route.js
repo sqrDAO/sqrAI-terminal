@@ -31,13 +31,15 @@ export async function POST(request) {
     const client = await connectToDatabase();
 
     const query =
-      'INSERT INTO twitter_client (id, "twitterId", "twitterName", "accessToken", "refreshToken") VALUES ($1, $2, $3, $4) RETURNING *';
+      'INSERT INTO twitter_client (id, "agentId", "twitterId", "twitterName", "accessToken", "refreshToken", "expiredAt") VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
     const values = [
       v4(),
+      agentId,
       token.twitterId,
       token.twitterName,
       token.accessToken,
       token.refreshToken,
+      token.expires,
     ];
     const result = await client.query(query, values);
     console.log(`result: ${JSON.stringify(result)}`);
