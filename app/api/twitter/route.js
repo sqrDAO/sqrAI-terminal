@@ -23,6 +23,11 @@ export async function POST(request) {
     const result = await client.query(query, [agentId, userId]);
 
     if (result.rows.length > 0) {
+      const queryUpdate =
+        'UPDATE twitter_client SET "accessToken" = $1, "refreshToken" = $2, "expiredAt" = $3 WHERE "agentId" = $4 AND "twitterId"= $5 RETURNING *';
+      const values = [accessToken, refreshToken, expiredAt, agentId, userId];
+      const result = await client.query(queryUpdate, values);
+      console.log(`result: ${JSON.stringify(result)}`);
       return NextResponse.json(result.rows);
     } else {
       const queryInsert =

@@ -37,11 +37,11 @@ const Overview = () => {
       throw error;
     }
   };
-  useEffect(() => {
-    if (session) {
-      updatetwitter();
-    }
-  }, [[session]]);
+  // useEffect(() => {
+  //   if (session) {
+  //     updatetwitter();
+  //   }
+  // }, [[session]]);
   const handleLogin = () => {
     signIn("twitter"); // Đăng nhập với Twitter
   };
