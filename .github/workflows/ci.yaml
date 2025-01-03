@@ -22,10 +22,7 @@ jobs:
         run: |
           SHORT_SHA_COMMIT=$(git rev-parse --short HEAD)
           echo CONTAINER_RELEASE_IMAGE=ghcr.io/sqrdao/sqrai-terminal:${GITHUB_REF_NAME}_${SHORT_SHA_COMMIT} >> $GITHUB_ENV
-     # - name: Load dotenv
-     #   uses: c-py/action-dotenv-to-setenv@v5
-     #   with:
-     #     env-file: .env.${{ github.ref_name }}
+          mv .env.${GITHUB_REF_NAME} .env
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
