@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,6 +21,18 @@ const Index = () => {
       console.log(`data`, JSON.stringify(data));
 
       setData(data);
+    } catch (error) {
+      throw error;
+    }
+  };
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`/api/twitter/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+      // const data = await res.json();
+      getAccount();
     } catch (error) {
       throw error;
     }
@@ -115,22 +128,7 @@ const Index = () => {
                   {item.expiredAt}
                 </div>
               </div>
-              <div className="h-5 px-2.5 justify-end items-center gap-3 flex">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="21"
-                  height="20"
-                  viewBox="0 0 21 20"
-                  fill="none"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M13 0.833008L13 5.83301L8 5.83301L8 0.833008L13 0.833008ZM11.3333 2.49967L9.66667 2.49967L9.66667 4.16634L11.3333 4.16634L11.3333 2.49967ZM13 7.49967L13 12.4997L8 12.4997L8 7.49967L13 7.49967ZM11.3333 9.16634L9.66667 9.16634L9.66667 10.833L11.3333 10.833L11.3333 9.16634ZM13 14.1663L13 19.1663L8 19.1663L8 14.1663L13 14.1663ZM11.3333 15.833L9.66667 15.833L9.66667 17.4997L11.3333 17.4997L11.3333 15.833Z"
-                    fill="black"
-                  />
-                </svg>
-              </div>
+              <Button onClick={() => handleDelete(item.id)}>X</Button>
             </div>
           ))}
         </div>

@@ -1,9 +1,38 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import PaginationControls from "../../PaginationControls";
+import { useEffect, useState } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { PostCard } from "./components/PostCard";
 
 const Index = () => {
+  const { publicKey } = useWallet();
+  const [data, setData] = useState([]);
+  const getPost = async () => {
+    try {
+      const res = await fetch(
+        `/api/twitter/posts-list?publicKey=${publicKey?.toString()}}&agentId=${
+          process.env.AGENTID
+        }`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await res.json();
+      console.log(`data`, JSON.stringify(data));
+
+      setData(data);
+    } catch (error) {
+      throw error;
+    }
+  };
+  useEffect(() => {
+    if (publicKey) {
+      getPost();
+    }
+  }, [publicKey]);
   return (
     <div className="w-full px-6 pt-6 flex-col justify-start items-center inline-flex h-[calc(100vh_-77px)] overflow-auto">
       <div className="self-stretch h-[180px] pb-16 flex-col justify-start items-start gap-8 flex">
@@ -51,27 +80,13 @@ const Index = () => {
       <div className="w-[920px] flex-col justify-start items-start gap-8 inline-flex mx-auto my-10 border-2 border-[#dcff9f]">
         <div className="self-stretch pb-5 bg-black flex-col justify-center items-start gap-5 flex">
           <div className="self-stretch h-[842px] flex-col justify-start items-start flex">
-            <PostCard
-              name="Long Nguyen (꧁IP꧂)"
-              username="@EledraNguyen"
-              time="Next 6h"
-              content="sqrAI focuses on web3 project pain points As builders for many years, we have seen projects with limited resources struggling in maintaining good public code presence, communication and quality. sqrAI fixes these problems. sqrAI is based on @ai16zdao"
-              status="Scheduled at 12:43 PM 23/12/2024"
-            />
-            <PostCard
-              name="Long Nguyen (꧁IP꧂)"
-              username="@EledraNguyen"
-              time="Next 8h"
-              content="sqrAI focuses on web3 project pain points As builders for many years, we have seen projects with limited resources struggling in maintaining good public code presence, communication and quality. sqrAI fixes these problems. sqrAI is based on @ai16zdao"
-              status="Saved"
-            />
-            <PostCard
-              name="Long Nguyen (꧁IP꧂)"
-              username="@EledraNguyen"
-              time="Next 1d"
-              content="sqrAI focuses on web3 project pain points As builders for many years, we have seen projects with limited resources struggling in maintaining good public code presence, communication and quality. sqrAI fixes these problems. sqrAI is based on @ai16zdao"
-              status="Scheduled at 12:43 PM 23/12/2024"
-            />
+            {data?.map((item: any) => (
+              <PostCard
+                name={item.twitterName}
+                content={item.text}
+                img={item.imageUrl}
+              />
+            ))}
           </div>
           {/* <PaginationControls /> */}
         </div>
