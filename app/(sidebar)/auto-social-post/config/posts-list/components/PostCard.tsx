@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-export const PostCard = ({ name, content, img }) => (
+export const PostCard = ({ name, content, img, index }) => (
   <div className="bg-[#111111] border-b border-[#444444] flex-col justify-start items-end flex ">
     <div className="self-stretch px-5 py-7 justify-start items-start inline-flex">
       <div className="grow shrink basis-0 pl-2.5 pr-8 justify-start items-start gap-3 flex">
@@ -28,9 +28,9 @@ export const PostCard = ({ name, content, img }) => (
             <div className="text-[#999999] text-base font-normal font-bricolage leading-snug">
               ·
             </div>
-            {/* <div className="text-[#a4fb0e] text-base font-normal font-bricolage leading-snug">
-              {time}
-            </div> */}
+            <div className="text-[#a4fb0e] text-base font-normal font-bricolage leading-snug">
+              Next {index}h
+            </div>
           </div>
           <div className="self-stretch text-white text-base font-normal font-bricolage leading-snug">
             {content}

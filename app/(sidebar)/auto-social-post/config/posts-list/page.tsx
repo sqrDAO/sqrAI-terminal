@@ -178,11 +178,12 @@ const Index = () => {
       <div className="w-[920px] flex-col justify-start items-start gap-8 inline-flex mx-auto my-10">
         <div className="self-stretch pb-5 bg-black flex-col justify-center items-start gap-5 flex">
           <div className="self-stretch h-[842px] flex-col justify-start items-start flex">
-            {data2?.map((item: any) => (
+            {data2?.map((item: any, index) => (
               <PostCard
                 name={data[0]?.twitterName}
                 content={item?.Text}
                 img={data[0]?.imageUrl}
+                index={index+1}
               />
             ))}
           </div>
