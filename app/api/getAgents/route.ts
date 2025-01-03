@@ -3,7 +3,7 @@ import getConfig from "next/config";
 import { NextResponse } from "next/server";
 
 const { serverRuntimeConfig } = getConfig();
-const apiUrl = serverRuntimeConfig.NEXT_PUBLIC_API;
+const apiUrl = process.env.NEXT_PUBLIC_API;
 
 export async function GET() {
   try {

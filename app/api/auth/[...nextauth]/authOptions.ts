@@ -45,8 +45,8 @@ export const authOptions = {
       },
     }),
     TwitterProvider({
-      clientId: serverRuntimeConfig.TWITTER_CLIENT_ID, // Lấy từ Twitter Developer Portal
-      clientSecret: serverRuntimeConfig.TWITTER_CLIENT_SECRET, // Lấy từ Twitter Developer Portal
+      clientId: process.env.TWITTER_CLIENT_ID, // Lấy từ Twitter Developer Portal
+      clientSecret: process.env.TWITTER_CLIENT_SECRET, // Lấy từ Twitter Developer Portal
       version: "2.0", // Sử dụng API v2 của Twitter
       authorization: {
         params: {
@@ -55,7 +55,7 @@ export const authOptions = {
       },
     }),
   ],
-  secret: serverRuntimeConfig.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
   },
