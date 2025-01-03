@@ -17,9 +17,11 @@ const Overview = () => {
     if (litt) {
       updateTwitter();
     } else {
-      getAccount();
+      if (publicKey) {
+        getAccount();
+      }
     }
-  }, [litt, session]);
+  }, [litt, publicKey]);
 
   const handleLogin = () => {
     const result = signIn("twitter", {
