@@ -14,10 +14,10 @@ const Overview = () => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (litt && session) {
-      updateTwitter();
-    } else {
-      if (publicKey) {
+    if (publicKey) {
+      if (litt && session) {
+        updateTwitter();
+      } else {
         getAccount();
       }
     }

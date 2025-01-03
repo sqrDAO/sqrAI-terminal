@@ -12,9 +12,7 @@ const Index = () => {
   const getPost = async () => {
     try {
       const res = await fetch(
-        `/api/twitter/posts-list?publicKey=${publicKey?.toString()}&agentId=${
-          process.env.AGENTID
-        }`,
+        `/api/twitter/posts-list?publicKey=${publicKey?.toString()}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
