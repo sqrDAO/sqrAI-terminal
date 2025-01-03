@@ -68,7 +68,6 @@ export async function POST(request) {
     }
   } catch (error) {
     console.log(`error: ${error}`);
-    client.release();
     return NextResponse.error();
   }
 }
