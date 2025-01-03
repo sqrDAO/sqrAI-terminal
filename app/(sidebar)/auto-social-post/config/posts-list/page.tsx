@@ -13,7 +13,7 @@ const Index = () => {
     try {
       const res = await fetch(
         `/api/twitter/posts-list?publicKey=${publicKey?.toString()}&agentId=${
-          process.env.AGENTID
+          process.env.NEXT_PUBLIC_AGENTID
         }`,
         {
           method: "GET",

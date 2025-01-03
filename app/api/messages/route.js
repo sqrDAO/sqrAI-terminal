@@ -20,7 +20,7 @@ export async function GET(req) {
     }
     try {
         const res = await fetch(
-            `${process.env.API_URL}/${process.env.AGENTID}/messages?roomId=default-room-${process.env.AGENTID}-${publicKey}&count=30`,
+            `${process.env.API_URL}/${process.env.NEXT_PUBLIC_AGENTID}/messages?roomId=default-room-${process.env.NEXT_PUBLIC_AGENTID}-${publicKey}&count=30`,
             {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
