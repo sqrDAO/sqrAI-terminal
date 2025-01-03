@@ -21,11 +21,11 @@ const Overview = () => {
 
   const [agentList, setAgentList] = useState([]);
   const [selectedAgent, setSelectedAgent] = useState(null);
-  const { publicRuntimeConfig } = getConfig();
+  // const { publicRuntimeConfig } = getConfig();
 
   useEffect(() => {
     const logsDiv = document.getElementById("logs");
-    const scrapeApiUrl = publicRuntimeConfig.NEXT_PUBLIC_SCRAPE_API;
+    const scrapeApiUrl = process.env.NEXT_PUBLIC_SCRAPE_API;
     const eventSource = new EventSource(`${scrapeApiUrl}/logs`);
 
     // Handle incoming messages
