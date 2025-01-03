@@ -14,14 +14,14 @@ const Overview = () => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (litt) {
+    if (litt && session) {
       updateTwitter();
     } else {
       if (publicKey) {
         getAccount();
       }
     }
-  }, [litt, publicKey]);
+  }, [litt, publicKey, session]);
 
   const handleLogin = () => {
     const result = signIn("twitter", {

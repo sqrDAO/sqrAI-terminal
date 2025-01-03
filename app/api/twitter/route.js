@@ -6,6 +6,7 @@ import getConfig from "next/config";
 const { serverRuntimeConfig } = getConfig();
 
 export async function POST(request) {
+  const client = await pool.connect();
   try {
     const agentId = process.env.AGENTID;
     const body = await request.json();
@@ -34,7 +35,6 @@ export async function POST(request) {
       });
     }
 
-    const client = await pool.connect();
     const query =
       'SELECT * FROM twitter_client WHERE "agentId" = $1 AND "twitterId"= $2';
     const result = await client.query(query, [agentId, userId]);
@@ -49,7 +49,7 @@ export async function POST(request) {
       return NextResponse.json(result.rows);
     } else {
       const queryInsert =
-        'INSERT INTO twitter_client (id, "agentId", "twitterId", "twitterName", "accessToken", "refreshToken", "expiredAt", "walletAddress") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
+        'INSERT INTO twitter_client (id, "agentId", "twitterId", "twitterName", "accessToken", "refreshToken", "expiredAt", "walletAddress", "imageUrl") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
       const values = [
         v4(),
         agentId,
@@ -75,11 +75,11 @@ export async function POST(request) {
 
 export async function GET(request) {
   try {
+    const client = await pool.connect();
     const agentId = process.env.AGENTID;
     const { searchParams } = new URL(request.url);
     const walletAddress = searchParams.get("publicKey");
 
-    const client = await pool.connect();
     const query =
       'SELECT * FROM twitter_client WHERE "walletAddress" = $1 AND "agentId" = $2';
     const values = [walletAddress, agentId];
@@ -94,10 +94,10 @@ export async function GET(request) {
 }
 
 export async function DELETE(request) {
+  const client = await pool.connect();
   try {
     const { id } = request.params;
 
-    const client = await pool.connect();
     const query = "DELETE FROM twitter_client WHERE id = $1";
     const values = [id];
     const result = await client.query(query, values);
