@@ -2,15 +2,20 @@ import Image from "next/image";
 import React from "react";
 
 export const PostCard = ({ name, content, img }) => (
-  <div className="bg-[#111111] border-b border-[#444444] flex-col justify-start items-end flex">
+  <div className="bg-[#111111] border-b border-[#444444] flex-col justify-start items-end flex ">
     <div className="self-stretch px-5 py-7 justify-start items-start inline-flex">
-      <div className="grow shrink basis-0 h-[116px] pl-2.5 pr-8 justify-start items-start gap-3 flex">
-        <Image
+      <div className="grow shrink basis-0 pl-2.5 pr-8 justify-start items-start gap-3 flex">
+        {/* <Image
           className="w-[40px] h-[40px] rounded-full"
           width={40}
           height={40}
           alt=""
           src={img}
+        /> */}
+        <img
+          className="w-[40px] h-[40px]  rounded-full"
+          src={img || "https://via.placeholder.com/22x22"}
+          alt={name}
         />
         <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
           <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
