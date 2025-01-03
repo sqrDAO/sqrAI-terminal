@@ -116,7 +116,7 @@ const Index = () => {
               <div className="grow shrink basis-0 h-[22px] px-2.5 justify-center items-center gap-2.5 flex">
                 <img
                   className="w-[22px] h-[22px] relative rounded-[200px] border border-[#dcff9f]"
-                  src={item.image || "https://via.placeholder.com/22x22"}
+                  src={item.imageUrl || "https://via.placeholder.com/22x22"}
                   alt={item.twitterName}
                 />
                 <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
