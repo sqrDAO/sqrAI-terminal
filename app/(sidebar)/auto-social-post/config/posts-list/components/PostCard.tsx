@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-export const PostCard = ({ name, username, time, content, status }) => (
+export const PostCard = ({ name, content, img }) => (
   <div className="bg-[#111111] border-b border-[#444444] flex-col justify-start items-end flex">
     <div className="self-stretch px-5 py-7 justify-start items-start inline-flex">
       <div className="grow shrink basis-0 h-[116px] pl-2.5 pr-8 justify-start items-start gap-3 flex">
@@ -10,33 +10,33 @@ export const PostCard = ({ name, username, time, content, status }) => (
           width={40}
           height={40}
           alt=""
-          src="/imgs/page-3.svg"
+          src={img}
         />
         <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
           <div className="self-stretch justify-start items-center gap-1.5 inline-flex">
             <div className="text-white text-base font-bold font-bricolage leading-snug">
               {name}
             </div>
-            <div className="text-[#999999] text-base font-normal font-bricolage leading-snug">
+            {/* <div className="text-[#999999] text-base font-normal font-bricolage leading-snug">
               {username}
-            </div>
+            </div> */}
             <div className="text-[#999999] text-base font-normal font-bricolage leading-snug">
               ·
             </div>
-            <div className="text-[#a4fb0e] text-base font-normal font-bricolage leading-snug">
+            {/* <div className="text-[#a4fb0e] text-base font-normal font-bricolage leading-snug">
               {time}
-            </div>
+            </div> */}
           </div>
           <div className="self-stretch text-white text-base font-normal font-bricolage leading-snug">
             {content}
           </div>
         </div>
       </div>
-      <div className="h-10 px-2.5 justify-center items-center gap-2.5 flex">
+      {/* <div className="h-10 px-2.5 justify-center items-center gap-2.5 flex">
         <div className="grow shrink basis-0 text-right text-[#999999] text-sm font-semibold font-bricolage leading-tight">
           {status}
         </div>
-      </div>
+      </div> */}
     </div>
     {/* <div className="self-stretch justify-start items-start inline-flex">
       <div className="grow shrink basis-0 h-11 px-2.5 py-1.5 bg-[#a4fb0e] justify-center items-center flex overflow-hidden">

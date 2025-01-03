@@ -10,7 +10,7 @@ const ScheduleList = () => {
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
             <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
               Auto generate social post
-              <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
+              {/* <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span> */}
             </div>
           </div>
           <Image
@@ -77,7 +77,7 @@ const ScheduleList = () => {
                 </tr>
               </thead>
               <tbody>
-                {["Morning post", "Morning post", "Morning post"].map(
+                {/* {["Morning post", "Morning post", "Morning post"].map(
                   (post, index) => (
                     <tr key={index} className="border-b border-[#444444]">
                       <td className="px-5 py-4 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
@@ -109,7 +109,7 @@ const ScheduleList = () => {
                       </td>
                     </tr>
                   )
-                )}
+                )} */}
               </tbody>
             </table>
             <PaginationControls />
