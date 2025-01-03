@@ -25,7 +25,7 @@ jobs:
       - name: Load dotenv
         uses: c-py/action-dotenv-to-setenv@v5
         with:
-          env-file: .env.${{ GITHUB_REF_NAME }}
+          env-file: .env.${{ github.ref_name }}
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
