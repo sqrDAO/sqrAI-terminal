@@ -61,6 +61,7 @@ const Overview = () => {
           userId: (session as any)?.user?.id,
           name: (session as any)?.user?.name,
           walletAddress: publicKey?.toString(),
+          imageUrl: (session as any)?.imageUrl,
         }),
       });
       const data = await res.json();
