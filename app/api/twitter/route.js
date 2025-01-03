@@ -8,7 +8,7 @@ const { serverRuntimeConfig } = getConfig();
 export async function POST(request) {
   const client = await pool.connect();
   try {
-    const agentId = process.env.AGENTID;
+    const agentId = process.env.NEXT_PUBLIC_AGENTID;
     const body = await request.json();
     console.log(`data: ${JSON.stringify(body)}`);
 
@@ -76,7 +76,7 @@ export async function POST(request) {
 export async function GET(request) {
   try {
     const client = await pool.connect();
-    const agentId = process.env.AGENTID;
+    const agentId = process.env.NEXT_PUBLIC_AGENTID;
     const { searchParams } = new URL(request.url);
     const walletAddress = searchParams.get("publicKey");
 

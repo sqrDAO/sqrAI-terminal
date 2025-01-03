@@ -48,7 +48,7 @@ SQRAI-terminal is a web application that allows users to scrape data from X acco
     TWITTER_CLIENT_SECRET=your-twitter-client-secret # Need to set up twitter app in developer portal to get this
     NEXTAUTH_URL=http://localhost:3000
     POSTGRES_URL=your-postgres-connection-string
-    AGENTID=your-agent-id # Just for dev environment, it should be get from api
+    NEXT_PUBLIC_AGENTID=your-agent-id # Just for dev environment, it should be get from api
     ```
 
 4. Set up PostgreSQL:
