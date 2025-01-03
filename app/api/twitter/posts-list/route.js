@@ -53,7 +53,5 @@ export async function GET(request) {
   } catch (error) {
     console.log(`error: ${error}`);
     return NextResponse.error();
-  } finally {
-    client.release();
   }
 }
