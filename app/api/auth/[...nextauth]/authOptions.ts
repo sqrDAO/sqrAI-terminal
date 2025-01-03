@@ -4,7 +4,7 @@ import nacl from "tweetnacl";
 import TwitterProvider from "next-auth/providers/twitter";
 import getConfig from "next/config";
 
-const {serverRuntimeConfig} = getConfig();
+const { serverRuntimeConfig } = getConfig();
 
 export const authOptions = {
   providers: [
@@ -65,6 +65,7 @@ export const authOptions = {
       if (token) {
         session.accessToken = token.accessToken;
         session.refreshToken = token.refreshToken;
+        session.imageUrl = token.user.image;
       }
       return session;
     },

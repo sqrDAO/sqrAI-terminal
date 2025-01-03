@@ -18,8 +18,16 @@ export async function POST(request) {
       userId,
       name,
       walletAddress,
+      imageUrl,
     } = body;
-    if (!accessToken || !refreshToken || !expiredAt || !userId || !name) {
+    if (
+      !accessToken ||
+      !refreshToken ||
+      !expiredAt ||
+      !userId ||
+      !name ||
+      !imageUrl
+    ) {
       return new Response(JSON.stringify({ error: "Missing parameters!" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
@@ -41,7 +49,7 @@ export async function POST(request) {
       return NextResponse.json(result.rows);
     } else {
       const queryInsert =
-        'INSERT INTO twitter_client (id, "agentId", "twitterId", "twitterName", "accessToken", "refreshToken", "expiredAt", "walletAddress") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *';
+        'INSERT INTO twitter_client (id, "agentId", "twitterId", "twitterName", "accessToken", "refreshToken", "expiredAt", "walletAddress") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
       const values = [
         v4(),
         agentId,
@@ -51,6 +59,7 @@ export async function POST(request) {
         refreshToken,
         expiredAt,
         walletAddress,
+        imageUrl,
       ];
       const result = await client.query(queryInsert, values);
       console.log(`result: ${JSON.stringify(result)}`);
