@@ -1,8 +1,6 @@
 import axios from "axios";
-import getConfig from "next/config";
 import { NextRequest, NextResponse } from 'next/server';
 
-const { serverRuntimeConfig } = getConfig();
 const apiUrl = process.env.API_URL;
 
 export async function POST(req: NextRequest) {

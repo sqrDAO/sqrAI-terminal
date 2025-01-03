@@ -1,6 +1,5 @@
 import axios from "axios";
 import dayjs from "dayjs";
-import getConfig from "next/config";
 
 export async function addScrapeLink(scrapeLink: string): Promise<any> {
   try {

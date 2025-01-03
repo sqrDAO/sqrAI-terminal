@@ -1,10 +1,8 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/authOptions";
-import getConfig from "next/config";
 
 export async function POST(request) {
   const session = await getServerSession(authOptions);
-  const { serverRuntimeConfig } = getConfig();
 
   if (!session) {
     return new Response(JSON.stringify({ error: "Unauthorized: Session is not valid" }), {

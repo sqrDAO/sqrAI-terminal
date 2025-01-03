@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "../lib/db";
 import { v4 } from "uuid";
-import getConfig from "next/config";
 
-const { serverRuntimeConfig } = getConfig();
 
 export async function POST(request) {
   try {

@@ -2,9 +2,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PublicKey } from "@solana/web3.js";
 import nacl from "tweetnacl";
 import TwitterProvider from "next-auth/providers/twitter";
-import getConfig from "next/config";
 
-const { serverRuntimeConfig } = getConfig();
 
 export const authOptions = {
   providers: [

@@ -1,8 +1,6 @@
 import axios from "axios";
-import getConfig from "next/config";
 import { NextRequest, NextResponse } from 'next/server';
 
-const { serverRuntimeConfig } = getConfig();
 const apiUrl = process.env.API_URL;
 const agentId = process.env.NEXT_PUBLIC_AGENTID;
 

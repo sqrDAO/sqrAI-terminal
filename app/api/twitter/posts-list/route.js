@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v4 } from "uuid";
-import getConfig from "next/config";
 import pool from "../../lib/db";
 
-const { serverRuntimeConfig } = getConfig();
 
 export async function GET(request) {
   const client = await pool.connect();
