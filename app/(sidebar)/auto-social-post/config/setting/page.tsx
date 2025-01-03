@@ -7,7 +7,7 @@ const Index = () => {
       <div className="self-stretch h-[180px] pb-16 flex-col justify-start items-start gap-8 flex">
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
-            <div className="self-stretch text-white text-3xl font-semibold font-['Chakra Petch'] leading-[37.50px]">
+            <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
               Auto generate social post <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
             </div>
           </div>
@@ -24,7 +24,7 @@ const Index = () => {
             href={"/auto-social-post/config/posts-list"}
             className="px-4 py-3 justify-center items-center gap-2.5 flex"
           >
-            <div className="text-white text-base font-semibold font-['Bricolage Grotesque'] leading-snug">
+            <div className="text-white text-base font-semibold font-bricolage leading-snug">
               Posts list
             </div>
           </Link>
@@ -32,7 +32,7 @@ const Index = () => {
             href={"/auto-social-post/config/schedule"}
             className="px-4 py-3 justify-center items-center gap-2.5 flex"
           >
-            <div className="text-white text-base font-semibold font-['Bricolage Grotesque'] leading-snug">
+            <div className="text-white text-base font-semibold font-bricolage leading-snug">
               Schedule
             </div>
           </Link>
@@ -40,7 +40,7 @@ const Index = () => {
             href={"#"}
             className="px-4 py-3 border-b-2 border-[#a4fb0e] justify-center items-center gap-2.5 flex"
           >
-            <div className="text-[#a4fb0e] text-base font-semibold font-['Bricolage Grotesque'] leading-snug">
+            <div className="text-[#a4fb0e] text-base font-semibold font-bricolage leading-snug">
               Setting
             </div>
           </Link>
@@ -50,17 +50,17 @@ const Index = () => {
         <div className="self-stretch h-[94px] flex-col justify-start items-start flex">
           <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] justify-center items-center inline-flex">
             <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
+              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
                 User
               </div>
             </div>
             <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
+              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
                 Add time
               </div>
             </div>
             <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
-              <div className="grow shrink basis-0 opacity-0 text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
+              <div className="grow shrink basis-0 opacity-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
                 action
               </div>
             </div>
@@ -71,12 +71,12 @@ const Index = () => {
                 className="w-[22px] h-[22px] relative rounded-[200px] border border-[#dcff9f]"
                 src="https://via.placeholder.com/22x22"
               />
-              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
+              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
                 @name
               </div>
             </div>
             <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-['Bricolage Grotesque'] leading-tight">
+              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
                 Jun 28, 2021
               </div>
             </div>
