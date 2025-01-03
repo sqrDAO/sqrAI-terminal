@@ -18,13 +18,13 @@ export async function POST(request) {
     if (!message || !publicKey) {
       return new Response(JSON.stringify({ error: "Missing parameters: message and sessionId are required" }), { status: 400, headers: { "Content-Type": "application/json" } });
     }
-    const res = await fetch(`${serverRuntimeConfig.NEXT_PUBLIC_API}/${serverRuntimeConfig.NEXT_PUBLIC_AGENTID}/message`, {
+    const res = await fetch(`${process.env.API_URL}/${process.env.AGENTID}/message`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         text: message,
         userId: publicKey || "User",
-        roomId: `default-room-${serverRuntimeConfig.NEXT_PUBLIC_AGENTID}-${publicKey}`,
+        roomId: `default-room-${process.env.AGENTID}-${publicKey}`,
       }),
     });
     const data = await res.json();

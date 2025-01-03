@@ -14,15 +14,14 @@ const Overview = () => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    getAccount();
     if (litt) {
       updateTwitter();
     } else {
-      if ((session as any)?.accessToken) {
-        route.push("/auto-social-post/config/schedule");
+      if (publicKey) {
+        getAccount();
       }
     }
-  }, [litt, session]);
+  }, [litt, publicKey]);
 
   const handleLogin = () => {
     const result = signIn("twitter", {
@@ -32,14 +31,19 @@ const Overview = () => {
 
   const getAccount = async () => {
     try {
-      const res = await fetch(`/api/twitter?publicKey=${publicKey?.toString()}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await fetch(
+        `/api/twitter?publicKey=${publicKey?.toString()}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
       const data = await res.json();
       console.log(`data`, JSON.stringify(data));
 
-      return data.data;
+      if (data.length > 0) {
+        route.push("/auto-social-post/config/setting");
+      }
     } catch (error) {
       throw error;
     }
@@ -60,7 +64,7 @@ const Overview = () => {
         }),
       });
       const data = await res.json();
-      route.push("/auto-social-post/config/schedule");
+      route.push("/auto-social-post/config/setting");
     } catch (error) {
       // throw error;
     }
@@ -75,10 +79,18 @@ const Overview = () => {
               {/* <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span> */}
             </div>
             <div className="text-[#999999] text-sm font-medium font-bricolage leading-tight">
-              Setting a schedule, AI can create content that matches your writing style and automatically post it to X at the time you choose.
+              Setting a schedule, AI can create content that matches your
+              writing style and automatically post it to X at the time you
+              choose.
             </div>
           </div>
-          <Image className="w-[110px] h-[110px]" width={110} height={110} alt="" src="/imgs/page-3.svg" />
+          <Image
+            className="w-[110px] h-[110px]"
+            width={110}
+            height={110}
+            alt=""
+            src="/imgs/page-3.svg"
+          />
         </div>
       </div>
       <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-8 flex w-full md:w-[500px] mx-auto">
@@ -86,13 +98,21 @@ const Overview = () => {
           <div className="self-stretch h-48 py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex">
             <div className="self-stretch p-5 justify-start items-center gap-2.5 flex flex-col">
               <div className="flex flex-col gap-[10px] items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="47" height="46" viewBox="0 0 47 46" fill="none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="47"
+                  height="46"
+                  viewBox="0 0 47 46"
+                  fill="none"
+                >
                   <path
                     d="M26.7822 20.3584L39.6256 5.75H36.5821L25.4302 18.4343L16.5232 5.75H6.25L19.7191 24.9309L6.25 40.25H9.29365L21.0704 26.855L30.4768 40.25H40.75L26.7814 20.3584H26.7822ZM22.6135 25.0998L21.2488 23.1899L10.3903 7.99195H15.0652L23.8281 20.2571L25.1928 22.1671L36.5835 38.11H31.9087L22.6135 25.1006V25.0998Z"
                     fill="white"
                   />
                 </svg>
-                <div className="text-[#a4fb0e] text-sm font-medium font-bricolage leading-tight">Connect X account to continue</div>
+                <div className="text-[#a4fb0e] text-sm font-medium font-bricolage leading-tight">
+                  Connect X account to continue
+                </div>
               </div>
               <Button className="w-full " onClick={handleLogin}>
                 Connect

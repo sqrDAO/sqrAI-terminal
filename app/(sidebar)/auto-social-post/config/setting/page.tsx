@@ -1,14 +1,44 @@
+"use client";
+import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 import Link from "next/link";
+import { use, useEffect, useState } from "react";
 
 const Index = () => {
+  const { publicKey } = useWallet();
+  const [data, setData] = useState([]);
+  const getAccount = async () => {
+    try {
+      const res = await fetch(
+        `/api/twitter?publicKey=${publicKey?.toString()}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await res.json();
+      console.log(`data`, JSON.stringify(data));
+
+      setData(data);
+    } catch (error) {
+      throw error;
+    }
+  };
+  useEffect(() => {
+    if (publicKey) {
+      getAccount();
+    }
+  }, [publicKey]);
   return (
     <div className="w-full px-6 pt-6 flex-col justify-start items-center inline-flex">
       <div className="self-stretch h-[180px] pb-16 flex-col justify-start items-start gap-8 flex">
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
             <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
-              Auto generate social post <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
+              Auto generate social post{" "}
+              {/* <span className="text-[10px] font-chakra text-[#A4FB0E]">
+                (coming soon)
+              </span> */}
             </div>
           </div>
           <Image
@@ -56,7 +86,7 @@ const Index = () => {
             </div>
             <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
               <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
-                Add time
+                Expired At
               </div>
             </div>
             <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
@@ -65,28 +95,44 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <div className="w-[936px] px-5 py-4 border-[#444444] justify-center items-center inline-flex">
-            <div className="grow shrink basis-0 h-[22px] px-2.5 justify-center items-center gap-2.5 flex">
-              <img
-                className="w-[22px] h-[22px] relative rounded-[200px] border border-[#dcff9f]"
-                src="https://via.placeholder.com/22x22"
-              />
-              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
-                @name
+          {data.map((item) => (
+            <div
+              key={item.id}
+              className="w-[936px] px-5 py-4 border-[#444444] justify-center items-center inline-flex"
+            >
+              <div className="grow shrink basis-0 h-[22px] px-2.5 justify-center items-center gap-2.5 flex">
+                <img
+                  className="w-[22px] h-[22px] relative rounded-[200px] border border-[#dcff9f]"
+                  src={item.image || "https://via.placeholder.com/22x22"}
+                  alt={item.twitterName}
+                />
+                <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
+                  {item.twitterName}
+                </div>
+              </div>
+              <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
+                <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
+                  {item.expiredAt}
+                </div>
+              </div>
+              <div className="h-5 px-2.5 justify-end items-center gap-3 flex">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="21"
+                  height="20"
+                  viewBox="0 0 21 20"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M13 0.833008L13 5.83301L8 5.83301L8 0.833008L13 0.833008ZM11.3333 2.49967L9.66667 2.49967L9.66667 4.16634L11.3333 4.16634L11.3333 2.49967ZM13 7.49967L13 12.4997L8 12.4997L8 7.49967L13 7.49967ZM11.3333 9.16634L9.66667 9.16634L9.66667 10.833L11.3333 10.833L11.3333 9.16634ZM13 14.1663L13 19.1663L8 19.1663L8 14.1663L13 14.1663ZM11.3333 15.833L9.66667 15.833L9.66667 17.4997L11.3333 17.4997L11.3333 15.833Z"
+                    fill="black"
+                  />
+                </svg>
               </div>
             </div>
-            <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
-              <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
-                Jun 28, 2021
-              </div>
-            </div>
-            <div className="h-5 px-2.5 justify-end items-center gap-3 flex">
-              <div className="w-5 h-5 relative origin-top-left rotate-90">
-                <div className="w-5 h-5 left-0 top-0 absolute flex-col justify-start items-start flex overflow-hidden" />
-                <div className="w-5 h-5 left-0 top-0 absolute bg-white" />
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
