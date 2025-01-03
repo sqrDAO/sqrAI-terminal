@@ -6,8 +6,8 @@ import getConfig from "next/config";
 const { serverRuntimeConfig } = getConfig();
 
 export async function POST(request) {
-  const client = await pool.connect();
   try {
+    const client = await pool.connect();
     const agentId = process.env.NEXT_PUBLIC_AGENTID;
     const body = await request.json();
     console.log(`data: ${JSON.stringify(body)}`);
