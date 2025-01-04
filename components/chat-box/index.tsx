@@ -1,21 +1,30 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import InputGroup from "../input-group";
 import { IChat } from "@/app/types/types";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
-import BotReply from "@/app/serivces/bot-api";
-import utils from "@/app/utils";
-import Image from "next/image";
+import { BotReply, useBotAutoReply } from "@/app/serivces/bot-api";
 import ReactMarkdown from "react-markdown";
 let intervalId;
 const ChatBox = () => {
   const { publicKey } = useWallet();
-  const [avatar, setAvatar] = useState<string>("");
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const { sessionContent, setSessionContent, sessionId, dataChat } = useSQRAI();
+  const { sessionContent, setSessionContent, sessionId, dataChat, agent } = useSQRAI();
   const [isLoading, setLoading] = useState<boolean>(false);
+  const [selectedAgent, setSelectedAgent] = useState(null);
+
+  useEffect(() => {
+    const storedAgentList = JSON.parse(localStorage.getItem("agents"));
+    const storedSelectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
+    setSelectedAgent(storedSelectedAgent || null);
+  }, []);
+
+  const { data: botReplies, error, refetch: refetchMesages } = useBotAutoReply(publicKey?.toString());
+
+  useEffect(() => {
+    setSessionContent(botReplies);
+  }, [botReplies]);
 
   const userChat = (dataChat: IChat) => {
     if (Object.keys(dataChat).length == 0) return;
@@ -31,29 +40,11 @@ const ChatBox = () => {
   const onBotReply = async (message) => {
     try {
       setLoading(true);
-      const res = await BotReply({ message: message, sessionId: sessionId });
-
-      if (!res || res.length === 0) {
-        const reply: IChat = {
-          from: "bot",
-          value: "Something went wrong, please try again",
-        };
-
-        setSessionContent([...sessionContent, reply]);
-        setLoading(false);
-        return;
-      }
-
-      for (const response of res) {
-        if (response.text) {
-          const reply: IChat = {
-            from: "bot",
-            value: response.text,
-          };
-
-          setSessionContent((prevContent) => [...prevContent, reply]);
-        }
-      }
+      const res = await BotReply({
+        message: message,
+        publicKey: publicKey?.toString(),
+      });
+      await refetchMesages();
       setLoading(false);
     } catch (e) {
       setLoading(false);
@@ -61,6 +52,9 @@ const ChatBox = () => {
   };
 
   useEffect(() => {
+    if (isLoading) {
+      return;
+    }
     scrollToBottom();
     if (sessionContent.length > 0) {
       let lastMessage = sessionContent[sessionContent.length - 1];
@@ -86,46 +80,21 @@ const ChatBox = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    if (publicKey?.toString()) {
-      setAvatar(utils.genAVT(publicKey?.toString() as string));
-    }
-  }, [publicKey?.toString()]);
-
   return (
     <div className="flex flex-col h-full w-full border-l border-[#a4fb0e] bg-black">
       <div className="grow overflow-auto transition-all p-5">
-        {sessionContent.map((item, index) => (
+        {sessionContent?.map((item, index) => (
           <>
             {item.from !== "bot" && (
               <div key={index}>
                 <div className="flex flex-col items-start gap-0 mb-4">
-                  {/* <div className="flex gap-1 p-1 border border-[#a4fb0e] overflow-hidden"> */}
-                  {/* <img
-                      className="w-6 h-6 rounded-full"
-                      src={avatar}
-                      alt={publicKey?.toString()}
-                    /> */}
                   <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                    <div className="text-sm font-bold text-[#a4fb0e] font-bricolage flex">
-                      {/* {publicKey
-                          ? ` ..${publicKey
-                              ?.toString()
-                              ?.substring(
-                                publicKey?.toString().length - 6,
-                                publicKey?.toString().length
-                              )}`
-                          : "User"} */}
-                      &gt;_ You
-                    </div>
+                    <div className="text-sm font-bold text-[#a4fb0e] font-bricolage flex">&gt;_ You</div>
                   </div>
                   {/* </div> */}
                   <div className="flex flex-col">
-                    <div className="text-sm font-normal break-all text-[#a4fb0e] font-chakra">
-                      <span style={{ whiteSpace: "pre-line" }}>
-                        {item.value}
-                      </span>
-                      {/* <ReactMarkdown>{item.value}</ReactMarkdown> */}
+                    <div className="text-sm font-normal break-words text-[#a4fb0e] font-chakra">
+                      <span style={{ whiteSpace: "pre-line" }}>{item.value}</span>
                     </div>
                   </div>
                 </div>
@@ -134,22 +103,11 @@ const ChatBox = () => {
             {item.from == "bot" && (
               <div key={index}>
                 <div className="flex flex-col items-start gap-0 mb-4 ">
-                  {/* <div className="flex gap-2 items-center justify-center p-1 border border-[#a4fb0e] overflow-hidden"> */}
-                    {/* <Image
-                      src={"/imgs/sqr-logo.svg"}
-                      className=""
-                      alt={""}
-                      width={50}
-                      height={30}
-                    ></Image> */}
-                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                      <span className="text-sm font-bold text-white font-bricolage">
-                      &gt;_  beta
-                      </span>
-                    </div>
-                  {/* </div> */}
+                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                    <span className="text-sm font-bold text-white font-bricolage">&gt;_ {agent?.name || selectedAgent?.name}</span>
+                  </div>
                   <div className="flex flex-col">
-                    <div className="text-sm font-normal break-all text-white">
+                    <div className="text-sm font-normal break-words text-white">
                       <ReactMarkdown>{item.value}</ReactMarkdown>
                     </div>
                   </div>
@@ -161,18 +119,8 @@ const ChatBox = () => {
 
         {isLoading && (
           <div className="flex flex-col items-start gap-2 mb-4">
-            <div className="flex gap-2 items-center justify-center p-1 border border-[#a4fb0e] overflow-hidden">
-              {/* <Image
-                src={"/imgs/sqr-logo.svg"}
-                alt={""}
-                width={50}
-                height={30}
-              ></Image> */}
-              <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                <span className="text-sm font-semibold text-[#a4fb0e] font-bricolage">
-                  B-a3cs4
-                </span>
-              </div>
+            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+              <span className="text-sm font-bold text-white font-bricolage">&gt;_ {agent?.name || selectedAgent?.name}</span>
             </div>
             <div className="flex flex-col animate-pulse space-y-2.5 w-full">
               <div className="flex items-center w-1/2">

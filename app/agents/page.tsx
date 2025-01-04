@@ -1,4 +1,5 @@
 "use client";
+import { useAgents } from "@/hooks/useAgents";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -37,8 +38,10 @@ const AgentCard: React.FC<{
 );
 
 const ListAgents: React.FC = () => {
+  const { data } = useAgents();
   const [diffHours, setDiffHours] = useState(0);
   const [diffMinutes, setDiffMinutes] = useState(0);
+  const [agentList, setAgentList] = useState([]);
   useEffect(() => {
     const now = new Date();
     const previousTime = new Date();
@@ -52,29 +55,17 @@ const ListAgents: React.FC = () => {
     setDiffMinutes(Math.floor((diff / (1000 * 60)) % 60));
   }, []);
 
-  // let agents = [];
-  const [agents, setAgents] = useState([]);
-
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setAgents(JSON.parse(localStorage.getItem("agents") || "[]"));
-
-      const agentName = "Beta";
-      if (!Array.isArray(agents)) {
-        setAgents([]);
+    if (data?.agents) {
+      const storedAgents = JSON.parse(localStorage.getItem("agents") || "[]");
+      const newAgents = data?.agents?.filter((agent: { name: string }) => !storedAgents?.some((storedAgent: { name: string }) => storedAgent?.name === agent?.name));
+      if (newAgents?.length > 0) {
+        localStorage.setItem("agents", JSON.stringify([...storedAgents, ...newAgents]));
       }
-
-      setAgents((prevAgents) => {
-        const agentExists = prevAgents?.some((agent: { name: string }) => agent?.name === agentName);
-        if (!agentExists) {
-          const newAgents = [...prevAgents, { name: agentName }];
-          localStorage.setItem("agents", JSON.stringify(newAgents));
-          return newAgents;
-        }
-        return prevAgents;
-      });
     }
-  }, []);
+
+    setAgentList(JSON.parse(localStorage.getItem("agents") || "[]"));
+  }, [data?.agents]);
 
   return (
     <div className="h-full px-6 pt-4 flex-col justify-start items-center inline-flex w-full relative mt-10">
@@ -102,7 +93,7 @@ const ListAgents: React.FC = () => {
                 <div className="text-center text-[#a4fb0e] text-xl font-semibold font-bricolage leading-[27px]">Create a agent</div>
               </div>
             </Link>
-            <Link href={"/overview?agent=Beta"} className="cursor-pointer">
+            {/* <Link href={"/overview?agent=Beta"} className="cursor-pointer">
               <AgentCard
                 name="DEV"
                 code="Dev-a999"
@@ -114,10 +105,9 @@ const ListAgents: React.FC = () => {
             </Link>
             <AgentCard name="MKT" code="mkt-01" edited="coming soon..." imgSrc="/imgs/agents/agents-2.svg" borderColor="border-[#dcff9f]" />
             <AgentCard name="CM" code="cm-c321" edited="coming soon..." imgSrc="/imgs/agents/agents-3.svg" borderColor="border-[#dcff9f]" />
-            <AgentCard name="BD" code="bd-6789" edited="coming soon..." imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" />
-            {agents
-              ?.filter((x) => x?.name?.toLowerCase() !== "beta")
-              .map((agent: { name: string }, index: number) => {
+            <AgentCard name="BD" code="bd-6789" edited="coming soon..." imgSrc="/imgs/agents/agents-4.svg" borderColor="border-[#dcff9f]" /> */}
+            {agentList?.length > 0 &&
+              agentList?.map((agent: { name: string }, index: number) => {
                 return (
                   <Link key={index} href={`/overview?agent=${agent?.name}`} className="cursor-pointer">
                     <AgentCard
@@ -126,6 +116,7 @@ const ListAgents: React.FC = () => {
                       edited={`Edited ${diffHours ? diffHours + ":" : ""}${diffMinutes} minutes ago`}
                       imgSrc="/imgs/agents/agents-4.svg"
                       borderColor="border-[#dcff9f]"
+                      chat={agent?.name?.toLowerCase() === "codebot"}
                     />
                   </Link>
                 );

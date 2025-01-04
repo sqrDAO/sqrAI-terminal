@@ -6,6 +6,8 @@ import { IChat } from "../types/types";
 const sqraiContext = createContext({
   dataChat: null,
   setDataChat: (a) => {},
+  agent: null,
+  setAgent: (a) => {},
   sessionId: "",
   setSessionId: (a) => {},
   sessionContent: [],
@@ -14,13 +16,14 @@ const sqraiContext = createContext({
 
 export const SQRAIProvider = ({ children }) => {
   const [dataChat, setDataChat] = useState<IChat>(null);
+  const [agent, setAgent] = useState(null);
   const [sessionId, setSessionId] = useState("");
   const [sessionContent, setSessionContent] = useState<IChat[]>([]);
   const { publicKey } = useWallet();
   useEffect(() => {
     try {
       if (!publicKey) return;
-      console.log(sessionId);
+      // console.log(sessionId);
       if (sessionContent && sessionContent.length > 0) {
         const listChat = window.localStorage.getItem(publicKey?.toString());
         let jsonChat = listChat ? JSON.parse(listChat) : [];
@@ -42,6 +45,8 @@ export const SQRAIProvider = ({ children }) => {
       value={{
         dataChat,
         setDataChat,
+        agent,
+        setAgent,
         sessionId,
         setSessionId,
         sessionContent,

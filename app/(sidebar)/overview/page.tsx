@@ -1,4 +1,5 @@
 "use client";
+import { useSQRAI } from "@/app/provider/sqrai.provider";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,13 +14,16 @@ const Overview = () => {
   const [selectedAgent, setSelectedAgent] = useState<{ name: string } | null>(null);
   const [agent, setAgent] = useState<{ name: string } | null>(null);
 
+  const { setAgent: setAgentContext } = useSQRAI();
+
   useEffect(() => {
     const storedAgents = JSON.parse(localStorage.getItem("agents") || "[]");
     const storedSelectedAgent = JSON.parse(localStorage.getItem("selectedAgent") || "{}");
     setAgents(storedAgents);
     setSelectedAgent(storedSelectedAgent);
-    const foundAgent = storedAgents.find((a: { name: string }) => a?.name === agentName || a?.name === storedSelectedAgent?.name);
+    const foundAgent = storedAgents.find((a: { name: string }) => a?.name === agentName) || storedSelectedAgent?.name;
     setAgent(foundAgent);
+    setAgentContext(foundAgent);
   }, [agentName]);
 
   useEffect(() => {

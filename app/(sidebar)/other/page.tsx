@@ -15,25 +15,35 @@ const Overview = () => {
     setRowPerPage(value);
   };
 
-  const agentList = JSON.parse(localStorage.getItem("agents"));
-
-  const selectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
-
-  const [knowledgeLinks, setKnowledgeLinks] = useState(JSON.parse(localStorage.getItem("selectedAgent"))?.knowledgeLinks || []);
+  const [agentList, setAgentList] = useState([]);
+  const [selectedAgent, setSelectedAgent] = useState(null);
+  const [knowledgeLinks, setKnowledgeLinks] = useState([]);
 
   useEffect(() => {
-    const updatedAgent = {
-      ...selectedAgent,
-      knowledgeLinks: knowledgeLinks,
-    };
+    const storedAgentList = JSON.parse(localStorage.getItem("agents"));
+    const storedSelectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
 
-    const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
+    setKnowledgeLinks(storedSelectedAgent?.knowledgeLinks || []);
 
-    setKnowledgeLink("");
+    setAgentList(storedAgentList || []);
+    setSelectedAgent(storedSelectedAgent || null);
+  }, []);
 
-    localStorage.setItem("agents", JSON.stringify(updatedAgentList));
-    localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
-  }, [knowledgeLinks]);
+  useEffect(() => {
+    if (selectedAgent) {
+      const updatedAgent = {
+        ...selectedAgent,
+        knowledgeLinks: knowledgeLinks,
+      };
+
+      const updatedAgentList = agentList.map((agent) => (agent?.name === selectedAgent?.name ? updatedAgent : agent));
+
+      setKnowledgeLink("");
+
+      localStorage.setItem("agents", JSON.stringify(updatedAgentList));
+      localStorage.setItem("selectedAgent", JSON.stringify(updatedAgent));
+    }
+  }, [knowledgeLinks, selectedAgent]);
 
   const handleAddLink = () => {
     if (knowledgeLink === "") {

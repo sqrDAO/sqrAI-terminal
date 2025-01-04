@@ -10,33 +10,35 @@ type Props = {
 const InputGroup: React.FC<Props> = ({ isLoading }) => {
   const { publicKey } = useWallet();
   const { setDataChat } = useSQRAI();
-  const [value, setValue] = useState<string>("");
+  // const [value, setValue] = useState<string>("");
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
       if (isLoading) return;
       const dataChat = {
         from: publicKey?.toString() ?? "user",
-        value: event.target.value,
+        value: event.target.textContent,
       };
       setDataChat(dataChat);
-      setValue("");
+      event.target.textContent = "";
     }
   };
 
   return (
     <div className={`w-full transition-all border-t border-[#a4fb0e]`}>
-      <div className="bg-black w-full flex items-center overflow-hidden pl-11 py-3 relative">
-        <div className="text-[#a4fb0e] text-sm font-medium font-bricolage leading-[27px] flex absolute left-5 top-2">&gt;_</div>
-        <textarea
-          placeholder="Ask follow-up"
-          disabled={isLoading}
-          className="text-white text-sm w-full bg-black"
-          onChange={(event) => setValue(event.target.value)}
+      <div className="bg-black w-full flex items-center overflow-hidden pl-11 py-4 relative">
+        <div className="text-[#a4fb0e] text-sm font-medium font-bricolage leading-[27px] flex absolute left-5 top-3">
+          &gt;_
+        </div>
+        <div
+          contentEditable={!isLoading}
+          className="text-white text-sm w-full bg-black outline-none break-words whitespace-pre-wrap min-h-5 max-h-14 overflow-auto editable"
+          // onInput={(event) => setValue(event.currentTarget.textContent || "")}
           onKeyDown={handleKeyDown}
-          value={value}
-          rows={2}
-        />
+          suppressContentEditableWarning={true}
+        >
+          {/* {value} */}
+        </div>
       </div>
     </div>
   );

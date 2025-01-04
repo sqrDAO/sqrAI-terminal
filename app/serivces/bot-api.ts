@@ -1,24 +1,48 @@
-import { notification } from "antd";
+import { useQuery } from "@tanstack/react-query";
 
-const BotReply = async (params: { message: string; sessionId: string }) => {
+export const BotReply = async (params: {
+  message: string;
+  publicKey: string;
+}) => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API}/${process.env.NEXT_PUBLIC_AGENTID}/message`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text: params.message,
-          userId: params.sessionId || "User",
-          roomId: `default-room-${process.env.NEXT_PUBLIC_AGENTID}-${params.sessionId}`,
-        }),
-      }
-    );
+    const res = await fetch(`/api/message`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: params.message,
+        publicKey: params.publicKey || "User",
+      }),
+    });
     const data = await res.json();
-    return data;
+    return data.data;
   } catch (error) {
     throw error;
   }
 };
 
-export default BotReply;
+export const useBotAutoReply = (publicKey: string) => {
+  return useQuery({
+    queryKey: ["botAutoReply", publicKey],
+    queryFn: async () => {
+      const res = await fetch(`/api/messages?publicKey=${publicKey}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      const newMessages = data.data.reduce((acc, message) => {
+        acc[message.id] = {
+          from: message.content.user === "codebot" ? "bot" : "user",
+          value: message.content.text,
+          createdAt: message.createdAt,
+        };
+        return acc;
+      }, {});
+      const sortedMessages = Object.values(newMessages).sort(
+        (a: any, b: any) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+      return sortedMessages;
+    },
+    refetchInterval: 10000, // Adjust the interval as needed
+  });
+};
