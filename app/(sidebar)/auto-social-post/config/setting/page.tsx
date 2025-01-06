@@ -27,7 +27,7 @@ const Index = () => {
   };
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`/api/twitter/${id}`, {
+      const res = await fetch(`/api/twitter/delete/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
