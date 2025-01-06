@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "../lib/db";
 import { v4 } from "uuid";
 
-
 export async function POST(request) {
   try {
     const client = await pool.connect();
@@ -90,19 +89,3 @@ export async function GET(request) {
   }
 }
 
-export async function DELETE(request) {
-  const client = await pool.connect();
-  try {
-    const { id } = request.params;
-
-    const query = "DELETE FROM twitter_client WHERE id = $1";
-    const values = [id];
-    const result = await client.query(query, values);
-    client.release();
-
-    return NextResponse.json(result.rows);
-  } catch (error) {
-    console.log(`error: ${error}`);
-    return NextResponse.error();
-  }
-}
