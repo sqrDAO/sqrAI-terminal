@@ -6,7 +6,7 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const walletAddress = searchParams.get("publicKey");
-    const agentId = process.env.AGENTID;
+    const agentId = process.env.NEXT_PUBLIC_AGENTID;
 
     const queryTwitterUsers =
       'SELECT * FROM twitter_client WHERE "walletAddress" = $1 AND "agentId" = $2';
