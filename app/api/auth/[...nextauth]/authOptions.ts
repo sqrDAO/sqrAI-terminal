@@ -3,7 +3,6 @@ import { PublicKey } from "@solana/web3.js";
 import nacl from "tweetnacl";
 import TwitterProvider from "next-auth/providers/twitter";
 
-
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -51,6 +50,11 @@ export const authOptions = {
           scope: "tweet.read tweet.write users.read offline.access",
         },
       },
+      userinfo: {
+        params: {
+          "user.fields": "profile_image_url,username",
+        },
+      },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
@@ -63,13 +67,13 @@ export const authOptions = {
       if (token) {
         session.accessToken = token.accessToken;
         session.refreshToken = token.refreshToken;
-        session.imageUrl = token.user.image;
+        session.imageUrl = token.user.profile_image_url;
       }
       return session;
     },
-    async jwt({ token, user, account }) {
-      if (user) {
-        token.user = user;
+    async jwt({ token, account, profile, user }) {
+      if (profile) {
+        token.user = profile.data;
       }
       if (account) {
         token.accessToken = account.access_token;
