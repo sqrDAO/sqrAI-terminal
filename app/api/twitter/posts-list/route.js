@@ -24,6 +24,7 @@ export async function GET(request) {
         return {
           twitterId: client.twitterId,
           twitterName: client.twitterName,
+          twitterUsername: client.twitterUsername,
           imageUrl: client.imageUrl,
         };
       });
@@ -39,7 +40,9 @@ export async function GET(request) {
             result.push({
               ...memory.content,
               twitterName: twitter.twitterName,
+              twitterUsername: twitter.twitterUsername,
               imageUrl: twitter.imageUrl,
+              time: memory.createdAt,
             });
           }
         }

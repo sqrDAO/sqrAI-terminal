@@ -60,6 +60,7 @@ const Overview = () => {
           expiredAt: (session as any)?.expires,
           userId: (session as any)?.user?.id,
           name: (session as any)?.user?.name,
+          userName: (session as any)?.user?.username,
           walletAddress: publicKey?.toString(),
           imageUrl: (session as any)?.imageUrl,
         }),
