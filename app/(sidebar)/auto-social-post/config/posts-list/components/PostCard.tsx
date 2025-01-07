@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 
 export const PostCard = ({ name, content, img, index }) => (
-  <div className="bg-[#111111] border-b border-[#444444] flex-col justify-start items-end flex ">
+  <div className="bg-[#111111] border-b border-[#444444] flex-col justify-start items-end flex w-full">
     <div className="self-stretch px-5 py-7 justify-start items-start inline-flex">
       <div className="grow shrink basis-0 pl-2.5 pr-8 justify-start items-start gap-3 flex">
         {/* <Image
