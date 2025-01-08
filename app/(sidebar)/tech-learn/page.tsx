@@ -63,7 +63,8 @@ const Overview = () => {
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
             <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
-              Technical knowledge <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span>
+              Technical knowledge 
+              {/* <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span> */}
             </div>
             <div className="self-stretch text-[#999999] text-sm font-medium font-bricolage leading-tight">Drop your project’s Github repo so the agent can understand how it works</div>
           </div>
