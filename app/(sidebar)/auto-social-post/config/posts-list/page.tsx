@@ -98,9 +98,11 @@ const Index = () => {
           <div className="self-stretch h-[842px] flex-col justify-start items-start flex">
             {data?.map((item: any, index) => (
               <PostCard
-                name={item?.twitterName}
-                content={item?.text}
-                img={item?.imageUrl}
+                twitterName={item?.twitterName}
+                twitterUsername={item?.twitterUsername}
+                text={item?.text}
+                imageUrl={item?.imageUrl}
+                time={item?.time}
                 index={index + 1}
               />
             ))}
