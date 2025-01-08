@@ -24,7 +24,7 @@ const Sidebar = () => {
       label: "Overview",
       icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M3.66634 1.8335H1.83301V9.16683H3.66634V1.8335ZM18.3333 1.8335H20.1666V9.16683H18.3333V1.8335ZM12.8329 7.33344H9.16643V1.8335H7.33323H7.33309H3.66656V3.66683H7.33309V7.33344H3.66656V9.16677H7.33309V12.8334H3.66656V14.6668H7.33309V18.3335H3.66656V20.1668H7.33309V20.1668H9.16643V14.6668H12.8329V20.1668H14.6662V14.6668H18.3332V12.8334H14.6662V9.16677H18.3332V7.33344H14.6662V1.8335H12.8329V7.33344ZM9.16643 12.8334V9.16677H12.8329V12.8334H9.16643ZM18.3331 1.8335H14.6664V3.66683H18.3331V1.8335ZM1.83301 12.8334H3.66634V20.1668H1.83301V12.8334ZM14.6664 18.3335H18.3331V20.1668H14.6664V18.3335ZM20.1666 12.8334H18.3333V20.1668H20.1666V12.8334Z" fill="${
-        pathName === "/overview" ? "white" : "#666666"
+        pathName === "/overview" ? "black" : "white"
       }"/>
 </svg>`,
     },
@@ -35,20 +35,20 @@ const Sidebar = () => {
       href: "/tech-learn",
       label: "Technical learn",
       icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                  <path d="M7.33301 4.58331H9.16634V6.41665H7.33301V4.58331Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M5.49968 6.41665H7.33301V8.24998H5.49968V6.41665Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M3.66634 8.24998H5.49968V10.0833H3.66634V8.24998Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M1.83301 10.0833H3.66634V11.9166H1.83301V10.0833Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M3.66634 11.9166H5.49968V13.75H3.66634V11.9166Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M5.49968 13.75H7.33301V15.5833H5.49968V13.75Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M7.33301 15.5833H9.16634V17.4166H7.33301V15.5833Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M14.6663 4.58331H12.833V6.41665H14.6663V4.58331Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M16.4997 6.41665H14.6663V8.24998H16.4997V6.41665Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M18.333 8.24998H16.4997V10.0833H18.333V8.24998Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M20.1663 10.0833H18.333V11.9166H20.1663V10.0833Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M18.333 11.9166H16.4997V13.75H18.333V11.9166Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M16.4997 13.75H14.6663V15.5833H16.4997V13.75Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
-                  <path d="M14.6663 15.5833H12.833V17.4166H14.6663V15.5833Z" fill="${pathName === "/tech-learn" ? "white" : "#666666"}" />
+                  <path d="M7.33301 4.58331H9.16634V6.41665H7.33301V4.58331Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M5.49968 6.41665H7.33301V8.24998H5.49968V6.41665Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M3.66634 8.24998H5.49968V10.0833H3.66634V8.24998Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M1.83301 10.0833H3.66634V11.9166H1.83301V10.0833Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M3.66634 11.9166H5.49968V13.75H3.66634V11.9166Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M5.49968 13.75H7.33301V15.5833H5.49968V13.75Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M7.33301 15.5833H9.16634V17.4166H7.33301V15.5833Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M14.6663 4.58331H12.833V6.41665H14.6663V4.58331Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M16.4997 6.41665H14.6663V8.24998H16.4997V6.41665Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M18.333 8.24998H16.4997V10.0833H18.333V8.24998Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M20.1663 10.0833H18.333V11.9166H20.1663V10.0833Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M18.333 11.9166H16.4997V13.75H18.333V11.9166Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M16.4997 13.75H14.6663V15.5833H16.4997V13.75Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
+                  <path d="M14.6663 15.5833H12.833V17.4166H14.6663V15.5833Z" fill="${pathName === "/tech-learn" ? "black" : "white"}" />
                 </svg>`,
     },
     {
@@ -57,7 +57,7 @@ const Sidebar = () => {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <path
                     d="M12.5697 9.73662L18.7122 2.75H17.2567L11.9231 8.81639L7.66326 2.75H2.75L9.19176 11.9235L2.75 19.25H4.20566L9.838 12.8437L14.3367 19.25H19.25L12.5694 9.73662H12.5697ZM10.576 12.0043L9.92333 11.0908L4.73015 3.82224H6.96596L11.1569 9.6882L11.8096 10.6017L17.2573 18.2265H15.0215L10.576 12.0046V12.0043Z"
-                    fill="${pathName === "/scrape" ? "white" : "#666666"}"
+                    fill="${pathName === "/scrape" ? "black" : "white"}"
                   />
                 </svg>`,
     },
@@ -100,7 +100,7 @@ const Sidebar = () => {
                     fill-rule="evenodd"
                     clip-rule="evenodd"
                     d="M18.3332 3.66669H3.6665V5.50002H18.3332V3.66669ZM18.3332 7.33335H3.6665V9.16669H18.3332V7.33335ZM10.9998 11H3.6665V12.8334H10.9998V11ZM18.3332 11H12.8332V16.5H18.3332V18.3334H20.1665V16.5H18.3332V11ZM14.6665 14.6667V12.8334H16.4998V14.6667H14.6665ZM10.9998 14.6667H3.6665V16.5H10.9998V14.6667Z"
-                    fill="${pathName === "/other" ? "white" : "#666666"}"
+                    fill="${pathName === "/other" ? "black" : "white"}"
                   />
                 </svg>`,
     },
@@ -116,12 +116,12 @@ const Sidebar = () => {
                       fill-rule="evenodd"
                       clip-rule="evenodd"
                       d="M11 0C4.9247 0 0 4.9324 0 11.0187C0 15.8862 3.1515 20.0167 7.5229 21.4731C8.0729 21.5743 8.2731 21.2344 8.2731 20.9418C8.2731 20.6811 8.2643 19.987 8.2588 19.0685C5.1986 19.734 4.5529 17.5912 4.5529 17.5912C4.0535 16.3174 3.3319 15.9786 3.3319 15.9786C2.3331 15.2966 3.4078 15.3098 3.4078 15.3098C4.5111 15.3868 5.0919 16.445 5.0919 16.445C6.0731 18.128 7.667 17.6418 8.2929 17.3602C8.3941 16.6485 8.6779 16.1634 8.9925 15.8884C6.5505 15.6101 3.982 14.6641 3.982 10.4423C3.982 9.24 4.411 8.2555 5.1139 7.4855C5.0006 7.2072 4.6233 6.0863 5.2217 4.5705C5.2217 4.5705 6.1457 4.2735 8.2467 5.6991C9.14404 5.45437 10.0699 5.32971 11 5.3284C11.935 5.3328 12.8755 5.4549 13.7544 5.6991C15.8543 4.2735 16.7761 4.5694 16.7761 4.5694C17.3767 6.0863 16.9983 7.2072 16.8861 7.4855C17.5901 8.2555 18.0169 9.24 18.0169 10.4423C18.0169 14.6751 15.444 15.6068 12.9943 15.8796C13.3892 16.2195 13.7401 16.8916 13.7401 17.9201C13.7401 19.3919 13.7269 20.581 13.7269 20.9418C13.7269 21.2366 13.9249 21.5798 14.4837 21.472C16.6741 20.7373 18.5783 19.3328 19.927 17.4571C21.2758 15.5813 22.0009 13.329 22 11.0187C22 4.9324 17.0742 0 11 0Z"
-                      fill="${pathName === "/github" ? "white" : "#666666"}"
+                      fill="${pathName === "/github" ? "black" : "white"}"
                     />
                   </g>
                   <defs>
                     <clipPath id="clip0_337_12584">
-                      <rect width="22" height="22" fill="${pathName === "/github" ? "white" : "#666666"}" />
+                      <rect width="22" height="22" fill="${pathName === "/github" ? "black" : "white"}" />
                     </clipPath>
                   </defs>
                 </svg>`,
@@ -132,7 +132,7 @@ const Sidebar = () => {
       icon: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <path
                     d="M12.5697 9.73662L18.7122 2.75H17.2567L11.9231 8.81639L7.66326 2.75H2.75L9.19176 11.9235L2.75 19.25H4.20566L9.838 12.8437L14.3367 19.25H19.25L12.5694 9.73662H12.5697ZM10.576 12.0043L9.92333 11.0908L4.73015 3.82224H6.96596L11.1569 9.6882L11.8096 10.6017L17.2573 18.2265H15.0215L10.576 12.0046V12.0043Z"
-                    fill="${pathName === "/auto-social-post" ? "white" : "#666666"}"
+                    fill="${pathName === "/auto-social-post" ? "black" : "white"}"
                   />
                 </svg>`,
     },
