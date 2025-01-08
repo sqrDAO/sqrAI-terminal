@@ -93,20 +93,18 @@ const Index = () => {
           </Link>
         </div>
       </div>
-      <div className="w-[920px] flex-col justify-start items-start gap-8 inline-flex mx-auto my-10">
-        <div className="self-stretch pb-5 bg-black flex-col justify-center items-start gap-5 flex">
-          <div className="self-stretch h-[842px] flex-col justify-start items-start flex">
-            {data?.map((item: any, index) => (
-              <PostCard
-                name={item?.twitterName}
-                content={item?.text}
-                img={item?.imageUrl}
-                index={index + 1}
-              />
-            ))}
-          </div>
-          {/* <PaginationControls /> */}
-        </div>
+
+      <div className="flex-col justify-start items-start flex my-10 border border-[#dcff9f] w-full">
+        {data?.map((item: any, index) => (
+          <PostCard
+            twitterName={item?.twitterName}
+            twitterUsername={item?.twitterUsername}
+            text={item?.text}
+            imageUrl={item?.imageUrl}
+            time={item?.time}
+            index={index + 1}
+          />
+        ))}
       </div>
     </div>
   );

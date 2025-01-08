@@ -67,7 +67,7 @@ export const authOptions = {
       if (token) {
         session.accessToken = token.accessToken;
         session.refreshToken = token.refreshToken;
-        session.imageUrl = token.user.profile_image_url;
+        session.imageUrl = token.user?.profile_image_url;
       }
       return session;
     },
