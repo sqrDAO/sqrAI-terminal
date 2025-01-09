@@ -59,28 +59,30 @@ const ScheduleList = () => {
 
             <table className="self-stretch w-[936px] border-collapse">
               <thead className="sticky top-0 bg-black">
-              <tr className="border-b border-[#444444]">
-                <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">Name</th>
-                <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight w-[150px]">Time</th>
-                <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">Schedule</th>
-                <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">Prompt</th>
-                <th className="px-5 py-2.5 text-right text-[#999999] text-sm font-semibold font-bricolage leading-tight">Action</th>
-              </tr>
+                <tr className="border-b border-[#444444]">
+                  <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">No.</th>
+                  <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">Action</th>
+                  <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight w-[150px]">Time</th>
+                  <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">Schedule</th>
+                  <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">Prompt</th>
+                  <th className="px-5 py-2.5 text-right text-[#999999] text-sm font-semibold font-bricolage leading-tight w-[80px]"></th>
+                </tr>
               </thead>
               <tbody>
-              {schedules?.map((schedule) => {
-                return (
-                <tr className="border-b border-[#444444]">
-                  <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{schedule?.name}</td>
-                  <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(schedule?.scheduledAt).format("HH:mm A")}</td>
-                  <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{cronToWeekday(schedule?.cron)}</td>
-                  <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{schedule?.data && schedule?.data !== "{}" ? schedule?.data : ""}</td>
-                  <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight flex justify-end">
-                  <Popover>
-                    <PopoverTrigger>
-                    <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
-                    </PopoverTrigger>
-                    {/* <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
+                {schedules?.map((schedule, index) => {
+                  return (
+                    <tr key={index} className="border-b border-[#444444]">
+                      <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{index + 1}</td>
+                      <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{schedule?.action}</td>
+                      <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(schedule?.scheduledAt).format("HH:mm A")}</td>
+                      <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{cronToWeekday(schedule?.cron)}</td>
+                      <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{schedule?.data && schedule?.data !== "{}" ? schedule?.data : ""}</td>
+                      <td className="px-5 py-2.5 text-[#999999] text-sm font-semibold font-bricolage leading-tight flex justify-end">
+                        <Popover>
+                          <PopoverTrigger>
+                            <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
+                          </PopoverTrigger>
+                          {/* <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
                     <div
                       className="cursor-pointer text-white text-base font-medium font-bricolage"
                       onClick={() => {
@@ -90,11 +92,11 @@ const ScheduleList = () => {
                       Delete
                     </div>
                     </PopoverContent> */}
-                  </Popover>
-                  </td>
-                </tr>
-                );
-              })}
+                        </Popover>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
