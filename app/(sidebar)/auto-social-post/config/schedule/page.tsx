@@ -7,10 +7,23 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import dayjs from "dayjs";
 import cronstrue from "cronstrue";
+import { useSQRAI } from "@/app/provider/sqrai.provider";
+import { useEffect } from "react";
 
 const ScheduleList = () => {
   const { publicKey } = useWallet();
-  const { data: schedules } = useSchedules(publicKey?.toString());
+  const { data: schedules, refetch } = useSchedules(publicKey?.toString());
+  const { dataChat } = useSQRAI();
+
+  useEffect(() => {
+    // receive chat message in this screen will trigger interval 10 seconds to refect schedules
+    if (dataChat) {
+      const intervalRefetch = setInterval(() => {
+        refetch();
+        clearInterval(intervalRefetch);
+      }, 10000);
+    }
+  }, [dataChat]);
 
   const cronToWeekday = (cron) => {
     if (!cron) {
