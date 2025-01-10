@@ -8,12 +8,18 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import dayjs from "dayjs";
 import cronstrue from "cronstrue";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { deleteSchedule } from "@/app/serivces/agent.service";
 
 const ScheduleList = () => {
   const { publicKey } = useWallet();
-  const { data: schedules, refetch } = useSchedules(publicKey?.toString());
   const { dataChat } = useSQRAI();
+  const [selectedAgent, setSelectedAgent] = useState(null);
+  const { data: schedules, refetch } = useSchedules(selectedAgent?.id, publicKey?.toString());
+
+  useEffect(() => {
+    setSelectedAgent(JSON.parse(localStorage.getItem("selectedAgent") || "{}"));
+  }, []);
 
   useEffect(() => {
     // receive chat message in this screen will trigger interval 10 seconds to refect schedules
@@ -32,6 +38,13 @@ const ScheduleList = () => {
 
     const res = cronstrue.toString(cron);
     return res;
+  };
+
+  const handleDeleteLink = async (eventId: string) => {
+    if (eventId) {
+      await deleteSchedule(selectedAgent?.id, publicKey?.toString(), eventId);
+      refetch();
+    }
   };
 
   return (
@@ -61,7 +74,7 @@ const ScheduleList = () => {
       <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-8 flex mx-auto mt-10">
         <div className="self-stretch h-[462px] flex-col items-start gap-2 flex border-2 border-[#dcff9f] py-5">
           <div className="px-5 pb-5 text-base text-[#C5FF53] font-semibold font-bricolage">Communicate with the bot to make schedule</div>
-          <div className="self-stretch h-full bg-black flex-col items-start gap-5 flex overflow-y-auto">
+          <div className="self-stretch h-full bg-black flex-col items-start gap-5 flex overflow-auto">
             {/* <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
               <div className="grow shrink basis-0 p-4 border border-[#dcff9f] flex-col justify-center items-center gap-4 inline-flex">
                 <div className="self-stretch text-center text-[#c5ff53] text-sm font-medium font-bricolage leading-tight">
@@ -76,7 +89,7 @@ const ScheduleList = () => {
                   <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">No.</th>
                   <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">Action</th>
                   <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight w-[150px]">Time</th>
-                  <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">Schedule</th>
+                  <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight w-[200px]">Schedule</th>
                   <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">Prompt</th>
                   <th className="px-5 py-2.5 text-right text-[#999999] text-sm font-semibold font-bricolage leading-tight w-[80px]"></th>
                 </tr>
@@ -95,16 +108,16 @@ const ScheduleList = () => {
                           <PopoverTrigger>
                             <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
                           </PopoverTrigger>
-                          {/* <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                    <div
-                      className="cursor-pointer text-white text-base font-medium font-bricolage"
-                      onClick={() => {
-                      // handleDeleteLink(index);
-                      }}
-                    >
-                      Delete
-                    </div>
-                    </PopoverContent> */}
+                          <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
+                            <div
+                              className="cursor-pointer text-white text-base font-medium font-bricolage"
+                              onClick={() => {
+                                handleDeleteLink(schedule?.id);
+                              }}
+                            >
+                              Delete
+                            </div>
+                          </PopoverContent>
                         </Popover>
                       </td>
                     </tr>

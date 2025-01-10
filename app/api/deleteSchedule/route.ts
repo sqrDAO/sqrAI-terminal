@@ -5,10 +5,11 @@ import { NextResponse } from "next/server";
 
 const apiUrl = process.env.API_URL;
 
-export async function GET(req) {
+export async function DELETE(req) {
   const { searchParams } = new URL(req.url);
   const agentId = searchParams.get("agentId");
   const userId = searchParams.get("publicKey");
+  const eventId = searchParams.get("eventId");
   const session = await getServerSession(authOptions as any);
 
   if (!session) {
@@ -18,7 +19,7 @@ export async function GET(req) {
     });
   }
 
-  if (!userId || !agentId) {
+  if (!userId || !eventId || !agentId) {
     return new Response(JSON.stringify({ error: "Missing query parameters" }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
@@ -26,14 +27,14 @@ export async function GET(req) {
   }
 
   try {
-    const response = await axios.get(`${apiUrl}/cals/events`, {
-      params: { agentId, userId },
+    const response = await axios.delete(`${apiUrl}/cals/events`, {
+      params: { agentId, userId, eventId },
     });
 
     return NextResponse.json(response?.data);
   } catch (error) {
-    console.error("Error getting schedules:", error);
-    return new Response(JSON.stringify({ error: "Failed to get schedules" }), {
+    console.error("Error delete schedules:", error);
+    return new Response(JSON.stringify({ error: "Failed to delete schedules" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });

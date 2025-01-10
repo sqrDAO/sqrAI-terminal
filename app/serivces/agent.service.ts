@@ -75,10 +75,20 @@ export async function getAgents(): Promise<any> {
   }
 }
 
-export async function getSchedules(publicKey: string): Promise<any> {
+export async function getSchedules(agentId: string, publicKey: string): Promise<any> {
   try {
-    const response = await axios.get(`/api/getSchedules`, { params: { publicKey } });
+    const response = await axios.get(`/api/getSchedules`, { params: { agentId, publicKey } });
     return response?.data?.length > 0 ? response?.data?.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) : response?.data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+
+export async function deleteSchedule(agentId: string, publicKey: string, eventId: string): Promise<any> {
+  try {
+    const response = await axios.delete(`/api/deleteSchedule`, { params: { agentId, publicKey, eventId } });
+    return response?.data;
   } catch (error) {
     console.error("Error:", error);
     throw error;
