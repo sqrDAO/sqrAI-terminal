@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useKnowledge } from "@/app/serivces/bot-api";
 
 const Overview = () => {
   const [knowledgeLink, setKnowledgeLink] = useState("");
@@ -22,9 +23,10 @@ const Overview = () => {
   // const [agentList, setAgentList] = useState([]);
   const [selectedAgent, setSelectedAgent] = useState(null);
   const [knowledgeLinks, setKnowledgeLinks] = useState([]);
+  const { data, error, refetch } = useKnowledge(selectedAgent?.id ?? null);
 
   useEffect(() => {
-    const storedAgentList = JSON.parse(localStorage.getItem("agents"));
+    // const storedAgentList = JSON.parse(localStorage.getItem("agents"));
     const storedSelectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
 
     // setKnowledgeLinks(storedSelectedAgent?.knowledgeLinks || []);
@@ -33,24 +35,25 @@ const Overview = () => {
     setSelectedAgent(storedSelectedAgent || null);
   }, []);
 
-  useEffect(() => {
-    if (selectedAgent) {
-      fetchKnowledgeLinks();
-    }
-  }, [selectedAgent]);
+  // useEffect(() => {
+  //   if (selectedAgent) {
+  //     fetchKnowledgeLinks();
+  //   }
+  // }, [selectedAgent]);
 
-  const fetchKnowledgeLinks = async () => {
-    try {
-      const res = await fetch(`/api/knowledge?agentId=${selectedAgent.id}`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      setKnowledgeLinks(data.data);
-    } catch (error) {
-      console.error("Error fetching knowledge links:", error);
-    }
-  };
+  // const fetchKnowledgeLinks = async () => {
+  //   try {
+  //     // const res = await fetch(`/api/knowledge?agentId=${selectedAgent.id}`, {
+  //     //   method: "GET",
+  //     //   headers: { "Content-Type": "application/json" },
+  //     // });
+  //     // const data = await res.json();
+  //     const res = await getKnowledgeLinks(selectedAgent.id);
+  //     setKnowledgeLinks(res.data);
+  //   } catch (error) {
+  //     console.error("Error fetching knowledge links:", error);
+  //   }
+  // };
 
   const handleAddLink = () => {
     if (knowledgeLink === "") {
@@ -61,7 +64,7 @@ const Overview = () => {
       value: `Crawl website ${knowledgeLink}`,
     };
     setDataChat(dataChat);
-    fetchKnowledgeLinks();
+    refetch();
     // setKnowledgeLinks((prev) => {
     //   return [
     //     ...prev,
@@ -80,7 +83,7 @@ const Overview = () => {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
-      fetchKnowledgeLinks();
+      refetch();
     } catch (error) {
       console.error("Error deleting knowledge link:", error);
     }
@@ -149,9 +152,9 @@ const Overview = () => {
         <div className="self-stretch h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex">
           <div
             className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex"
-            // onDrop={handleDrop}
-            // onDragOver={handleDragOver}
-            // onDragLeave={handleDragLeave}
+          // onDrop={handleDrop}
+          // onDragOver={handleDragOver}
+          // onDragLeave={handleDragLeave}
           >
             <div className={`grow shrink basis-0 px-4 py-8 border border-[#dcff9f] flex-col justify-center items-center gap-4 inline-flex ${isDragging ? "bg-[#444444]" : ""}`}>
               <div className="w-[26px] h-[26px] relative">
@@ -178,7 +181,7 @@ const Overview = () => {
               Add
             </Button>
           </div>
-          {knowledgeLinks?.length > 0 && (
+          {data?.data?.length > 0 && (
             <div className="self-stretch h-fit flex-col justify-start items-start flex w-full md:w-[936px]">
               <div className="w-full px-5 py-2.5 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5">
                 <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Content</div>
@@ -186,7 +189,7 @@ const Overview = () => {
                 <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
                 <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight text-right"></div>
               </div>
-              {knowledgeLinks.map((item, index) => {
+              {data?.data.map((item, index) => {
                 return (
                   <div key={index} className="w-full px-5 py-4 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5">
                     <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{item?.content?.text}</div>
