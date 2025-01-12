@@ -46,3 +46,21 @@ export const useBotAutoReply = (publicKey: string) => {
     refetchInterval: 10000, // Adjust the interval as needed
   });
 };
+
+export const useKnowledge = (AgentId) => {
+  return useQuery({
+    queryKey: ["botAutoReply", AgentId],
+    queryFn: async () => {
+      if (!AgentId) {
+        return null;
+      }
+      const res = await fetch(`/api/knowledge?agentId=${AgentId}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      return data;
+    },
+    refetchInterval: 10000, // Adjust the interval as needed
+  });
+};
