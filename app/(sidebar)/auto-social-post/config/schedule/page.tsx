@@ -150,7 +150,7 @@ const ScheduleList = () => {
               </tbody>
             </table>
           </div>
-          <PaginationControls />
+          {/* <PaginationControls /> */}
         </div>
       </div>
     </div>

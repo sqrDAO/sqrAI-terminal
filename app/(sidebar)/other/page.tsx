@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useKnowledge } from "@/app/serivces/bot-api";
+import PaginationControls from "@/components/pagination-control/Pagination-control";
 
 const Overview = () => {
   const [knowledgeLink, setKnowledgeLink] = useState("");
@@ -33,7 +34,8 @@ const Overview = () => {
   // const [agentList, setAgentList] = useState([]);
   const [selectedAgent, setSelectedAgent] = useState(null);
   // const [knowledgeLinks, setKnowledgeLinks] = useState([]);
-  const { data, error, refetch } = useKnowledge(selectedAgent?.id ?? null);
+  const [pageCount, setPageCount] = useState('25');
+  const { data, error, refetch } = useKnowledge(selectedAgent?.id ?? null, pageCount);
 
   useEffect(() => {
     // const storedAgentList = JSON.parse(localStorage.getItem("agents"));
@@ -271,6 +273,7 @@ const Overview = () => {
                   </div>
                 );
               })}
+              <PaginationControls onRowPerPageSet={(val) => {setPageCount(val)}} />
             </div>
           )}
         </div>

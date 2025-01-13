@@ -47,14 +47,14 @@ export const useBotAutoReply = (publicKey: string) => {
   });
 };
 
-export const useKnowledge = (AgentId) => {
+export const useKnowledge = (AgentId, count?: string) => {
   return useQuery({
     queryKey: ["botAutoReply", AgentId],
     queryFn: async () => {
       if (!AgentId) {
         return null;
       }
-      const res = await fetch(`/api/knowledge?agentId=${AgentId}`, {
+      const res = await fetch(`/api/knowledge?agentId=${AgentId}&count=${count}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
