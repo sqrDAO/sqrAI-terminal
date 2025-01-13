@@ -16,7 +16,7 @@ const ConnectWallet = () => {
     borderRadius: "0px",
     border: "0px solid transparent",
     fontFamily: "var(--font-chakra)",
-    fontSize: "18px",
+    fontSize: "16px",
     height: "42px",
   };
   const { publicKey, signMessage, connected, disconnect } = useWallet();
@@ -80,7 +80,7 @@ const ConnectWallet = () => {
         <>
           <div className="h-[42px] px-3.5 py-2 border border-[#dcff9f] justify-center items-center inline-flex overflow-hidden">
             <div className="px-1 justify-center items-center gap-2.5 flex">
-              <div className="text-center text-white text-lg font-semibold font-chakra leading-relaxed">
+              <div className="text-center text-white text-sm font-semibold font-chakra leading-relaxed">
                 {`${publicKey?.toString()?.substring(0, 6)} ..${publicKey
                   ?.toString()
                   ?.substring(
@@ -89,7 +89,7 @@ const ConnectWallet = () => {
                   )}`}
               </div>
             </div>
-            <svg
+            {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
@@ -102,14 +102,24 @@ const ConnectWallet = () => {
                 d="M5.83317 6.6665H4.1665V8.33317H5.83317V9.99984H7.49984V11.6665H9.1665V13.3332H10.8332V11.6665H12.4998V9.99984H14.1665V8.33317H15.8332V6.6665H14.1665V8.33317H12.4998V9.99984H10.8332V11.6665H9.1665V9.99984H7.49984V8.33317H5.83317V6.6665Z"
                 fill="white"
               />
-            </svg>
+            </svg> */}
           </div>
           <Button
             onClick={() => {
               handleLogout();
             }}
+            className="text-sm"
           >
             LogOut
+            <svg
+              height="48"
+              viewBox="0 0 48 48"
+              width="48"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M0 0h48v48h-48z" fill="none" />
+              <path d="M20.17 31.17l2.83 2.83 10-10-10-10-2.83 2.83 5.17 5.17h-19.34v4h19.34l-5.17 5.17zm17.83-25.17h-28c-2.21 0-4 1.79-4 4v8h4v-8h28v28h-28v-8h-4v8c0 2.21 1.79 4 4 4h28c2.21 0 4-1.79 4-4v-28c0-2.21-1.79-4-4-4z" />
+            </svg>
           </Button>
         </>
       )}
