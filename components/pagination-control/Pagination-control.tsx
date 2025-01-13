@@ -1,21 +1,12 @@
-const PaginationControls = () => {
+const PaginationControls = (setRowPerPage) => {
+    
   return (
     <div className="self-stretch px-5 py-1 justify-end items-center gap-16 inline-flex">
       <div className="justify-start items-center gap-2.5 flex">
-        <div className="text-[#999999] text-sm font-normal font-bricolage leading-tight">
-          Rows per page:
-        </div>
+        <div className="text-[#999999] text-sm font-normal font-bricolage leading-tight">Rows per page:</div>
         <div className="justify-start items-center gap-2.5 flex">
-          <div className="text-white text-sm font-normal font-bricolage leading-tight">
-            50
-          </div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-          >
+          <div className="text-white text-sm font-normal font-bricolage leading-tight">50</div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
@@ -26,13 +17,7 @@ const PaginationControls = () => {
         </div>
       </div>
       <div className="justify-start items-center gap-8 flex">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
-          viewBox="0 0 22 22"
-          fill="none"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
           <path
             fill-rule="evenodd"
             clip-rule="evenodd"
@@ -40,13 +25,7 @@ const PaginationControls = () => {
             fill="white"
           />
         </svg>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
-          viewBox="0 0 22 22"
-          fill="none"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
           <path
             fill-rule="evenodd"
             clip-rule="evenodd"

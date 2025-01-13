@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
     const { username } = await req.json();
     const response = await axios.post(`${scrapeApiUrl}/api/characters`, {
       username: username,
-      date: dayjs().format("YYYY-MM-DD"),
       is_crawl: true,
     });
     return NextResponse.json(response?.data);

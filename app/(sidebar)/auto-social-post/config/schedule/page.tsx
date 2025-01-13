@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import PaginationControls from "../../PaginationControls";
 import { useSchedules } from "@/hooks/useSchedules";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -11,6 +10,7 @@ import { useSQRAI } from "@/app/provider/sqrai.provider";
 import { useEffect, useState } from "react";
 import { deleteSchedule } from "@/app/serivces/agent.service";
 import LoadingSpinner from "@/app/components/loading-spinner";
+import PaginationControls from "@/components/pagination-control/Pagination-control";
 
 const ScheduleList = () => {
   const { publicKey } = useWallet();
@@ -150,7 +150,7 @@ const ScheduleList = () => {
               </tbody>
             </table>
           </div>
-          {/* <PaginationControls /> */}
+          <PaginationControls />
         </div>
       </div>
     </div>
