@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+// import { authOptions } from "../auth/[...nextauth]/authOptions";
 
 export async function DELETE(request) {
     if (request.method !== "DELETE") {
@@ -14,15 +15,16 @@ export async function DELETE(request) {
         // Respond with a 400 status code for missing ID
         return NextResponse.json({ message: "ID is required" }, { status: 400 });
     }
-    if (!session) {
-        return new Response(
-            JSON.stringify({ error: "Unauthorized: Session is not valid" }),
-            {
-                status: 401,
-                headers: { "Content-Type": "application/json" },
-            }
-        );
-    }
+    // const session = await getServerSession(authOptions);
+    // if (!session) {
+    //     return new Response(
+    //         JSON.stringify({ error: "Unauthorized: Session is not valid" }),
+    //         {
+    //             status: 401,
+    //             headers: { "Content-Type": "application/json" },
+    //         }
+    //     );
+    // }
     try {
         const res = await fetch(
             `${process.env.API_URL}/${process.env.NEXT_PUBLIC_AGENTID}/knowledge?memoryId=${id}`,

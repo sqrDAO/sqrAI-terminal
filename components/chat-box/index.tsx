@@ -10,17 +10,24 @@ let intervalId;
 const ChatBox = () => {
   const { publicKey } = useWallet();
   const messagesEndRef = useRef<HTMLInputElement>(null);
-  const { sessionContent, setSessionContent, sessionId, dataChat, agent } = useSQRAI();
+  const { sessionContent, setSessionContent, sessionId, dataChat, agent } =
+    useSQRAI();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [selectedAgent, setSelectedAgent] = useState(null);
 
   useEffect(() => {
     const storedAgentList = JSON.parse(localStorage.getItem("agents"));
-    const storedSelectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
+    const storedSelectedAgent = JSON.parse(
+      localStorage.getItem("selectedAgent")
+    );
     setSelectedAgent(storedSelectedAgent || null);
   }, []);
 
-  const { data: botReplies, error, refetch: refetchMesages } = useBotAutoReply(publicKey?.toString());
+  const {
+    data: botReplies,
+    error,
+    refetch: refetchMesages,
+  } = useBotAutoReply(publicKey?.toString());
 
   useEffect(() => {
     setSessionContent(botReplies);
@@ -88,13 +95,19 @@ const ChatBox = () => {
             {item.from !== "bot" && (
               <div key={index}>
                 <div className="flex flex-col items-start gap-0 mb-4">
-                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                    <div className="text-sm font-bold text-[#a4fb0e] font-bricolage flex">&gt;_ You</div>
-                  </div>
-                  {/* </div> */}
+                  {(index === 0 ||
+                    sessionContent[index - 1].from !== item.from) && (
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <div className="text-sm font-bold text-[#a4fb0e] font-bricolage flex">
+                        &gt;_ You
+                      </div>
+                    </div>
+                  )}
                   <div className="flex flex-col">
                     <div className="text-sm font-normal break-words text-[#a4fb0e] font-chakra">
-                      <span style={{ whiteSpace: "pre-line" }}>{item.value}</span>
+                      <span style={{ whiteSpace: "pre-line" }}>
+                        {item.value}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -103,9 +116,14 @@ const ChatBox = () => {
             {item.from == "bot" && (
               <div key={index}>
                 <div className="flex flex-col items-start gap-0 mb-4 ">
-                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
-                    <span className="text-sm font-bold text-white font-bricolage">&gt;_ {agent?.name || selectedAgent?.name}</span>
-                  </div>
+                  {(index === 0 ||
+                    sessionContent[index - 1].from !== item.from) && (
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <span className="text-sm font-bold text-white font-bricolage">
+                        &gt;_ {agent?.name || selectedAgent?.name}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex flex-col">
                     <div className="text-sm font-normal break-words text-white">
                       <ReactMarkdown>{item.value}</ReactMarkdown>
@@ -120,7 +138,9 @@ const ChatBox = () => {
         {isLoading && (
           <div className="flex flex-col items-start gap-2 mb-4">
             <div className="flex items-center space-x-2 rtl:space-x-reverse">
-              <span className="text-sm font-bold text-white font-bricolage">&gt;_ {agent?.name || selectedAgent?.name}</span>
+              <span className="text-sm font-bold text-white font-bricolage">
+                &gt;_ {agent?.name || selectedAgent?.name}
+              </span>
             </div>
             <div className="flex flex-col animate-pulse space-y-2.5 w-full">
               <div className="flex items-center w-1/2">
