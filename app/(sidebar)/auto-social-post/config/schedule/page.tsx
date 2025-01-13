@@ -10,23 +10,44 @@ import cronstrue from "cronstrue";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
 import { useEffect, useState } from "react";
 import { deleteSchedule } from "@/app/serivces/agent.service";
+import LoadingSpinner from "@/app/components/loading-spinner";
 
 const ScheduleList = () => {
   const { publicKey } = useWallet();
   const { dataChat } = useSQRAI();
   const [selectedAgent, setSelectedAgent] = useState(null);
   const { data: schedules, refetch } = useSchedules(selectedAgent?.id, publicKey?.toString());
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setSelectedAgent(JSON.parse(localStorage.getItem("selectedAgent") || "{}"));
   }, []);
 
   useEffect(() => {
-    // receive chat message in this screen will trigger interval 10 seconds to refect schedules
+    // receive chat message in this screen will trigger interval 10 seconds to refetch schedules
     if (dataChat) {
+      let refetchCount = 0;
       const intervalRefetch = setInterval(() => {
-        refetch();
-        clearInterval(intervalRefetch);
+        if (refetchCount >= 5) {
+          clearInterval(intervalRefetch);
+          setIsLoading(false);
+          return;
+        }
+
+        setIsLoading(true);
+
+        refetch()
+          .then((newSchedules) => {
+            refetchCount++;
+            if (newSchedules?.data?.length > schedules?.length) {
+              clearInterval(intervalRefetch);
+            }
+            setIsLoading(false);
+          })
+          .catch(() => {
+            clearInterval(intervalRefetch);
+            setIsLoading(false);
+          });
       }, 10000);
     }
   }, [dataChat]);
@@ -73,7 +94,10 @@ const ScheduleList = () => {
       </div>
       <div className="self-stretch grow shrink basis-0 flex-col justify-start items-center gap-8 flex mx-auto mt-10">
         <div className="self-stretch h-[462px] flex-col items-start gap-2 flex border-2 border-[#dcff9f] py-5">
-          <div className="px-5 pb-5 text-base text-[#C5FF53] font-semibold font-bricolage">Communicate with the bot to make schedule</div>
+          <div className="px-5 pb-5 w-full flex justify-between items-center">
+            <div className="text-base text-[#C5FF53] font-semibold font-bricolage">Communicate with the bot to make schedule</div>
+            {isLoading && <LoadingSpinner></LoadingSpinner>}
+          </div>
           <div className="self-stretch h-full bg-black flex-col items-start gap-5 flex overflow-auto">
             {/* <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
               <div className="grow shrink basis-0 p-4 border border-[#dcff9f] flex-col justify-center items-center gap-4 inline-flex">

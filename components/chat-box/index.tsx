@@ -63,7 +63,7 @@ const ChatBox = () => {
       return;
     }
     scrollToBottom();
-    if (sessionContent.length > 0) {
+    if (sessionContent?.length > 0) {
       let lastMessage = sessionContent[sessionContent.length - 1];
       if (lastMessage && lastMessage?.value && lastMessage?.from != "bot") {
         onBotReply(lastMessage?.value);
