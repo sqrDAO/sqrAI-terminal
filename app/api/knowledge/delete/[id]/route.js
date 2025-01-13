@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+// import { authOptions } from "../auth/[...nextauth]/authOptions";
 
 export async function DELETE(request) {
     if (request.method !== "DELETE") {
@@ -10,18 +11,10 @@ export async function DELETE(request) {
     }
     const url = request.url;
     const id = url.split("/").pop(); // Extract the dynamic `id`
+    console.log("id", id);
     if (!id) {
         // Respond with a 400 status code for missing ID
         return NextResponse.json({ message: "ID is required" }, { status: 400 });
-    }
-    if (!session) {
-        return new Response(
-            JSON.stringify({ error: "Unauthorized: Session is not valid" }),
-            {
-                status: 401,
-                headers: { "Content-Type": "application/json" },
-            }
-        );
     }
     try {
         const res = await fetch(
@@ -32,12 +25,11 @@ export async function DELETE(request) {
                 cache: "no-cache",
             }
         );
-        if (!res.ok) {
+        console.log(res);
+        if (!res.status == 200) {
             throw new Error("Network response was not ok");
         }
-        const data = await res.json();
-
-        return NextResponse.json({ data: data });
+        return NextResponse.json({ data: "ok" });
     } catch (error) {
         return NextResponse.error();
     }
