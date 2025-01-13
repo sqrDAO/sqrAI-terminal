@@ -1,8 +1,18 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Image from "next/image";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -12,22 +22,24 @@ import { useKnowledge } from "@/app/serivces/bot-api";
 
 const Overview = () => {
   const [knowledgeLink, setKnowledgeLink] = useState("");
-  const [rowPerPage, setRowPerPage] = useState("50");
-  const [isDragging, setIsDragging] = useState(false);
+  // const [rowPerPage, setRowPerPage] = useState("50");
+  // const [isDragging, setIsDragging] = useState(false);
   const { setDataChat } = useSQRAI();
   const { publicKey } = useWallet();
-  const handleSelectChange = (value: string) => {
-    setRowPerPage(value);
-  };
+  // const handleSelectChange = (value: string) => {
+  //   setRowPerPage(value);
+  // };
 
   // const [agentList, setAgentList] = useState([]);
   const [selectedAgent, setSelectedAgent] = useState(null);
-  const [knowledgeLinks, setKnowledgeLinks] = useState([]);
+  // const [knowledgeLinks, setKnowledgeLinks] = useState([]);
   const { data, error, refetch } = useKnowledge(selectedAgent?.id ?? null);
 
   useEffect(() => {
     // const storedAgentList = JSON.parse(localStorage.getItem("agents"));
-    const storedSelectedAgent = JSON.parse(localStorage.getItem("selectedAgent"));
+    const storedSelectedAgent = JSON.parse(
+      localStorage.getItem("selectedAgent")
+    );
 
     // setKnowledgeLinks(storedSelectedAgent?.knowledgeLinks || []);
 
@@ -64,7 +76,7 @@ const Overview = () => {
       value: `Crawl website ${knowledgeLink}`,
     };
     setDataChat(dataChat);
-    refetch();
+    setKnowledgeLink("");
     // setKnowledgeLinks((prev) => {
     //   return [
     //     ...prev,
@@ -75,6 +87,17 @@ const Overview = () => {
     //     },
     //   ];
     // });
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      const dataChat = {
+        from: publicKey?.toString() ?? "user",
+        value: `Crawl website ${knowledgeLink}`,
+      };
+      setDataChat(dataChat);
+      setKnowledgeLink("");
+    }
   };
 
   const handleDeleteLink = async (item: any) => {
@@ -143,14 +166,22 @@ const Overview = () => {
               More Knowledge
               {/* <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span> */}
             </div>
-            <div className="self-stretch text-[#999999] text-sm font-medium font-bricolage leading-tight">Gain more knowledge by your documents. We supports text-only resource!</div>
+            <div className="self-stretch text-[#999999] text-sm font-medium font-bricolage leading-tight">
+              Gain more knowledge by your documents. We supports text-only
+              resource!
+            </div>
           </div>
-          <Image src={"/imgs/other.png"} alt={""} width={110} height={110}></Image>
+          <Image
+            src={"/imgs/other.png"}
+            alt={""}
+            width={110}
+            height={110}
+          ></Image>
         </div>
       </div>
       <div className="h-fit flex-col justify-start items-start gap-8 inline-flex w-full md:w-[936px] mx-auto">
         <div className="self-stretch h-fit py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 flex">
-          <div
+          {/* <div
             className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex"
           // onDrop={handleDrop}
           // onDragOver={handleDragOver}
@@ -163,7 +194,7 @@ const Overview = () => {
               </div>
               <div className="self-stretch text-center text-[#c5ff53] text-sm font-medium font-bricolage leading-tight">Drag & drop text-based files</div>
             </div>
-          </div>
+          </div> */}
           <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
             <Input
               // onDrop={handleDrop}
@@ -173,6 +204,7 @@ const Overview = () => {
               onChange={(e) => {
                 setKnowledgeLink(e?.target?.value);
               }}
+              onKeyDown={handleKeyDown}
               className="w-full h-11"
               type="text"
               placeholder="+ Drop your link of articles, news, etc,..."
@@ -184,23 +216,47 @@ const Overview = () => {
           {data?.data?.length > 0 && (
             <div className="self-stretch h-fit flex-col justify-start items-start flex w-full md:w-[936px]">
               <div className="w-full px-5 py-2.5 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5">
-                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Content</div>
-                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Type</div>
-                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">Add time</div>
+                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">
+                  Content
+                </div>
+                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">
+                  Type
+                </div>
+                <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">
+                  Add time
+                </div>
                 <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight text-right"></div>
               </div>
               {data?.data.map((item, index) => {
                 return (
-                  <div key={index} className="w-full px-5 py-4 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5">
-                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{item?.content?.text}</div>
-                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{item?.type}</div>
-                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">{dayjs(item?.createdAt).format("MMM DD, YYYY")}</div>
+                  <div
+                    key={index}
+                    className="w-full px-5 py-4 border-b border-[#444444] grid grid-cols-[3fr_1fr_1fr_1fr_auto] gap-2.5"
+                  >
+                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">
+                      {item?.content?.text}
+                    </div>
+                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">
+                      {item?.type}
+                    </div>
+                    <div className="text-[#999999] text-sm font-semibold font-bricolage leading-tight">
+                      {dayjs(item?.createdAt).format("MMM DD, YYYY")}
+                    </div>
                     <div className="text-right">
                       <Popover>
                         <PopoverTrigger>
-                          <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
+                          <Image
+                            src={"/icons/menu-dot-icon.svg"}
+                            alt={""}
+                            width={20}
+                            height={20}
+                            className="cursor-pointer"
+                          ></Image>
                         </PopoverTrigger>
-                        <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
+                        <PopoverContent
+                          align="end"
+                          className="bg-black border border-[#DCFF9F] w-[218px]"
+                        >
                           <div
                             className="cursor-pointer text-white text-base font-medium font-bricolage"
                             onClick={() => {
