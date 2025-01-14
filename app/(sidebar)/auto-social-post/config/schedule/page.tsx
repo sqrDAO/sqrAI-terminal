@@ -17,7 +17,7 @@ const ScheduleList = () => {
   const { publicKey } = useWallet();
   const { dataChat } = useSQRAI();
   const [selectedAgent, setSelectedAgent] = useState(null);
-  const { data: schedules, refetch, isRefetching } = useSchedules(selectedAgent?.id, publicKey?.toString());
+  const { data: schedules, refetch, isRefetching, isLoading } = useSchedules(selectedAgent?.id, publicKey?.toString());
 
   useEffect(() => {
     setSelectedAgent(JSON.parse(localStorage.getItem("selectedAgent") || "{}"));
@@ -91,7 +91,7 @@ const ScheduleList = () => {
         <div className="self-stretch h-[462px] flex-col items-start gap-2 flex border-2 border-[#dcff9f] py-5">
           <div className="px-5 pb-5 w-full flex justify-between items-center">
             <div className="text-base text-[#C5FF53] font-semibold font-bricolage">Communicate with the bot to make schedule</div>
-            {isRefetching && <LoadingSpinner></LoadingSpinner>}
+            {isRefetching || isLoading && <LoadingSpinner></LoadingSpinner>}
           </div>
           <div className="self-stretch h-full bg-black flex-col items-start gap-5 flex overflow-auto">
             {/* <div className="self-stretch px-5 justify-start items-center gap-2.5 inline-flex">
