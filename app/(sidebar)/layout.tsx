@@ -32,7 +32,7 @@ export default function SidebarLayout({
         <AiChat />
 
         <Button
-          className="absolute -left-9 bottom-12 w-1 z-50"
+          className="absolute -left-[20px] bottom-[52px] w-[20px] p-0 z-50"
           onClick={() => {
             setIsExpanded(!isExpanded);
           }}
