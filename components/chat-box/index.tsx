@@ -6,6 +6,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useSQRAI } from "@/app/provider/sqrai.provider";
 import { BotReply, useBotAutoReply } from "@/app/serivces/bot-api";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 let intervalId;
 const ChatBox = () => {
   const { publicKey } = useWallet();
@@ -126,7 +127,9 @@ const ChatBox = () => {
                   )}
                   <div className="flex flex-col">
                     <div className="text-sm font-normal break-words text-white">
-                      <ReactMarkdown>{item.value}</ReactMarkdown>
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {item.value}
+                      </ReactMarkdown>
                     </div>
                   </div>
                 </div>

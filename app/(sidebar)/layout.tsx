@@ -24,7 +24,7 @@ export default function SidebarLayout({
   return (
     <div className={`w-full flex border-t border-t-[#DCFF9F]`}>
       <Sidebar />
-      {children}
+      {!isExpanded && children}
       <div
         className="w-[375px] min-w-[375px] h-[calc(100vh_-77px)] relative transition-all"
         id="chat-container"
@@ -32,7 +32,7 @@ export default function SidebarLayout({
         <AiChat />
 
         <Button
-          className="absolute -left-[20px] bottom-[52px] w-[20px] p-0 z-50"
+          className="absolute -left-[20px] bottom-[52px] w-[20px] p-0 z-[9999]"
           onClick={() => {
             setIsExpanded(!isExpanded);
           }}
