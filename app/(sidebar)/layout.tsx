@@ -26,13 +26,13 @@ export default function SidebarLayout({
       <Sidebar />
       {children}
       <div
-        className="w-[375px] min-w-[375px] h-[calc(100vh_-77px)] relative"
+        className="w-[375px] min-w-[375px] h-[calc(100vh_-77px)] relative transition-all"
         id="chat-container"
       >
         <AiChat />
 
         <Button
-          className="absolute -left-9 bottom-12 w-1 z-50"
+          className="absolute -left-[20px] bottom-[52px] w-[20px] p-0 z-50"
           onClick={() => {
             setIsExpanded(!isExpanded);
           }}
