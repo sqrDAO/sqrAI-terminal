@@ -10,6 +10,7 @@ import { useSQRAI } from "@/app/provider/sqrai.provider";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useKnowledge } from "@/app/serivces/bot-api";
 import PaginationControls from "@/components/pagination-control/Pagination-control";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 const Overview = () => {
   const [knowledgeLink, setKnowledgeLink] = useState("");
@@ -217,14 +218,16 @@ const Overview = () => {
                           <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
                         </PopoverTrigger>
                         <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                          <div
-                            className="cursor-pointer text-white text-base font-medium font-bricolage"
-                            onClick={() => {
-                              handleDeleteLink(item);
-                            }}
-                          >
-                            Delete
-                          </div>
+                          <PopoverClose>
+                            <div
+                              className="cursor-pointer text-white text-base font-medium font-bricolage"
+                              onClick={() => {
+                                handleDeleteLink(item);
+                              }}
+                            >
+                              Delete
+                            </div>
+                          </PopoverClose>
                         </PopoverContent>
                       </Popover>
                     </div>
