@@ -26,7 +26,7 @@ export default function SidebarLayout({
       <Sidebar />
       {children}
       <div
-        className="w-[375px] min-w-[375px] h-[calc(100vh_-77px)] relative"
+        className="w-[375px] min-w-[375px] h-[calc(100vh_-77px)] relative transition-all"
         id="chat-container"
       >
         <AiChat />
