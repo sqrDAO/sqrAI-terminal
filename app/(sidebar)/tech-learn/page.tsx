@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PopoverClose } from "@radix-ui/react-popover";
 import dayjs from "dayjs";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -63,7 +64,7 @@ const Overview = () => {
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
             <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
-              Technical knowledge 
+              Technical knowledge
               {/* <span className="text-[10px] font-chakra text-[#A4FB0E]">(coming soon)</span> */}
             </div>
             <div className="self-stretch text-[#999999] text-sm font-medium font-bricolage leading-tight">Drop your project’s Github repo so the agent can understand how it works</div>
@@ -108,14 +109,16 @@ const Overview = () => {
                             <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
                           </PopoverTrigger>
                           <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                            <div
-                              className="cursor-pointer text-white text-base font-medium font-bricolage"
-                              onClick={() => {
-                                handleDeleteLink(index);
-                              }}
-                            >
-                              Delete
-                            </div>
+                            <PopoverClose>
+                              <div
+                                className="cursor-pointer text-white text-base font-medium font-bricolage"
+                                onClick={() => {
+                                  handleDeleteLink(index);
+                                }}
+                              >
+                                Delete
+                              </div>
+                            </PopoverClose>
                           </PopoverContent>
                         </Popover>
                       </div>

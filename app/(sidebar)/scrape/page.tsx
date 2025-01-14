@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useScrapeList from "@/hooks/useScrapeList";
+import { PopoverClose } from "@radix-ui/react-popover";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -224,14 +225,16 @@ const Overview = () => {
                           <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
                         </PopoverTrigger>
                         <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                          <div
-                            className="cursor-pointer text-white text-base font-medium font-bricolage"
-                            onClick={() => {
-                              handleDeleteLink(index);
-                            }}
-                          >
-                            Delete
-                          </div>
+                          <PopoverClose>
+                            <div
+                              className="cursor-pointer text-white text-base font-medium font-bricolage"
+                              onClick={() => {
+                                handleDeleteLink(index);
+                              }}
+                            >
+                              Delete
+                            </div>
+                          </PopoverClose>
                         </PopoverContent>
                       </Popover>
                     </div>

@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { deleteSchedule } from "@/app/serivces/agent.service";
 import LoadingSpinner from "@/app/components/loading-spinner";
 import PaginationControls from "@/components/pagination-control/Pagination-control";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 const ScheduleList = () => {
   const { publicKey } = useWallet();
@@ -127,14 +128,16 @@ const ScheduleList = () => {
                             <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
                           </PopoverTrigger>
                           <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                            <div
-                              className="cursor-pointer text-white text-base font-medium font-bricolage"
-                              onClick={() => {
-                                handleDeleteLink(schedule?.id);
-                              }}
-                            >
-                              Delete
-                            </div>
+                            <PopoverClose>
+                              <div
+                                className="cursor-pointer text-white text-base font-medium font-bricolage"
+                                onClick={() => {
+                                  handleDeleteLink(schedule?.id);
+                                }}
+                              >
+                                Delete
+                              </div>
+                            </PopoverClose>
                           </PopoverContent>
                         </Popover>
                       </td>
