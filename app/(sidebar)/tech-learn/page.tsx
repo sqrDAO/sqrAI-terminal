@@ -108,8 +108,8 @@ const Overview = () => {
                           <PopoverTrigger>
                             <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
                           </PopoverTrigger>
-                          <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                            <PopoverClose>
+                          <PopoverClose>
+                            <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
                               <div
                                 className="cursor-pointer text-white text-base font-medium font-bricolage"
                                 onClick={() => {
@@ -118,8 +118,8 @@ const Overview = () => {
                               >
                                 Delete
                               </div>
-                            </PopoverClose>
-                          </PopoverContent>
+                            </PopoverContent>
+                          </PopoverClose>
                         </Popover>
                       </div>
                     </div>

@@ -103,7 +103,7 @@ const Schedule = () => {
               </div>
             </div> */}
 
-            <table className="self-stretch w-full border-collapse">
+            <table className="table self-stretch w-full border-collapse">
               <thead className="sticky top-0 bg-black">
                 <tr className="border-b border-[#444444]">
                   <th className="px-5 py-2.5 text-left text-[#999999] text-sm font-semibold font-bricolage leading-tight">No.</th>
@@ -130,8 +130,8 @@ const Schedule = () => {
                           <PopoverTrigger>
                             <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
                           </PopoverTrigger>
-                          <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
-                            <PopoverClose>
+                          <PopoverClose>
+                            <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
                               <div
                                 className="cursor-pointer text-white text-base font-medium font-bricolage"
                                 onClick={() => {
@@ -140,8 +140,8 @@ const Schedule = () => {
                               >
                                 Delete
                               </div>
-                            </PopoverClose>
-                          </PopoverContent>
+                            </PopoverContent>
+                          </PopoverClose>
                         </Popover>
                       </td>
                     </tr>

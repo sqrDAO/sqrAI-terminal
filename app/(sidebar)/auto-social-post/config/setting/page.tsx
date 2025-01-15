@@ -1,5 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { PopoverClose } from "@radix-ui/react-popover";
 import { useWallet } from "@solana/wallet-adapter-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,6 +41,7 @@ const Index = () => {
       getAccount();
     }
   }, [publicKey]);
+
   return (
     <div className="w-full h-full px-6 pt-6 flex-col justify-start items-center inline-flex">
       <div className="self-stretch h-full flex-col justify-start items-start gap-8 flex">
@@ -71,7 +74,7 @@ const Index = () => {
             <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
               <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">Expired At</div>
             </div>
-            <div className="h-5 px-2.5 justify-center items-center gap-2.5 flex">
+            <div className="w-[50px] h-5 px-2.5 justify-center items-center gap-2.5 flex">
               <div className="grow shrink basis-0 opacity-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">action</div>
             </div>
           </div>
@@ -84,7 +87,25 @@ const Index = () => {
               <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
                 <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">{item.expiredAt}</div>
               </div>
-              <Button onClick={() => handleDelete(item.id)}>X</Button>
+              <div className="w-[50px] h-5 px-2.5 justify-center items-center gap-2.5 flex">
+                <Popover>
+                  <PopoverTrigger>
+                    <Image src={"/icons/menu-dot-icon.svg"} alt={""} width={20} height={20} className="cursor-pointer"></Image>
+                  </PopoverTrigger>
+                  <PopoverClose>
+                    <PopoverContent align="end" className="bg-black border border-[#DCFF9F] w-[218px]">
+                      <div
+                        className="cursor-pointer text-white text-base font-medium font-bricolage"
+                        onClick={() => {
+                          handleDelete(item?.id);
+                        }}
+                      >
+                        Delete
+                      </div>
+                    </PopoverContent>
+                  </PopoverClose>
+                </Popover>
+              </div>
             </div>
           ))}
         </div>
