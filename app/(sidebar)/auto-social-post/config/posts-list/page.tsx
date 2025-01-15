@@ -10,13 +10,10 @@ const Index = () => {
   const [data, setData] = useState([]);
   const getPost = async () => {
     try {
-      const res = await fetch(
-        `/api/twitter/posts-list?publicKey=${publicKey?.toString()}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const res = await fetch(`/api/twitter/posts-list?publicKey=${publicKey?.toString()}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await res.json();
       console.log(`data`, JSON.stringify(data));
 
@@ -53,56 +50,23 @@ const Index = () => {
       <div className="self-stretch h-[180px] pb-16 flex-col justify-start items-start gap-8 flex">
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
-            <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
-              Auto generate social post
-            </div>
+            <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">Auto generate social post</div>
           </div>
-          <Image
-            className="w-[110px] h-[110px]"
-            width={110}
-            height={110}
-            alt=""
-            src="/imgs/page-3.svg"
-          />
+          <Image className="w-[110px] h-[110px]" width={110} height={110} alt="" src="/imgs/page-3.svg" />
         </div>
         <div className="self-stretch border-b border-[#dcff9f] justify-start items-center gap-4 inline-flex">
-          <Link
-            href="#"
-            className="px-4 py-3 border-b-2 border-[#a4fb0e] justify-center items-center gap-2.5 flex"
-          >
-            <div className="text-[#a4fb0e] text-base font-semibold font-bricolage leading-snug">
-              Posts list
-            </div>
+          <Link href="#" className="px-4 py-3 border-b-2 border-[#a4fb0e] justify-center items-center gap-2.5 flex">
+            <div className="text-[#a4fb0e] text-base font-semibold font-bricolage leading-snug">Posts list</div>
           </Link>
-          <Link
-            href="/auto-social-post/config/schedule"
-            className="px-4 py-3 justify-center items-center gap-2.5 flex"
-          >
-            <div className="text-white text-base font-semibold font-bricolage leading-snug">
-              Schedule
-            </div>
-          </Link>
-          <Link
-            href="/auto-social-post/config/setting"
-            className="px-4 py-3 justify-center items-center gap-2.5 flex"
-          >
-            <div className="text-white text-base font-semibold font-bricolage leading-snug">
-              Setting
-            </div>
+          <Link href="/auto-social-post/config/setting" className="px-4 py-3 justify-center items-center gap-2.5 flex">
+            <div className="text-white text-base font-semibold font-bricolage leading-snug">Account</div>
           </Link>
         </div>
       </div>
 
       <div className="flex-col justify-start items-start flex my-10 border border-[#dcff9f] w-full">
         {data?.map((item: any, index) => (
-          <PostCard
-            twitterName={item?.twitterName}
-            twitterUsername={item?.twitterUsername}
-            text={item?.text}
-            imageUrl={item?.imageUrl}
-            time={item?.time}
-            index={index + 1}
-          />
+          <PostCard twitterName={item?.twitterName} twitterUsername={item?.twitterUsername} text={item?.text} imageUrl={item?.imageUrl} time={item?.time} index={index + 1} />
         ))}
       </div>
     </div>
