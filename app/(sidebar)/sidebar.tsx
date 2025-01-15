@@ -144,6 +144,7 @@ const Sidebar = () => {
         pathName === "/schedule" ? "black" : "white"
       }"/>
 </svg>`,
+      disabled: false,
     },
   ];
 
