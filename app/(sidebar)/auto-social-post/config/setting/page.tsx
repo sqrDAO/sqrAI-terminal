@@ -43,8 +43,8 @@ const Index = () => {
     }
   }, [publicKey]);
   return (
-    <div className="w-full px-6 pt-6 flex-col justify-start items-center inline-flex">
-      <div className="self-stretch h-[180px] pb-16 flex-col justify-start items-start gap-8 flex">
+    <div className="w-full h-full px-6 pt-6 flex-col justify-start items-center inline-flex">
+      <div className="self-stretch h-full flex-col justify-start items-start gap-8 flex">
         <div className="self-stretch justify-start items-center gap-2.5 inline-flex">
           <div className="grow shrink basis-0 flex-col justify-start items-start gap-1.5 inline-flex">
             <div className="self-stretch text-white text-3xl font-semibold font-chakra leading-[37.50px]">
@@ -89,8 +89,8 @@ const Index = () => {
           </Link>
         </div>
       </div>
-      <div className="h-[134px] py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 inline-flex mx-auto mt-10">
-        <div className="self-stretch h-[94px] flex-col justify-start items-start flex">
+      <div className="h-full py-5 bg-black border-2 border-[#dcff9f] flex-col justify-center items-start gap-5 inline-flex mx-auto mt-10">
+        <div className="self-stretch h-full flex-col justify-start items-start flex">
           <div className="w-[936px] px-5 py-2.5 border-b border-[#444444] justify-center items-center inline-flex">
             <div className="grow shrink basis-0 h-5 px-2.5 justify-center items-center gap-2.5 flex">
               <div className="grow shrink basis-0 text-[#999999] text-sm font-semibold font-bricolage leading-tight">
