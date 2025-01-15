@@ -72,7 +72,7 @@ textarea:focus-visible {
   position: absolute;
   z-index: -1;
   inset: -0.75em;
-  border: solid 1.0em;
+  border: solid 1em;
   border-image: conic-gradient(
       from var(--a),
       #669900,
@@ -114,4 +114,8 @@ textarea:focus-visible {
 .editable:focus::before,
 .editable:not(:empty)::before {
   content: ""; /* Ẩn placeholder khi có nội dung */
+}
+
+table td, table th {
+  border: 1px solid white;
 }
