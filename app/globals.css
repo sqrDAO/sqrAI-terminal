@@ -119,3 +119,7 @@ textarea:focus-visible {
 table td, table th {
   border: 1px solid white;
 }
+
+.table td, .table th {
+  border: none;
+}
