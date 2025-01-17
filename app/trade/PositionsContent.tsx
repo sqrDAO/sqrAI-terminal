@@ -50,33 +50,33 @@ const PositionsContent: React.FC = () => {
         <div className="w-full">
             <table className="w-full table">
                 <thead>
-                    <tr>
-                        <th className="px-5 py-2.5 text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
+                    <tr className="border-b border-[#333]">
+                        <th className="px-5 py-2.5 text-left text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
                             Time
                         </th>
-                        <th className="px-5 py-2.5 text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
+                        <th className="px-5 py-2.5 text-left text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
                             Order
                         </th>
-                        <th className="px-5 py-2.5 text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
+                        <th className="px-5 py-2.5 text-left text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
                             Type
                         </th>
-                        <th className="px-5 py-2.5 text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
+                        <th className="px-5 py-2.5 text-left text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
                             Price
                         </th>
-                        <th className="px-5 py-2.5 text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
+                        <th className="px-5 py-2.5 text-left text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
                             Amount
                         </th>
-                        <th className="px-5 py-2.5 text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
+                        <th className="px-5 py-2.5 text-left text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
                             Margin
                         </th>
-                        <th className="px-5 py-2.5 text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
+                        <th className="px-5 py-2.5 text-left text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
                             Filled
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     {positions.map((position, index) => (
-                        <tr key={index}>
+                        <tr key={index} className="border-b border-[#333]">
                             <td className="px-5 py-4">
                                 <div className="text-[#c1c1c1] text-sm font-semibold font-['Bricolage Grotesque']">
                                     {position.date}
