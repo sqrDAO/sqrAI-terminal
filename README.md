@@ -1,3 +1,4 @@
+# This repo has been replaced by https://github.com/sqrDAO/sqrAI-terminal2
 # sqrAI-terminal
 
 SQRAI-terminal is a web application that allows users to scrape data from X accounts, manage the scraped data then use it to train agent bot. Also, users can train agent bot with github repos, files, links. The application is built using Next.js, React, and integrates with Solana for authentication.
